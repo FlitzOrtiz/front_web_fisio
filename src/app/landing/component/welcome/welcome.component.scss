@@ -1,0 +1,43 @@
+.welcome-section {
+  background-color: var(--background-color);
+  height: calc(100vh - 3rem);
+  display: flex;
+}
+
+.welcome-content {
+  display: flex;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.text-container {
+  margin-left: 2rem;
+  max-width: 600px;
+  z-index: 1;
+  transform: translateY(-30px);
+
+  h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    color: var(--primary-text-color);
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 2rem;
+    font-weight: lighter;
+    color: #757575;
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+  }
+}
+
+.image-container {
+  flex: 1;
+  min-height: 400px;
+  background-image: url("../../assets/landing_main_image.jpeg");
+  background-size: contain;
+  background-position: right center;
+  background-repeat: no-repeat;
+}
