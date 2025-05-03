@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { TestComponent } from './patient/component/test/test.component';
@@ -10,48 +10,38 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LandingComponent, FdropdownComponent, CommonModule, ReactiveFormsModule],
+  imports: [RouterOutlet, FdropdownComponent, CommonModule, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'front_web_fisio';
 
-  // Para uso con ngModel
-  selectedArea: string | null = null
-  areaInvalida = false
-
-  areasObjetivo = [
-    { id: "espalda", nombre: "Espalda" },
-    { id: "brazos", nombre: "Brazos" },
-    { id: "piernas", nombre: "Piernas" },
-    { id: "abdomen", nombre: "Abdomen" },
-    { id: "pecho", nombre: "Pecho" },
+  options = [
+    { name: "Hello World", value: "hello" },
+    { name: "Option 2", value: "option2" },
+    { name: "Option 3", value: "option3" },
+    { name: "Option 4", value: "option4" },
+    { name: "Option 5", value: "option5" },
   ]
 
-  // Para uso con Reactive Forms
+  selectedValue: any;
+
   form: FormGroup
-
-  intensidades = [
-    { codigo: "baja", descripcion: "Baja" },
-    { codigo: "media", descripcion: "Media" },
-    { codigo: "alta", descripcion: "Alta" },
-    { codigo: "extrema", descripcion: "Extrema" },
-  ]
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      intensidad: [null, Validators.required],
+      dropdown: [this.options[0].value, Validators.required],
     })
   }
 
-  onAreaChange(value: any) {
-    console.log("Área seleccionada:", value)
+  onSelectChange(value: any) {
+    console.log("Selected value:", value)
+    this.selectedValue = value
   }
 
-  hasError(controlName: string): boolean {
-    const control = this.form.get(controlName)
-    return !!control && control.invalid && (control.dirty || control.touched)
+  ngOnInit() {
+    this.selectedValue = this.options[0].value;
   }
 }
 

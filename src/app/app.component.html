@@ -1,37 +1,73 @@
-<app-landing></app-landing>
-<h2>Ejemplo de Dropdown</h2>
-
 <div class="container">
-  <h2>Ejemplo con ngModel</h2>
-  <fdropdown
-    [(value)]="selectedArea"
-    label="Área Objetivo"
-    [options]="areasObjetivo"
-    labelField="nombre"
-    valueField="id"
-    placeholder="Selecciona un área"
-    [showError]="areaInvalida"
-    errorMessage="Por favor seleccione un área objetivo"
-    (valueChange)="onAreaChange($event)"
-  >
-  </fdropdown>
-  <p>Área seleccionada: {{ selectedArea || "Ninguna" }}</p>
-  <button (click)="areaInvalida = !areaInvalida">Toggle Error</button>
+  <h1>Custom Dropdown Example</h1>
 
-  <h2>Ejemplo con Reactive Forms</h2>
-  <form [formGroup]="form">
+  <div class="example-section">
+    <h2>Área Objetivo</h2>
     <fdropdown
-      formControlName="intensidad"
-      label="Intensidad del ejercicio"
-      [options]="intensidades"
-      labelField="descripcion"
-      valueField="codigo"
-      placeholder="Seleccione intensidad"
-      [showError]="hasError('intensidad')"
-      errorMessage="La intensidad es requerida"
+      labelText="Select an option"
+      labelField="name"
+      [options]="options"
+      [model]="selectedValue"
+      (selectChange)="onSelectChange($event)"
     >
     </fdropdown>
-  </form>
-  <p>Formulario válido: {{ form.valid }}</p>
-  <p>Valor: {{ form.value | json }}</p>
+    <p *ngIf="selectedValue">Selected value: {{ selectedValue }}</p>
+  </div>
+
+  <div class="example-section">
+    <h2>With Error</h2>
+    <fdropdown
+      labelText="Select with error"
+      [options]="options"
+      [model]="selectedValue"
+      labelField="name"
+      [showError]="true"
+      errorMessage="This field is required"
+      [required]="true"
+      (selectChange)="onSelectChange($event)"
+    >
+    </fdropdown>
+  </div>
+
+  <div class="example-section">
+    <h2>With Suggestion</h2>
+    <fdropdown
+      [options]="options"
+      labelField="Select with suggestion"
+      [showSuggestion]="true"
+      suggestionIcon="fa fa-lightbulb"
+      suggestionMessage="Choose the best option for you"
+    >
+    </fdropdown>
+  </div>
+
+  <div class="example-section">
+    <h2>Disabled</h2>
+    <fdropdown
+      [options]="options"
+      labelField="Disabled dropdown"
+      [disabled]="true"
+      [model]="options[2]"
+    >
+    </fdropdown>
+  </div>
+
+  <div class="example-section">
+    <h2>Reactive Form</h2>
+    <form [formGroup]="form">
+      <fdropdown
+        [options]="options"
+        labelText="Form Dropdown"
+        labelField="name"
+        [model]="form.get('dropdown')?.value"
+        (selectChange)="form.get('dropdown')?.setValue($event)"
+        [showError]="
+          !!(form.get('dropdown')?.invalid && form.get('dropdown')?.touched)
+        "
+        errorMessage="This field is required"
+        [required]="true"
+      >
+      </fdropdown>
+    </form>
+  </div>
 </div>

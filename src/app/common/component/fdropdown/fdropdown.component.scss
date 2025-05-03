@@ -1,151 +1,153 @@
-.select-container {
-  display: flex;
-  flex-direction: column;
-  max-width: 100%;
+:host {
+  display: block;
   width: 100%;
-  position: relative;
 }
 
-.select-label {
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 6px;
-  color: #333;
-}
-
-.select-wrapper {
+.custom-dropdown {
   position: relative;
   width: 100%;
-}
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
-.select-input {
-  width: 100%;
-  padding: 8px 12px;
-  font-size: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: white;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  cursor: pointer;
-  outline: none;
-  box-sizing: border-box;
-  color: #333;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 16px;
+    font-weight: 500;
 
-/* Flecha personalizada */
-.select-wrapper::after {
-  content: "";
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 10px;
-  height: 10px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23666' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center;
-  pointer-events: none;
-}
+    &.required .required-mark {
+      color: #e53e3e;
+      margin-left: 0.25rem;
+    }
 
-.select-input:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
-}
-
-.select-input.error {
-  border-color: #dc3545;
-}
-
-small {
-  display: flex;
-  align-items: center;
-  font-size: 12px;
-  margin-top: 4px;
-  line-height: 1.4;
-}
-
-.error-message {
-  color: #dc3545;
-}
-
-.suggestion-message {
-  color: #6c757d;
-}
-
-.message-icon {
-  margin-right: 4px;
-  font-size: 12px;
-}
-
-.select-input:disabled {
-  background-color: #f5f5f5;
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-/* Estilos para el menú desplegable */
-select option {
-  padding: 8px 12px;
-  font-size: 15px;
-  background-color: white;
-  color: #333;
-}
-
-/* Estilos específicos para navegadores webkit (Chrome, Safari) */
-select::-webkit-scrollbar {
-  width: 8px;
-}
-
-select::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
-
-select::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 4px;
-}
-
-select::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
-}
-
-/* Estilos para Firefox */
-@-moz-document url-prefix() {
-  select {
-    scrollbar-width: thin;
-    scrollbar-color: #c1c1c1 #f1f1f1;
+    &.error {
+      color: #e53e3e;
+    }
   }
 
-  .select-wrapper::after {
-    right: 8px;
-  }
-}
+  .dropdown-container {
+    position: relative;
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    background-color: #fff;
 
-/* Estilos para el menú desplegable en navegadores webkit */
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  select {
-    border-radius: 8px;
+    &.error {
+      border-color: #e53e3e;
+    }
+
+    &.disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      background-color: #f3f4f6;
+    }
   }
 
-  select option {
-    padding: 10px 12px;
+  .dropdown-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    .placeholder {
+      color: #9ca3af;
+    }
   }
 
-  select option:hover,
-  select option:focus {
-    background-color: #f5f9ff;
-  }
-}
+  .dropdown-icon {
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease;
 
-/* Estilos para simular el menú desplegable personalizado en navegadores que lo soportan */
-@supports (-moz-appearance: none) {
-  select:focus {
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    &.open {
+      transform: rotate(180deg);
+    }
+  }
+
+  .search-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  .error-message,
+  .suggestion-message {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    margin-left: 0.75rem;
+  }
+
+  .error-message {
+    color: #e53e3e;
+  }
+
+  .suggestion-message {
+    color: #3b82f6;
+  }
+
+  // Dropdown menu
+  .select-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 0.25rem;
+    background-color: white;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    z-index: 50;
+    overflow: hidden;
+
+    .virtual-scroll-viewport,
+    .options-list {
+      max-height: 240px;
+      overflow-y: auto;
+    }
+
+    .option-item {
+      padding: 0.5rem 0.75rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f3f4f6;
+      }
+
+      &.active {
+        background-color: #f3f4f6;
+        font-weight: 500;
+      }
+    }
+
+    .no-results {
+      padding: 0.5rem 0.75rem;
+      color: #6b7280;
+      font-style: italic;
+    }
+  }
+
+  .ml-2 {
+    margin-left: 8px;
+  }
+
+  .mr-2 {
+    margin-right: 8px;
   }
 }

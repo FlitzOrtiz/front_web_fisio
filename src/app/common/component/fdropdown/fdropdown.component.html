@@ -1,38 +1,144 @@
-<div class="select-container {{ containerClass }}">
-  <label *ngIf="label" [for]="id" class="select-label {{ labelClass }}">{{
-    label
-  }}</label>
+<div [class]="'custom-dropdown ' + containerClass" [class.disabled]="disabled">
+  <!-- Label -->
+  <label
+    *ngIf="labelField"
+    [for]="id"
+    [class]="labelClass"
+    [class.required]="required"
+    [class.error]="showError"
+  >
+    {{ labelText }}
+    <span *ngIf="required" class="required-mark">*</span>
+  </label>
 
-  <div class="select-wrapper">
-    <select
+  <!-- Dropdown Button -->
+  <div
+    class="dropdown-container"
+    [class.error]="showError"
+    [class.disabled]="disabled"
+    [class]="selectClass"
+  >
+    <button
+      type="button"
       [id]="id"
       [name]="name"
-      [disabled]="disabled"
-      [required]="required"
-      [ngModel]="value"
-      (ngModelChange)="onValueChange($event)"
+      (click)="toggle()"
       (blur)="onBlur()"
       (focus)="onFocus()"
-      class="select-input {{ selectClass }}"
-      [class.error]="showError"
-      title="Selector"
+      [disabled]="disabled"
+      #origin
+      class="dropdown-button"
     >
-      <option [value]="null" disabled hidden>{{ placeholder }}</option>
-      <option *ngFor="let opt of options" [value]="opt[valueField]">
-        <span>{{ opt[labelField] }}</span>
-      </option>
-    </select>
+      <ng-template [ngIf]="!isOpen" [ngIfElse]="searchTpl">
+        <span
+          [class.placeholder]="!model"
+          >{{ model?.[labelField] || 'Select with suggestion' }}</span
+        >
+      </ng-template>
+
+      <ng-template #searchTpl>
+        <input
+          [formControl]="searchControl"
+          class="search-input"
+          placeholder="Buscar..."
+          (click)="$event.stopPropagation()"
+        />
+      </ng-template>
+
+      <span class="dropdown-icon" [class.open]="isOpen">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </span>
+    </button>
+
+    <!-- Dropdown Menu (dentro del componente) -->
+    <div *ngIf="isOpen" class="select-menu" #dropdownMenu>
+      <!-- Virtual Scroll para muchas opciones -->
+      <cdk-virtual-scroll-viewport
+        *ngIf="filteredOptions.length > 10"
+        itemSize="32"
+        class="virtual-scroll-viewport"
+      >
+        <div *ngIf="!filteredOptions.length" class="no-results">
+          No se encontraron resultados...
+        </div>
+
+        <div
+          *cdkVirtualFor="let option of filteredOptions; trackBy: trackByFn"
+          [class.active]="isActive(option)"
+          (click)="select(option)"
+          class="option-item"
+        >
+          <ng-template [ngIf]="!optionTpl">
+            {{ option[labelField] ? option[labelField] : option }}
+          </ng-template>
+
+          <ng-container
+            *ngTemplateOutlet="
+              optionTpl || null;
+              context: { $implicit: option }
+            "
+          >
+          </ng-container>
+        </div>
+      </cdk-virtual-scroll-viewport>
+
+      <!-- Lista normal para pocas opciones -->
+      <div *ngIf="filteredOptions.length <= 10" class="options-list">
+        <div *ngIf="!filteredOptions.length" class="no-results">
+          No se encontraron resultados...
+        </div>
+
+        <div
+          *ngFor="let option of filteredOptions; trackBy: trackByFn"
+          [class.active]="isActive(option)"
+          (click)="select(option)"
+          class="option-item"
+        >
+          <ng-template [ngIf]="!optionTpl">
+            {{ option[labelField] }}
+          </ng-template>
+
+          <ng-container
+            *ngTemplateOutlet="
+              optionTpl || null;
+              context: { $implicit: option }
+            "
+          >
+          </ng-container>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <small *ngIf="showError" class="error-message {{ errorClass }}">
-    <i class="message-icon error-icon">{{ errorIcon }}</i> {{ errorMessage }}
-  </small>
-
-  <small
-    *ngIf="showSuggestion && !showError"
-    class="suggestion-message {{ suggestionClass }}"
+  <!-- Error Message -->
+  <div
+    *ngIf="showError && errorMessage"
+    [class]="'error-message ' + errorClass"
   >
-    <i class="message-icon suggestion-icon">{{ suggestionIcon }}</i>
-    {{ suggestionMessage }}
-  </small>
+    <span class="error-icon">{{ errorIcon }}</span>
+    <span>{{ errorMessage }}</span>
+  </div>
+
+  <!-- Suggestion Message -->
+  <div
+    *ngIf="showSuggestion && suggestionMessage"
+    [class]="'suggestion-message ' + suggestionClass"
+  >
+    <i
+      [class]="(suggestionMessage ? 'mr-2' : 'ml-2') + ' ' + suggestionIcon"
+    ></i>
+    <span>{{ suggestionMessage }}</span>
+  </div>
 </div>
