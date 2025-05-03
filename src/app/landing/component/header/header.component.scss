@@ -23,16 +23,20 @@
     padding: 0;
 
     li {
-      margin: 0 1rem;
+      margin: 0 0.5rem;
 
       a {
         color: var(--secondary-text-color);
         text-decoration: none;
         font-size: 0.9rem;
-        transition: opacity 0.3s;
+        transition: all 0.3s ease;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
 
         &:hover {
-          opacity: 0.8;
+          background-color: rgba(255, 255, 255, 0.2);
+          color: var(--secondary-text-color);
+          opacity: 1;
         }
       }
     }
