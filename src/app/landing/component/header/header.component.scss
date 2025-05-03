@@ -1,3 +1,7 @@
+* {
+  //   border: 1px solid black;
+}
+
 .header {
   background-color: var(--primary-color);
   color: var(--secondary-text-color);
@@ -6,31 +10,40 @@
 
 .header-container {
   display: flex;
+  align-items: center;
   justify-content: end;
-  max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 30px;
 }
 
 .navigation {
   .menu-items {
     display: flex;
     list-style: none;
-    margin: 0;
+    margin: 0 20px 0 0;
     padding: 0;
 
     li {
-      margin: 0 1rem;
+      margin: 0 0.5rem;
 
       a {
         color: var(--secondary-text-color);
         text-decoration: none;
-        font-size: 1rem;
-        transition: opacity 0.3s;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
 
         &:hover {
-          opacity: 0.8;
+          background-color: rgba(255, 255, 255, 0.2);
+          color: var(--secondary-text-color);
+          opacity: 1;
         }
       }
     }
   }
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 1rem;
 }

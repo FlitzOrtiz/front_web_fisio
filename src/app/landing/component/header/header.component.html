@@ -10,9 +10,17 @@
       </ul>
     </nav>
 
-    <div>
-      <button>Iniciar Sesión</button>
-      <button>Registrarse</button>
+    <div class="auth-buttons">
+      <fbutton
+        [label]="'Iniciar Sesión'"
+        [color]="'secondary'"
+        [size]="'sm'"
+      ></fbutton>
+      <fbutton
+        [label]="'Registrarse'"
+        [color]="'primary'"
+        [size]="'sm'"
+      ></fbutton>
     </div>
   </div>
 </header>

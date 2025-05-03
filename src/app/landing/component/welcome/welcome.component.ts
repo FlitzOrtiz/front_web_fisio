@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.component';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-welcome',
   standalone: true,
   imports: [CommonModule, FbuttonComponent],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  templateUrl: './welcome.component.html',
+  styleUrl: './welcome.component.scss',
 })
-export class HeaderComponent {}
+export class WelcomeComponent {}

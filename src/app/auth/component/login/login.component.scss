@@ -1,0 +1,222 @@
+.login-container {
+  background: var(--background-color);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+  padding: 3rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.login-box {
+  background-color: var(--card-background-color);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-box .subtitle {
+  font-size: 1.7rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.login-box .description {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.login-box .google-btn {
+  width: 100%;
+  background-color: #E9F1FF;
+  border: none;
+  padding: 0.7rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.login-box .google-btn:hover {
+  background-color: #cfe2ff;
+}
+
+.login-box .google-btn img {
+  width: 20px;
+  margin-right: 10px;
+}
+
+.login-box .or-divider {
+  text-align: center;
+  margin: 1rem 0;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.login-box form {
+  text-align: left;
+}
+
+.login-box form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.login-box form input[type="email"],
+.login-box form input[type="password"] {
+  width: 96%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.password-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.password-wrapper input {
+  flex: 1;
+}
+
+.password-wrapper .toggle-button {
+  background: none;
+  border: none;
+  position: absolute;
+  right: 5px;
+  top: 60%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.options label input[type="checkbox"] {
+  margin: 0;
+  transform: translateY(2px); 
+  margin-bottom: 1rem;
+}
+
+.options a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.options a:hover {
+  color: #66aaff;
+}
+
+.login-box .register-text {
+  text-align: center;
+  margin-top: 1rem;
+  color: #555;
+}
+
+.login-box .register-text a {
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.login-box .register-text a:hover {
+  color: #66aaff;
+}
+
+
+@media screen and (max-width: 768px) {
+  .login-container {
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .login-box {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+
+  .login-box .subtitle {
+    font-size: 1.6rem;
+  }
+
+  .login-box .description {
+    font-size: 0.9rem;
+  }
+
+  .login-box form input[type="email"],
+  .login-box form input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .options {
+    font-size: 0.75rem;
+  }
+
+  .login-box .register-text {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .login-container {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .login-box {
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  .login-box .subtitle {
+    font-size: 1.4rem;
+  }
+
+  .login-box .description {
+    font-size: 0.8rem;
+  }
+
+  .login-box form input[type="email"],
+  .login-box form input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .options {
+    font-size: 0.7rem;
+  }
+
+  .login-box .register-text {
+    font-size: 0.85rem;
+  }
+}
