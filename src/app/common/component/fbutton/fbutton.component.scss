@@ -1,0 +1,74 @@
+/* Botón básico */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+  
+  .primary {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .secondary {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .success {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .danger {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .warning {
+    background-color: #ffc107;
+    color: white;
+  }
+  
+  .info {
+    background-color: #17a2b8;
+    color: white;
+  }
+  
+  .light {
+    background-color: #f8f9fa;
+    color: black;
+  }
+  
+  .dark {
+    background-color: #343a40;
+    color: white;
+  }
+  
+  .sm {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .md {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+  
+  .lg {
+    font-size: 1.25rem;
+    padding: 0.75rem 1.5rem;
+  }
+  
+  /* Disabled Button */
+  [disabled] {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+  
