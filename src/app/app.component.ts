@@ -6,7 +6,7 @@ import { FbuttonComponent } from './common/component/fbutton/fbutton.component';
   selector: 'app-root',
   imports: [RouterOutlet, FbuttonComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'front_web_fisio';
