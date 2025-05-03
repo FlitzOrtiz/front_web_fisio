@@ -1,1 +1,37 @@
 <app-landing></app-landing>
+<h2>Ejemplo de Dropdown</h2>
+
+<div class="container">
+  <h2>Ejemplo con ngModel</h2>
+  <fdropdown
+    [(value)]="selectedArea"
+    label="Área Objetivo"
+    [options]="areasObjetivo"
+    labelField="nombre"
+    valueField="id"
+    placeholder="Selecciona un área"
+    [showError]="areaInvalida"
+    errorMessage="Por favor seleccione un área objetivo"
+    (valueChange)="onAreaChange($event)"
+  >
+  </fdropdown>
+  <p>Área seleccionada: {{ selectedArea || "Ninguna" }}</p>
+  <button (click)="areaInvalida = !areaInvalida">Toggle Error</button>
+
+  <h2>Ejemplo con Reactive Forms</h2>
+  <form [formGroup]="form">
+    <fdropdown
+      formControlName="intensidad"
+      label="Intensidad del ejercicio"
+      [options]="intensidades"
+      labelField="descripcion"
+      valueField="codigo"
+      placeholder="Seleccione intensidad"
+      [showError]="hasError('intensidad')"
+      errorMessage="La intensidad es requerida"
+    >
+    </fdropdown>
+  </form>
+  <p>Formulario válido: {{ form.valid }}</p>
+  <p>Valor: {{ form.value | json }}</p>
+</div>

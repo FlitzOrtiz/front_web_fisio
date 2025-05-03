@@ -1,12 +1,38 @@
-<select
-  id="dropdown-id"
-  class="f-dropdown w-full p-2 border rounded"
-  title="Selector"
-  [ngModel]="value"
-  (ngModelChange)="onValueChange($event)"
->
-  <option [value]="null" disabled hidden>{{ placeholder }}</option>
-  <option *ngFor="let opt of options" [value]="opt[valueField]">
-    {{ opt[labelField] }}
-  </option>
-</select>
+<div class="select-container {{ containerClass }}">
+  <label *ngIf="label" [for]="id" class="select-label {{ labelClass }}">{{
+    label
+  }}</label>
+
+  <div class="select-wrapper">
+    <select
+      [id]="id"
+      [name]="name"
+      [disabled]="disabled"
+      [required]="required"
+      [ngModel]="value"
+      (ngModelChange)="onValueChange($event)"
+      (blur)="onBlur()"
+      (focus)="onFocus()"
+      class="select-input {{ selectClass }}"
+      [class.error]="showError"
+      title="Selector"
+    >
+      <option [value]="null" disabled hidden>{{ placeholder }}</option>
+      <option *ngFor="let opt of options" [value]="opt[valueField]">
+        <span>{{ opt[labelField] }}</span>
+      </option>
+    </select>
+  </div>
+
+  <small *ngIf="showError" class="error-message {{ errorClass }}">
+    <i class="message-icon error-icon">{{ errorIcon }}</i> {{ errorMessage }}
+  </small>
+
+  <small
+    *ngIf="showSuggestion && !showError"
+    class="suggestion-message {{ suggestionClass }}"
+  >
+    <i class="message-icon suggestion-icon">{{ suggestionIcon }}</i>
+    {{ suggestionMessage }}
+  </small>
+</div>
