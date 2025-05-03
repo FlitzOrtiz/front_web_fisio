@@ -2,13 +2,12 @@ import { Component, ElementRef, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-fbutton',
+  selector: 'fbutton',
   imports: [CommonModule],
   templateUrl: './fbutton.component.html',
-  styleUrl: './fbutton.component.scss'
+  styleUrl: './fbutton.component.scss',
 })
 export class FbuttonComponent {
-
   @Input() label: string = 'Button';
   @Input() type: string = 'button'; // 'button', 'submit', 'reset'
   @Input() color: string = 'primary'; // 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'
@@ -26,13 +25,9 @@ export class FbuttonComponent {
 
   @Input() onClick: () => void = () => {}; // Function to call on button click
 
-
-  constructor(private el: ElementRef) {
-    
-  }
+  constructor(private el: ElementRef) {}
 
   ngOnInit() {
     // Initialize any properties or perform any setup here
   }
-    
 }

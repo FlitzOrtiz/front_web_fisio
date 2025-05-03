@@ -1,23 +1,21 @@
 .btn {
   align-items: center;
-  border-radius: 8px; /* Fully rounded corners (pill shape) */
-  padding: 10px 24px; /* Vertical and horizontal padding */
-  font-weight: 700; /* Medium font weight */
-  cursor: pointer; /* Hand cursor on hover */
-  border: none; /* No border */
-  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for background and text color */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  text-align: center; /* Center the text */
-  display: inline-block; /* Allow the button to be sized based on content */
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: inline-block;
   justify-items: center;
 }
 
 .btn:hover {
-  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for background and text color */
-  background-color: var(
-    --primary-button-hover-color
-  ); /* Change background color on hover */
-  color: var(--primary-button-text-color); /* Change text color on hover */
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: var(--primary-button-hover-color);
+  color: var(--primary-button-text-color);
 }
 
 .primary {
@@ -31,21 +29,21 @@
 }
 
 .sm {
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   padding: 0.25rem 1rem;
-  height: 24px;
+  height: 32px;
 }
 
 .md {
   font-size: 1rem;
-  padding: 0.5rem 1.5rem;
-  height: 32px;
+  padding: 0.5rem 2.5rem;
+  height: 38px;
 }
 
 .lg {
   font-size: 1.25rem;
   padding: 0.75rem 2rem;
-  height: 40px;
+  height: 45px;
 }
 
 .ml-2 {
@@ -55,7 +53,7 @@
 .mr-2 {
   margin-right: 8px;
 }
-/* Disabled Button */
+
 [disabled] {
   opacity: 0.65;
   cursor: not-allowed;
