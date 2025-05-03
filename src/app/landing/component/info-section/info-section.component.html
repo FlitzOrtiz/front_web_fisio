@@ -1,0 +1,16 @@
+<div class="info-section" [class.reverse]="imageOnRight">
+  <div class="content">
+    <h2 class="title">{{ title }}</h2>
+    <h3 class="subtitle">{{ subtitle }}</h3>
+    <p class="description">{{ description }}</p>
+    <div class="features">
+      <div class="feature" *ngFor="let feature of features">
+        <span class="icon">{{ feature.icon }}</span>
+        <span class="text">{{ feature.text }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="image-container">
+    <img [src]="imagePath" [alt]="imageAlt" class="section-image" alt="a" />
+  </div>
+</div>

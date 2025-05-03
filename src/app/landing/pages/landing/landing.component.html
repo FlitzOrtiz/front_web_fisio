@@ -1,3 +1,18 @@
 <app-header></app-header>
 <app-welcome></app-welcome>
+
+<div class="info-sections-container">
+  <app-info-section
+    *ngFor="let section of infoSections"
+    [title]="section.title"
+    [subtitle]="section.subtitle"
+    [description]="section.description"
+    [features]="section.features"
+    [imagePath]="section.imagePath"
+    [imageAlt]="section.imageAlt"
+    [imageOnRight]="section.imageOnRight"
+  >
+  </app-info-section>
+</div>
+
 <app-footer></app-footer>
