@@ -2,11 +2,11 @@
   background: var(--background-color);
   height: 100vh;
   display: flex;
-  flex-direction: column; /* Para apilar el título arriba del cuadro */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-family: 'Arial', sans-serif;
-  padding: 2rem;
+  padding: 3rem;
 }
 
 .title {
@@ -25,7 +25,7 @@
 }
 
 .login-box .subtitle {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   margin-bottom: 0.5rem;
   text-align: center;
 }
@@ -47,6 +47,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.login-box .google-btn:hover {
+  background-color: #cfe2ff;
 }
 
 .login-box .google-btn img {
@@ -111,23 +116,17 @@
 .options label input[type="checkbox"] {
   margin: 0;
   transform: translateY(2px); 
+  margin-bottom: 1rem;
 }
 
 .options a {
   text-decoration: none;
   color: #333;
+  transition: color 0.3s ease;
 }
 
-.submit-btn {
-  margin-top: 1.5rem;
-  width: 100%;
-  padding: 0.7rem;
-  background-color: var(--primary-button-color);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
+.options a:hover {
+  color: #66aaff;
 }
 
 .login-box .register-text {
@@ -140,4 +139,84 @@
   color: #000;
   font-weight: bold;
   text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.login-box .register-text a:hover {
+  color: #66aaff;
+}
+
+
+@media screen and (max-width: 768px) {
+  .login-container {
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .login-box {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+
+  .login-box .subtitle {
+    font-size: 1.6rem;
+  }
+
+  .login-box .description {
+    font-size: 0.9rem;
+  }
+
+  .login-box form input[type="email"],
+  .login-box form input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .options {
+    font-size: 0.75rem;
+  }
+
+  .login-box .register-text {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .login-container {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .login-box {
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  .login-box .subtitle {
+    font-size: 1.4rem;
+  }
+
+  .login-box .description {
+    font-size: 0.8rem;
+  }
+
+  .login-box form input[type="email"],
+  .login-box form input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .options {
+    font-size: 0.7rem;
+  }
+
+  .login-box .register-text {
+    font-size: 0.85rem;
+  }
 }

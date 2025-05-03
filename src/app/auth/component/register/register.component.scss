@@ -1,120 +1,147 @@
 .container {
-    background: var(--background-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-    font-family: 'Arial', sans-serif;
+  background: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  font-family: 'Arial', sans-serif;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.form-container {
+  background-color: var(--card-background-color);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.subtitle {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.description {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.google-button {
+  width: 100%;
+  background-color: #E9F1FF;
+  border: none;
+  padding: 0.7rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #c8dcfb;
   }
-  
-  .title {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+
+  img {
+    width: 20px;
+    margin-right: 10px;
   }
-  
-  .form-container {
-    background-color: var(--card-background-color);
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px; 
-  }
-  
-  .subtitle {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    text-align: center;
-  }
-  
-  .description {
-    text-align: center;
-    margin-bottom: 1rem;
-    color: #555;
-  }
-  
-  .google-button {
-    width: 100%;
-    background-color: #E9F1FF;
-    border: none;
-    padding: 0.7rem;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  
-    img {
-      width: 20px;
-      margin-right: 10px;
-    }
-  }
-  
-  .divider {
-    text-align: center;
-    margin: 1rem 0;
-    color: #777;
-    font-size: 0.9rem;
-  }
-  
-  form {
-    label {
-      display: block;
-      margin-top: 1rem;
-      font-weight: bold;
-    }
-  
-    input {
-      width: 96%;
-      padding: 0.5rem;
-      margin-top: 0.3rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-  }
-  
-  .password-container {
-    display: flex;
-    align-items: center;
-    position: relative;
-  
-    input {
-      flex: 1;
-    }
-  
-    .toggle-button {
-      background: none;
-      border: none;
-      position: absolute;
-      right: 5px;
-      top: 60%;
-      transform: translateY(-50%);
-      cursor: pointer;
-    }
-  }
-  
-  .create-button {
-    margin-top: 1.5rem;
-    width: 100%;
-    padding: 0.7rem;
-  background-color: var(--primary-button-color);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-  
-  .login-text {
-    text-align: center;
+}
+
+.divider {
+  text-align: center;
+  margin: 1rem 0;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+form {
+  label {
+    display: block;
     margin-top: 1rem;
-    color: #555;
-  
-    a {
-      color: #000;
-      font-weight: bold;
-      text-decoration: none;
+    font-weight: bold;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+}
+
+.password-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 2rem;
+
+  input {
+    flex: 1;
+  }
+
+  .toggle-button {
+    background: none;
+    border: none;
+    position: absolute;
+    right: 5px;
+    top: 60%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+}
+
+.login-text {
+  text-align: center;
+  margin-top: 1rem;
+  color: #555;
+
+  a {
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #66aaff;
     }
   }
-  
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1.3rem;
+  }
+
+  .form-container {
+    padding: 1.5rem;
+  }
+
+  .google-button {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+
+  form input {
+    font-size: 1rem;
+  }
+
+  .login-text a {
+    font-size: 1rem;
+  }
+}
