@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './fbutton.component.scss',
 })
 export class FbuttonComponent {
-  @Input() label: string = 'Button';
+  @Input() label: string = '';
   @Input() type: string = 'button'; // 'button', 'submit', 'reset'
   @Input() color: string = 'primary'; // 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'
   @Input() size: string = 'md'; // 'sm', 'md', 'lg'
@@ -16,16 +16,16 @@ export class FbuttonComponent {
   @Input() icon: string = ''; // FontAwesome icon name, e.g. 'fa-solid fa-check'
   @Input() iconPosition: string = 'left'; // 'left', 'right'
   @Input() loading: boolean = false; // true or false
-  @Input() loadingText: string = 'Loading...'; // Text to show when loading
+  @Input() loadingText: string = ''; // Text to show when loading
   @Input() loadingIcon: string = 'fa-solid fa-spinner'; // FontAwesome icon name for loading state, e.g. 'fa-solid fa-spinner'
   @Input() loadingIconPosition: string = 'left'; // 'left', 'right'
   @Input() loadingSize: string = 'sm'; // 'sm', 'md', 'lg'
   @Input() loadingColor: string = 'primary'; // 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'
   @Input() loadingDisabled: boolean = false; // true or false
 
-  @Input() onClick: () => void = () => {}; // Function to call on button click
+  @Input() onClick: () => void = () => { }; // Function to call on button click
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef) { }
 
   ngOnInit() {
     // Initialize any properties or perform any setup here
