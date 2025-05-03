@@ -99,7 +99,7 @@
   background: none;
   border: none;
   position: absolute;
-  right: 5px;
+  right: 3px;
   top: 60%;
   transform: translateY(-50%);
   cursor: pointer;
@@ -110,13 +110,14 @@
   justify-content: space-between;
   align-items: center;
   font-size: 0.85rem;
-  margin-top: 0.5rem;
+  margin-top: 0.8rem;
 }
 
 .options label input[type="checkbox"] {
-  margin: 0;
-  transform: translateY(2px);
-  margin-bottom: 1rem;
+  margin: 3px;
+  transform: translateY(0px);
+  margin-bottom: -1.5rem;
+  margin-top: -1.5rem;
 }
 
 .options a {
@@ -175,7 +176,7 @@
   }
 
   .options {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 
   .login-box .register-text {
@@ -239,4 +240,5 @@ form {
 #recordarme {
   display: flex;
   align-items: center;
+  padding: 0.8rem;
 }
