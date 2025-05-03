@@ -4,16 +4,25 @@
   [disabled]="disabled || loadingDisabled"
   (click)="onClick()"
   class="btn"
+  style="display: flex"
 >
   <!-- Condicional para mostrar icono y texto -->
-  <i *ngIf="icon && !loading" [class]="icon" [class]="iconPosition === 'left' ? 'mr-2' : 'ml-2'"></i>
+  <i
+    *ngIf="icon && !loading"
+    [class]="(iconPosition === 'left' ? 'mr-2' : 'ml-2') + ' ' + icon"
+  ></i>
 
   <span *ngIf="loading && !(loadingIconPosition === 'right')">
     {{ loadingText }}
   </span>
 
   <!-- Icono de carga -->
-  <i *ngIf="loading" [class]="loadingIcon" [class]="loadingIconPosition === 'left' ? 'mr-2' : 'ml-2'" [class]="'fa-spin ' + loadingSize"></i>
+  <i
+    *ngIf="loading"
+    [class]="loadingIcon"
+    [class]="loadingIconPosition === 'left' ? 'mr-2' : 'ml-2'"
+    [class]="'fa-spin ' + loadingSize"
+  ></i>
 
   <span *ngIf="loading && loadingIconPosition === 'right'">
     {{ loadingText }}

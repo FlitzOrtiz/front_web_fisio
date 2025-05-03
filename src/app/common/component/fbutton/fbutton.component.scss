@@ -1,74 +1,62 @@
-/* Botón básico */
 .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 5px;
-    cursor: pointer;
-    border: 1px solid transparent;
-  }
-  
-  .primary {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .secondary {
-    background-color: #6c757d;
-    color: white;
-  }
-  
-  .success {
-    background-color: #28a745;
-    color: white;
-  }
-  
-  .danger {
-    background-color: #dc3545;
-    color: white;
-  }
-  
-  .warning {
-    background-color: #ffc107;
-    color: white;
-  }
-  
-  .info {
-    background-color: #17a2b8;
-    color: white;
-  }
-  
-  .light {
-    background-color: #f8f9fa;
-    color: black;
-  }
-  
-  .dark {
-    background-color: #343a40;
-    color: white;
-  }
-  
-  .sm {
-    font-size: 0.875rem;
-    padding: 0.25rem 0.5rem;
-  }
-  
-  .md {
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-  }
-  
-  .lg {
-    font-size: 1.25rem;
-    padding: 0.75rem 1.5rem;
-  }
-  
-  /* Disabled Button */
-  [disabled] {
-    opacity: 0.65;
-    cursor: not-allowed;
-  }
-  
+  align-items: center;
+  border-radius: 8px; /* Fully rounded corners (pill shape) */
+  padding: 10px 24px; /* Vertical and horizontal padding */
+  font-weight: 700; /* Medium font weight */
+  cursor: pointer; /* Hand cursor on hover */
+  border: none; /* No border */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for background and text color */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  text-align: center; /* Center the text */
+  display: inline-block; /* Allow the button to be sized based on content */
+  justify-items: center;
+}
+
+.btn:hover {
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for background and text color */
+  background-color: var(
+    --primary-button-hover-color
+  ); /* Change background color on hover */
+  color: var(--primary-button-text-color); /* Change text color on hover */
+}
+
+.primary {
+  background-color: var(--primary-button-color);
+  color: var(--primary-button-text-color);
+}
+
+.secondary {
+  background-color: var(--secondary-button-color);
+  color: var(--secondary-button-text-color);
+}
+
+.sm {
+  font-size: 0.875rem;
+  padding: 0.25rem 1rem;
+  height: 24px;
+}
+
+.md {
+  font-size: 1rem;
+  padding: 0.5rem 1.5rem;
+  height: 32px;
+}
+
+.lg {
+  font-size: 1.25rem;
+  padding: 0.75rem 2rem;
+  height: 40px;
+}
+
+.ml-2 {
+  margin-left: 8px;
+}
+
+.mr-2 {
+  margin-right: 8px;
+}
+/* Disabled Button */
+[disabled] {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
