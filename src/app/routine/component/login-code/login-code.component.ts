@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.component';
 
 @Component({
   selector: 'app-login-code',
+  imports: [CommonModule, FbuttonComponent],
   templateUrl: './login-code.component.html',
   styleUrls: ['./login-code.component.scss']
 })
