@@ -1,5 +1,6 @@
 .header {
-  background-color: #6c5b9c;
+  background-color: var(--primary-color);
+  color: var(--secondary-text-color);
   padding: 1rem 0;
 }
 
@@ -21,7 +22,7 @@
       margin: 0 1rem;
 
       a {
-        color: white;
+        color: var(--secondary-text-color);
         text-decoration: none;
         font-size: 1rem;
         transition: opacity 0.3s;

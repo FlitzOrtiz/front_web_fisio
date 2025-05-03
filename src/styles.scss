@@ -1,17 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
 
-$primary-color: #7660a6;
-$secondary-color: #faf7f6;
-$background-color: #faf7f6;
-$primary-button-color: #392973;
-$primary-button-hover-color: #5a4b8a;
-$primary-button-border-color: #392973;
-$secondary-button-color: #e3e3e3;
-$secondary-button-hover-color: #f8f5f5;
-$secondary-button-border-color-hover: #767676;
-$primary-text-color: #1e1e1e;
-$secondary-text-color: #f3f3f3;
+:root {
+  --primary-color: #7660a6;
+  --secondary-color: #faf7f6;
+  --background-color: #faf7f6;
+  --primary-button-color: #392973;
+  --primary-button-hover-color: #5a4b8a;
+  --primary-button-border-color: #392973;
+  --secondary-button-color: #e3e3e3;
+  --secondary-button-hover-color: #f8f5f5;
+  --secondary-button-border-color-hover: #767676;
+  --primary-text-color: #1e1e1e;
+  --secondary-text-color: #f3f3f3;
+}
 
 body {
   margin: 0;
