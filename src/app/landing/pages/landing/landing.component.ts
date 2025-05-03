@@ -4,6 +4,7 @@ import { HeaderComponent } from '../../component/header/header.component';
 import { FooterComponent } from '../../component/footer/footer.component';
 import { WelcomeComponent } from '../../component/welcome/welcome.component';
 import { InfoSectionComponent } from '../../component/info-section/info-section.component';
+import { FaqSectionComponent } from '../../component/faq-section/faq-section.component';
 
 @Component({
   selector: 'app-landing',
@@ -14,6 +15,7 @@ import { InfoSectionComponent } from '../../component/info-section/info-section.
     WelcomeComponent,
     FooterComponent,
     InfoSectionComponent,
+    FaqSectionComponent,
   ],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss',
@@ -32,7 +34,7 @@ export class LandingComponent {
         { icon: '📊', text: 'Reportes automáticos para el médico' },
         { icon: '⌚', text: 'Rutinas en menos de 15 minutos' },
       ],
-      imagePath: '../assets/landing_main_image.jpeg',
+      imagePath: 'assets/landing_main_image.jpeg',
       imageAlt: 'Paciente realizando ejercicios con El Chueco',
       imageOnRight: true,
     },
@@ -47,7 +49,7 @@ export class LandingComponent {
         { icon: '📱', text: 'Compatible con dispositivos móviles' },
         { icon: '🔔', text: 'Alertas para correcciones posturales' },
       ],
-      imagePath: 'assets/landing_main_image.jpeg',
+      imagePath: 'assets/landing_calendar.jpeg',
       imageAlt: 'Dashboard de seguimiento de pacientes',
       imageOnRight: false,
     },
@@ -62,7 +64,7 @@ export class LandingComponent {
         { icon: '⭐', text: 'Ejercicios para todas las condiciones' },
         { icon: '✏️', text: 'Posibilidad de crear ejercicios personalizados' },
       ],
-      imagePath: 'assets/landing_main_image.jpeg',
+      imagePath: 'assets/landing_chueco.jpeg',
       imageAlt: 'Biblioteca de ejercicios terapéuticos',
       imageOnRight: true,
     },
@@ -77,7 +79,7 @@ export class LandingComponent {
         { icon: '📈', text: 'Estadísticas de adherencia al tratamiento' },
         { icon: '💬', text: 'Chat integrado para consultas' },
       ],
-      imagePath: 'assets/landing_main_image.jpeg',
+      imagePath: 'assets/landing_map.jpeg',
       imageAlt: 'Sesión de telerehabilitación',
       imageOnRight: false,
     },

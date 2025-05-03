@@ -1,0 +1,24 @@
+<div class="faq-container">
+  <div class="faq-header">
+    <span class="how-it-works">Lo que debes saber</span>
+    <h2 class="faq-title">Preguntas frecuentes</h2>
+  </div>
+
+  <div class="faq-items">
+    <div class="faq-item" *ngFor="let faqItem of faqItems; let i = index">
+      <div class="faq-question" (click)="toggleQuestion(i)">
+        <div class="toggle-icon">
+          <span *ngIf="!faqItem.isOpen">+</span>
+          <span *ngIf="faqItem.isOpen">-</span>
+        </div>
+        <h3>{{ faqItem.question }}</h3>
+      </div>
+
+      <div class="faq-answer" *ngIf="faqItem.isOpen">
+        <p>{{ faqItem.answer }}</p>
+      </div>
+
+      <div class="divider"></div>
+    </div>
+  </div>
+</div>
