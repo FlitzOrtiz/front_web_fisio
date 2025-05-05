@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LandingComponent } from './landing/pages/landing/landing.component';
-import { LoginComponent } from './auth/component/login/login.component';
-import { RegisterComponent } from './auth/component/register/register.component';
+import { LoginCodeComponent } from './routine/component/login-code/login-code.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LandingComponent, LoginComponent, RegisterComponent],
+  imports: [RouterOutlet, LandingComponent, LoginCodeComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
