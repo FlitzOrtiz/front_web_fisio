@@ -5,7 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   padding: 3rem;
 }
 
@@ -38,7 +38,7 @@
 
 .login-box .google-btn {
   width: 100%;
-  background-color: #E9F1FF;
+  background-color: #e9f1ff;
   border: none;
   padding: 0.7rem;
   border-radius: 5px;
@@ -115,7 +115,7 @@
 
 .options label input[type="checkbox"] {
   margin: 0;
-  transform: translateY(2px); 
+  transform: translateY(2px);
   margin-bottom: 1rem;
 }
 
@@ -145,7 +145,6 @@
 .login-box .register-text a:hover {
   color: #66aaff;
 }
-
 
 @media screen and (max-width: 768px) {
   .login-container {
@@ -219,4 +218,25 @@
   .login-box .register-text {
     font-size: 0.85rem;
   }
+}
+
+form {
+  label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+}
+
+#recordarme {
+  display: flex;
+  align-items: center;
 }

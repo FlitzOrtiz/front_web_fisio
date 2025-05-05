@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.component';
 @Component({
   selector: 'app-login',
-  imports: [CommonModule,FbuttonComponent],
+  imports: [CommonModule, FbuttonComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -12,5 +12,6 @@ export class LoginComponent {
 
   togglePasswordVisibility() {
     this.mostrarPassword = !this.mostrarPassword;
+    console.log(this.mostrarPassword);
   }
 }
