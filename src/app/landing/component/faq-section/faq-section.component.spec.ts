@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LandingComponent } from './landing.component';
+import { FaqSectionComponent } from './faq-section.component';
 
-describe('LandingComponent', () => {
-  let component: LandingComponent;
-  let fixture: ComponentFixture<LandingComponent>;
+describe('FaqSectionComponent', () => {
+  let component: FaqSectionComponent;
+  let fixture: ComponentFixture<FaqSectionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LandingComponent],
+      imports: [FaqSectionComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LandingComponent);
+    fixture = TestBed.createComponent(FaqSectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
