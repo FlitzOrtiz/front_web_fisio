@@ -1,1 +1,26 @@
-<p>login-camera works!</p>
+<div class="camera-container">
+    <div class="video-section">
+      <video id="login-camera-video" autoplay muted playsinline></video>
+      <div class="video-overlay"></div>
+    </div>
+    <div class="instructions-section">
+      <h1 class="title">Prepara tu espacio para el ejercicio</h1>
+      <p class="subtitle">Recuerda:</p>
+      <ul>
+        <li>Estar en un Espacio Amplio y Despejado</li>
+        <li>Tener una Iluminación Adecuada</li>
+        <li>Colocar tu dispositivo en un lugar fijo y seguro</li>
+        <li>Usar ropa cómoda y deportiva</li>
+        <li>Realizar un calentamiento previo</li>
+        <li>Escuchar tu cuerpo y detenerte ante dolor</li>
+      </ul>
+      <fbutton
+        [label]="'Empezar'"
+        [color]="'primary'"
+        [type]="'button'"
+        [size]="'lg'"
+        class="start-button"
+      ></fbutton>
+    </div>
+  </div>
+  
