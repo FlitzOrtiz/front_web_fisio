@@ -5,10 +5,11 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  margin: 5px 20px;
+  margin: 0px 20px;
   background-color: var(--card-background-color);
   border-radius: 8px;
-  border: solid 2px;
+  // border: solid 1px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for better appearance */
 }
 
 .display_row_div {
@@ -17,8 +18,10 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 60px); /* Resta la altura del header */
   background-color: var(--background-color);
+  padding: 1rem; /* Add padding for spacing */
+  box-sizing: border-box;
 }
 
 .display_column_div {
@@ -28,4 +31,34 @@
   align-items: center;
   width: 100%;
   height: 100%;
+  gap: 1rem; /* Add spacing between elements */
+}
+
+/* Ajusta el ancho de los divs laterales */
+.display_row_div > .card:first-child,
+.display_row_div > .card:last-child {
+  flex-basis: 15%; /* Los divs laterales ocupan menos ancho */
+}
+
+.display_row_div > .display_column_div {
+  flex-basis: 70%; /* El div central ocupa más ancho */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .display_row_div {
+    flex-direction: column; /* Stack items vertically */
+    gap: 1rem; /* Add spacing between items */
+  }
+
+  .display_row_div > .card:first-child,
+  .display_row_div > .card:last-child,
+  .display_row_div > .display_column_div {
+    flex-basis: 100%; /* Los divs ocupan todo el ancho en pantallas pequeñas */
+  }
+
+  .card {
+    width: 90%; /* Reduce card width */
+    margin: 10px auto; /* Center cards */
+  }
 }

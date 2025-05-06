@@ -4,6 +4,10 @@
   justify-content: space-between;
   background-color: var(--primary-color);
   color: var(--secondary-text-color);
+  padding: 0 1rem;
+  height: 60px; /* Altura fija del header */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+  box-sizing: border-box;
 }
 
 div {
@@ -16,20 +20,65 @@ div {
   margin-right: 20px;
 }
 
+.menu-icon,
+.search-bar,
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .menu-icon {
-  justify-content: left;
+  justify-content: flex-start;
 }
 
 .search-bar {
   justify-content: center;
+  flex: 1; /* Permite que el campo de búsqueda ocupe espacio flexible */
+}
+
+.search-bar input {
+  width: 200px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .user-profile {
-  justify-content: right;
+  justify-content: flex-end;
 }
 
-app-fbutton {
-  margin-right: 20px;
-  background-color: var(--primary-color);
-  padding: 0px;
+.user-profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column; /* Cambia el diseño a columna en pantallas pequeñas */
+    height: auto; /* Ajusta la altura automáticamente */
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .menu-icon {
+    order: 2; /* Mantiene el menú en el segundo lugar */
+    justify-content: center; /* Centra el menú horizontalmente */
+    width: 100%; /* Ocupa todo el ancho disponible */
+  }
+
+  .search-bar {
+    order: 3; /* Mantiene la barra de búsqueda en el tercer lugar */
+  }
+
+  .user-profile {
+    order: 1; /* Mueve el perfil de usuario al inicio */
+    justify-content: center; /* Centra el perfil de usuario */
+  }
+
+  .search-bar input {
+    width: 100%; /* Ocupa todo el ancho disponible */
+  }
 }
