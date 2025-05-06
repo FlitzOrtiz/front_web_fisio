@@ -1,9 +1,10 @@
 import { Component, ElementRef, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'fbutton',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './fbutton.component.html',
   styleUrl: './fbutton.component.scss',
 })
@@ -23,11 +24,15 @@ export class FbuttonComponent {
   @Input() loadingColor: string = 'primary'; // 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'
   @Input() loadingDisabled: boolean = false; // true or false
 
-  @Input() onClick: () => void = () => { }; // Function to call on button click
+  @Input() onClick: () => void = () => {}; // Function to call on button click
 
   constructor(private el: ElementRef) { }
 
   ngOnInit() {
     // Initialize any properties or perform any setup here
+  }
+
+  prueba(){
+    console.log('prueba');
   }
 }

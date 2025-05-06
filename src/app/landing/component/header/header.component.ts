@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,4 +10,12 @@ import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.comp
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+
+  constructor(private router: Router) {}
+
+  navigateToLogin(): void {
+    console.log('Navigating to login page...');
+    this.router.navigate(['/login']);
+  }
+}

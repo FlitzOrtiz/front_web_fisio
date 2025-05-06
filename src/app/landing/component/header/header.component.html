@@ -11,12 +11,13 @@
     </nav>
 
     <div class="auth-buttons">
-      <fbutton
+      <fbutton 
         [label]="'Iniciar Sesión'"
         [color]="'secondary'"
         [size]="'sm'"
+        [onClick]="navigateToLogin"
       ></fbutton>
-      <fbutton
+      <fbutton routerLink="/register"
         [label]="'Registrarse'"
         [color]="'primary'"
         [size]="'sm'"

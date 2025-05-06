@@ -9,10 +9,10 @@ import { LoginComponent } from './auth/component/login/login.component';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet],
-  template: `<router-outlet></router-outlet>` 
+  template: `<router-outlet></router-outlet>`,
   //imports: [RouterOutlet, LoginComponent],
   //templateUrl: './app.component.html',
-  //styleUrl: './app.component.scss',
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'front_web_fisio';
