@@ -1,0 +1,10 @@
+.info-sections-container {
+  padding: 2rem;
+  background-color: white;
+
+  app-info-section {
+    display: block;
+    margin-bottom: 2rem;
+    padding: 2rem 0;
+  }
+}
