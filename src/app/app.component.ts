@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { LandingComponent } from './landing/pages/landing/landing.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [LandingComponent],
+  imports: [RouterModule],
   template: `<router-outlet></router-outlet>`,
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  //templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'front_web_fisio';
