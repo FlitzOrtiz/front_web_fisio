@@ -5,6 +5,7 @@ import { LandingComponent } from './landing/pages/landing/landing.component';
 import { LoginCodeComponent } from './routine/component/login-code/login-code.component';
 import { LoginCameraComponent } from './routine/component/login-camera/login-camera.component';
 //import { DashboardComponent } from './physio/pages/dashboard/dashboard.component';
+import { GameCounterComponent } from './routine/component/game-counter/game-counter.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -14,4 +15,5 @@ export const routes: Routes = [
   { path: 'login/code', component: LoginCodeComponent },
   //{ path: 'login/camera', component: LoginCameraComponent },
   //{ path: 'dashboard', component: DashboardComponent },
+  { path: 'game/counter', component: GameCounterComponent },
 ];
