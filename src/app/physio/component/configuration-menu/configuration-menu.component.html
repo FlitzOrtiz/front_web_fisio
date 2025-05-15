@@ -1,0 +1,31 @@
+<div class="menu-container">
+  <div class="profile">
+    <img [src]="profileImage" alt="Foto de perfil" class="avatar" />
+    <div class="user-info">
+      <strong>{{ userName }}</strong> <span>({{ userNickname }})</span>
+    </div>
+  </div>
+
+  <ul class="menu">
+    <li>
+      <img src="assets/user-ico.png" class="menu-icon" />
+      <span>Cuenta</span>
+      <span class="arrow">›</span>
+    </li>
+    <li>
+      <img src="assets/password-ico.png" class="menu-icon"/>
+      <span>Cambiar la contraseña</span>
+      <span class="arrow">›</span>
+    </li>
+    <li>
+      <img src="assets/priva-ico.png" class="menu-icon"/>
+      <span>Privacidad</span>
+      <span class="arrow">›</span>
+    </li>
+    <li>
+      <img src="assets/delete-ico.png" class="menu-icon"/>
+      <span>Borrar la cuenta</span>
+      <span class="arrow">›</span>
+    </li>
+  </ul>
+</div>
