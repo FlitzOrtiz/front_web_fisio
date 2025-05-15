@@ -6,6 +6,7 @@ import { LoginCodeComponent } from './routine/component/login-code/login-code.co
 import { LoginCameraComponent } from './routine/component/login-camera/login-camera.component';
 //import { DashboardComponent } from './physio/pages/dashboard/dashboard.component';
 import { GameCounterComponent } from './routine/component/game-counter/game-counter.component';
+import { AccountComponent } from './physio/pages/account/account.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -16,4 +17,5 @@ export const routes: Routes = [
   //{ path: 'login/camera', component: LoginCameraComponent },
   //{ path: 'dashboard', component: DashboardComponent },
   { path: 'game/counter', component: GameCounterComponent },
+  { path : 'account', component: AccountComponent },
 ];
