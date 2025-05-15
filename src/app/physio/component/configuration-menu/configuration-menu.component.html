@@ -6,26 +6,37 @@
     </div>
   </div>
 
-  <ul class="menu">
-    <li>
-      <img src="assets/user-ico.png" class="menu-icon" />
-      <span>Cuenta</span>
-      <span class="arrow">›</span>
-    </li>
-    <li>
-      <img src="assets/password-ico.png" class="menu-icon"/>
-      <span>Cambiar la contraseña</span>
-      <span class="arrow">›</span>
-    </li>
-    <li>
-      <img src="assets/priva-ico.png" class="menu-icon"/>
-      <span>Privacidad</span>
-      <span class="arrow">›</span>
-    </li>
-    <li>
-      <img src="assets/delete-ico.png" class="menu-icon"/>
-      <span>Borrar la cuenta</span>
-      <span class="arrow">›</span>
-    </li>
-  </ul>
-</div>
+    <ul class="menu">
+      <a [routerLink]="['/account']" class="menu-link">
+        <li>
+          <img src="assets/user-ico.png" class="menu-icon" />
+          <span>Cuenta</span>
+          <span class="arrow">›</span>
+        </li>
+      </a>
+
+      <a [routerLink]="['/account']" class="menu-link">
+        <li>
+          <img src="assets/password-ico.png" class="menu-icon"/>
+          <span>Cambiar la contraseña</span>
+          <span class="arrow">›</span>
+        </li>
+      </a>
+
+      <a [routerLink]="['/account']" class="menu-link">
+        <li>
+          <img src="assets/priva-ico.png" class="menu-icon"/>
+          <span>Privacidad</span>
+          <span class="arrow">›</span>
+        </li>
+      </a>
+
+      <a [routerLink]="['/account']" class="menu-link">
+        <li>
+          <img src="assets/delete-ico.png" class="menu-icon"/>
+          <span>Borrar la cuenta</span>
+          <span class="arrow">›</span>
+        </li>
+      </a>
+</ul>
+
