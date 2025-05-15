@@ -26,4 +26,3 @@ export class PrivacyComponent {
     this.profilePhotoVisible = !this.profilePhotoVisible;
   }
 }
-

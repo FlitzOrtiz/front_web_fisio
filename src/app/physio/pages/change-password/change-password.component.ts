@@ -26,13 +26,11 @@ export class ChangePasswordComponent {
     { text: 'Como mínimo 8 caracteres', valid: false },
     { text: 'Letras mayúsculas y minúsculas', valid: false },
     { text: 'Número', valid: false },
-    { text: 'Todos los símbolos son válidos', valid: false },
+    { text: 'Al menos un simbolo válido', valid: false },
     { text: 'Las contraseñas coinciden', valid: false },
   ];
 
   onPasswordChange() {
-    console.log("Se está ejecutando onPasswordChange");
-    alert("Se está ejecutando onPasswordChange");
     const password = this.newPassword;
     const confirm = this.confirmPassword;
 
