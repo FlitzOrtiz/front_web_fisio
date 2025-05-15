@@ -1,0 +1,54 @@
+<app-user-header></app-user-header>
+<div class="account-wrapper">
+  <app-configuration-menu></app-configuration-menu>
+
+  <div class="account-container">
+    <div class="account-header">
+      <h2>Privacidad</h2>
+    </div>
+
+    <div class="account-form">
+      <div class="form-section">
+        <h3>Permisos</h3>
+        <label>
+          <input type="checkbox" [checked]="cameraPermission" (change)="toggleCamera()" />
+          <i class="fa fa-camera"></i> Cámara
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            [checked]="profilePhotoVisible"
+            (change)="togglePhotoVisibility()"
+          />
+          <i class="fa fa-image"></i> Mostrar foto de perfil
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            [checked]="notificationsEnabled"
+            (change)="toggleNotifications()"
+          />
+          <i class="fa fa-bell"></i> Notificaciones
+        </label>
+      </div>
+    </div>
+
+    <div class="privacy-policies">
+      <h2>Políticas de Privacidad</h2>
+      <div class="privacy-box">
+        <p>
+          En El Chueco, recopilamos información profesional básica (nombre,
+          correo, especialidad) para facilitar la gestión de pacientes y
+          sesiones de rehabilitación.
+        </p>
+        <p>
+          Tus datos son protegidos y utilizados únicamente para el
+          funcionamiento del sistema. Puedes solicitar en cualquier momento la
+          corrección o eliminación de tus datos personales.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

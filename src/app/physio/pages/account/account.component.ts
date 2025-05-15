@@ -10,3 +10,4 @@ import { UserHeaderComponent } from '../../../common/component/user-header/user-
   imports: [ConfigurationMenuComponent, FbuttonComponent, UserHeaderComponent]
 })
 export class AccountComponent {}
+  
