@@ -1,62 +1,89 @@
 .camera-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding: 2rem;
-    background: var(--background-color);
-  
-    .video-section {
-      position: relative;
-      flex: 1;
-      max-width: 740px;
-      background-color: #ccc;
-      border-radius: 1rem;
-      overflow: hidden;
-      aspect-ratio: 16 / 9;
-  
-      video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: var(--background-color);
+  gap: 2rem;
+
+  .video-section {
+    position: relative;
+    flex: 1;
+    max-width: 740px;
+    background-color: #ccc;
+    border-radius: 1rem;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    margin-left: 5rem;
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .instructions-section {
+    flex: 1;
+    padding-left: 3rem;
+    margin-top: -2rem;
+
+    .title {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 1.4rem;
+      color: #555;
+      margin-bottom: 0.5rem;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 1.5rem;
+      font-size: 1rem;
+      color: #444;
+      margin-bottom: 2rem;
+
+      li {
+        margin-bottom: 0.5rem;
       }
     }
-  
+
+    .start-button {
+      display: flex;
+      justify-content: center;
+      padding: 0.3rem 0.4rem;
+      max-width: 600px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    height: auto;
+    padding: 2rem 1rem;
+
+    .video-section {
+      margin-left: 0;
+      width: 100%;
+    }
+
     .instructions-section {
-      flex: 1;
-      padding-left: 3rem;
-  
-      .title {
-        font-size: 2rem;
-        font-weight: bold;
-        color: #111;
-        margin-bottom: 0.5rem;
-      }
-  
-      .subtitle {
-        font-size: 1.4rem;
-        color: #555;
-        margin-bottom: 0.5rem;
-      }
-  
+      padding-left: 0;
+      padding-top: 2rem;
+      text-align: center;
+
       ul {
-        list-style-type: disc;
-        padding-left: 1.5rem;
-        font-size: 1rem;
-        color: #444;
-        margin-bottom: 2rem;
-  
-        li {
-          margin-bottom: 0.5rem;
-        }
+        padding-left: 1rem;
+        text-align: left;
       }
-  
+
       .start-button {
-        display: flex;
-        justify-content: center;
-        padding: 0.3rem 0.4rem;
-        max-width: 600px;
+        margin: 0 auto;
       }
     }
   }
-  
+}
