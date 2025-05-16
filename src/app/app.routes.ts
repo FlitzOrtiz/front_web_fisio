@@ -9,6 +9,7 @@ import { GameCounterComponent } from './routine/component/game-counter/game-coun
 import { AccountComponent } from './physio/pages/account/account.component';
 import { PrivacyComponent } from './physio/pages/privacy/privacy.component';
 import { ChangePasswordComponent } from './physio/pages/change-password/change-password.component';
+import { PayComponent } from './payment/pages/pay/pay.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -22,4 +23,5 @@ export const routes: Routes = [
   { path : 'account', component: AccountComponent },
   { path : 'privacy', component: PrivacyComponent },
   { path : 'change/password', component: ChangePasswordComponent },
+  { path : 'payment', component: PayComponent },
 ];
