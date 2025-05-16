@@ -8,7 +8,7 @@
     <ul>
       <li *ngFor="let item of basicPlan.items"> {{ item }}</li>
     </ul>
-    <fbutton [label]="basicPlan.buttonLabel" [color]="'primary'" class="buy-button"></fbutton>
+    <fbutton [label]="basicPlan.buttonLabel" [color]="'primary'" [routeTo]="'/account/payment'" class="buy-button"></fbutton>
   </div>
 
   <div class="card premium">
@@ -19,7 +19,7 @@
     <ul>
       <li *ngFor="let item of premiumPlan.items">{{ item }}</li>
     </ul>
-    <fbutton [label]="premiumPlan.buttonLabel" [color]="'secondary'" class="buy-button"></fbutton>
+    <fbutton [label]="premiumPlan.buttonLabel" [color]="'secondary'" [routeTo]="'/account/payment'" class="buy-button"></fbutton>
   </div>
 
   <div class="card">
@@ -29,6 +29,6 @@
     <ul>
       <li *ngFor="let item of customPlan.items"> {{ item }}</li>
     </ul>
-    <fbutton [label]="customPlan.buttonLabel" [color]="'primary'" class="buy-button"></fbutton>
+    <fbutton [label]="customPlan.buttonLabel" [color]="'primary'" [routeTo]="'/account/payment'" class="buy-button"></fbutton>
   </div>
 </div>
