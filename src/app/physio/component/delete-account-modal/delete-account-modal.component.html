@@ -1,0 +1,61 @@
+<div class="backdrop" (click)="closeModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h2>¿Estás seguro de que quieres hacer esto?</h2>
+
+    <div class="warning">
+        <img src="assets/error-48268.png" alt="Advertencia" class="icon" />
+        <span><strong>Esto es extremadamente importante</strong></span>
+        </div>
+    <p>
+      Esta acción es permanente y no podrá deshacerse. Todos tus datos serán eliminados de forma definitiva.
+    </p>
+
+    <label for="email">Correo electrónico</label>
+    <input
+      id="email"
+      type="email"
+      placeholder="ej: ejemplo@hotmail.com"
+      [(ngModel)]="email"
+    />
+
+    <label for="password">Contraseña</label>
+    <div class="password-wrapper">
+      <input
+        id="password"
+        [type]="showPassword ? 'text' : 'password'"
+        placeholder="ej: 12345"
+        [(ngModel)]="password"
+      />
+      <button
+        type="button"
+        (click)="togglePasswordVisibility()"
+        class="toggle-button"
+      >
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/709/709612.png"
+          alt="toggle"
+          width="20"
+        />
+      </button>
+    </div>
+
+    <label class="verification-label">
+        Para verificar, escribe <strong>ELIMINAR MI CUENTA</strong> exactamente
+        </label>
+        <input
+        type="text"
+        placeholder="ELIMINAR MI CUENTA"
+        [(ngModel)]="confirmation"
+        />
+
+    <div class="button-wrapper">
+      <button
+        [disabled]="confirmation !== 'ELIMINAR MI CUENTA'"
+        (click)="deleteAccount()"
+        class="delete-button"
+      >
+        Eliminar esta cuenta
+      </button>
+    </div>
+  </div>
+</div>
