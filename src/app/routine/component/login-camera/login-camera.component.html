@@ -1,6 +1,9 @@
 <div class="camera-container">
     <div class="video-section">
       <video id="login-camera-video" autoplay muted playsinline></video>
+      <div class="loading-camera" *ngIf="!cameraReady">
+      <img src="assets/roll-camera.gif" alt="Cargando..." />
+    </div>
       <div class="video-overlay"></div>
     </div>
     <div class="instructions-section">
