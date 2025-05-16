@@ -1,6 +1,6 @@
 .info-sections-container {
   padding: 2rem;
-  background-color: white;
+  background-color: var(--card-background-color);
 
   app-info-section {
     display: block;
