@@ -1,0 +1,22 @@
+<div class="success-container">
+  <div class="success-card">
+    <img src="assets/check-circle.png" alt="Success" class="success-icon" />
+    <h2>¡Pago Completado!</h2>
+    <p class="message">
+      Gracias por confiar en nosotros. Ya puedes comenzar a disfrutar de los beneficios de tu plan.
+    </p>
+    <p class="help">
+      <a routerLink="/help">¿Necesitas ayuda?</a>
+      Estamos aquí para acompañarte.
+    </p>
+
+    <fbutton
+      label="Inicio"
+      icon="custom-home-icon"
+      [routeTo]="'/home'"
+      color="primary"
+      size="md"
+      [ngClass]="'home-button'"
+    ></fbutton>
+  </div>
+</div>

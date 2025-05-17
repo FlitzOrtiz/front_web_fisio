@@ -1,7 +1,6 @@
 <app-user-header></app-user-header>
 
 <div class="page-container">
-  <!-- Etapa 1 -->
   <div class="payment-box" *ngIf="step === 1">
     <div class="payment-header">
       <span class="logo">💳</span>
@@ -39,7 +38,6 @@
     <button class="continue" (click)="step = 2">Continuar</button>
   </div>
 
-  <!-- Etapa 2 -->
   <div class="payment-box" *ngIf="step === 2">
     <div class="payment-header">
       <span class="logo">💳</span>
@@ -70,7 +68,9 @@
         <span>Pagar a Mi Sitio</span>
         <span class="price">USD {{ price.toFixed(2) }}</span>
       </div>
-      <button class="pay-button">Pagar</button>
+      <button class="pay-button" (click)="step = 3">Pagar</button>
     </div>
   </div>
 </div>
+
+<app-payment-success *ngIf="step === 3"></app-payment-success>
