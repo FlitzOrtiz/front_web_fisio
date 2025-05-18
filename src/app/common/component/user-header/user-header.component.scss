@@ -1,3 +1,7 @@
+* {
+  // border: 1px solid black;
+}
+
 .user-header {
   display: flex;
   align-items: center;
@@ -22,19 +26,32 @@
 .search-container {
   flex: 1;
   max-width: 600px;
+  border-radius: 8px;
+  display: flex;
 }
 
 .search-input {
   width: 90%;
   padding: 0.6rem 1rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 8px 0 0 8px;
   font-size: 0.95rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+  }
+}
+
+.search-button {
+  border-radius: 0 8px 8px 0;
+  font-size: 1rem;
+  padding: 0.5rem 0.8rem;
+  border: none;
+  background: white;
+  color: var(--primary-color);
+
+  &:hover {
+    cursor: pointer;
   }
 }
 
