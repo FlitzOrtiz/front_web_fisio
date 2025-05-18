@@ -1,0 +1,76 @@
+<app-user-header></app-user-header>
+
+<div class="page-container">
+  <div class="payment-box" *ngIf="step === 1">
+    <div class="payment-header">
+      <span class="logo">💳</span>
+      <span class="domain">app.pruebasitio.com</span>
+    </div>
+
+    <h2>Completa tu compra</h2>
+
+    <div class="email-row">
+      <div class="avatar">J</div>
+      <div class="email">{{ email }}</div>
+      <button class="change-button">›</button>
+    </div>
+
+    <div class="payment-method">
+      <label>Forma de pago</label>
+      <div class="card-box">
+        <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" alt="Mastercard" />
+        <span>{{ selectedCard }}</span>
+        <button class="arrow">›</button>
+      </div>
+    </div>
+
+    <label class="checkbox-container">
+      <input type="checkbox" [(ngModel)]="receiveEmails" />
+      <span>Recibir correos con promociones y novedades</span>
+      <span class="info">ℹ️</span>
+    </label>
+
+    <div class="summary">
+      <span>Pagar a Mi Sitio</span>
+      <span class="price">USD {{ price.toFixed(2) }}</span>
+    </div>
+
+    <button class="continue" (click)="step = 2">Continuar</button>
+  </div>
+
+  <div class="payment-box" *ngIf="step === 2">
+    <div class="payment-header">
+      <span class="logo">💳</span>
+      <span class="domain">app.pruebasitio.com</span>
+    </div>
+
+    <h2>Confirmar pago</h2>
+
+    <div class="email-row">
+      <div class="avatar">J</div>
+      <div class="email">{{ email }}</div>
+      <button class="change-button">›</button>
+    </div>
+
+    <div class="payment-method">
+      <label>Forma de pago</label>
+      <div class="card-box">
+        <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" alt="Mastercard" />
+        <span>{{ selectedCard }}</span>
+        <button class="arrow">›</button>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="summary-footer">
+      <div class="summary">
+        <span>Pagar a Mi Sitio</span>
+        <span class="price">USD {{ price.toFixed(2) }}</span>
+      </div>
+      <button class="pay-button" (click)="step = 3">Pagar</button>
+    </div>
+  </div>
+</div>
+
+<app-payment-success *ngIf="step === 3"></app-payment-success>

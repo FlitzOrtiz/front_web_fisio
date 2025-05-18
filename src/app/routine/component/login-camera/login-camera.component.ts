@@ -1,30 +1,34 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login-camera',
   standalone: true,
-  imports: [CommonModule, FbuttonComponent],
+  imports: [FbuttonComponent, NgIf],
   templateUrl: './login-camera.component.html',
   styleUrls: ['./login-camera.component.scss']
 })
 export class LoginCameraComponent implements AfterViewInit {
+  cameraReady = false;
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngAfterViewInit(): void {
-    this.startCamera();
-  }
+    if (isPlatformBrowser(this.platformId)) {
+      const videoElement = document.getElementById('login-camera-video') as HTMLVideoElement;
 
-  async startCamera(): Promise<void> {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      const video = document.getElementById('login-camera-video') as HTMLVideoElement;
-      if (video) {
-        video.srcObject = stream;
-        video.play();
+      if (navigator.mediaDevices?.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then((stream) => {
+            videoElement.srcObject = stream;
+            videoElement.onloadedmetadata = () => {
+              videoElement.play();
+              this.cameraReady = true;
+            };
+          })
       }
-    } catch (error) {
-      alert('Error: No se pudo acceder a la cámara. Por favor, permite el acceso para continuar.');
     }
   }
 }

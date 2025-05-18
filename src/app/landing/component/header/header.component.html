@@ -2,24 +2,28 @@
   <div class="header-container">
     <nav class="navigation">
       <ul class="menu-items">
-        <li><a href="#">¿Qué es?</a></li>
-        <li><a href="#">¿Cómo funciona?</a></li>
-        <li><a href="#">Fisioterapeutas</a></li>
+        <li><a (click)="scrollTo('what-is')">¿Qué es?</a></li>
+        <li><a (click)="scrollTo('how-it-works')">¿Cómo funciona?</a></li>
+        <li><a (click)="scrollTo('library')">Ejercicios</a></li>
+        <li><a (click)="scrollTo('atention')">Telerehabilitación</a></li>
         <li><a href="#">Comentarios</a></li>
-        <li><a href="#">Q&A</a></li>
+        <li><a (click)="scrollTo('faq')">FAQ</a></li>
+        <li><a (click)="scrollTo('contact')">Contáctanos</a></li>
       </ul>
     </nav>
 
     <div class="auth-buttons">
-      <fbutton
+      <fbutton 
         [label]="'Iniciar Sesión'"
         [color]="'secondary'"
         [size]="'sm'"
+        [routeTo]="'/login'"
       ></fbutton>
-      <fbutton
+      <fbutton routerLink="/register"
         [label]="'Registrarse'"
         [color]="'primary'"
         [size]="'sm'"
+        [routeTo]="'/register'"
       ></fbutton>
     </div>
   </div>

@@ -1,11 +1,10 @@
 .container {
   background: var(--background-color);
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 4.7rem;
-  font-family: 'Arial', sans-serif;
 }
 
 .title {
@@ -73,7 +72,7 @@ form {
   }
 
   input {
-    width: 100%;
+    width: 95%;
     padding: 0.5rem;
     margin-top: 0.3rem;
     border: 1px solid #ccc;
@@ -120,13 +119,13 @@ form {
   }
 }
 
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
   .title {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .subtitle {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
   }
 
   .form-container {
@@ -139,10 +138,37 @@ form {
   }
 
   form input {
-    font-size: 1rem;
+    font-size: 0.7rem;
   }
 
   .login-text a {
-    font-size: 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1.6rem;
+  }
+
+  .form-container {
+    padding: 1.5rem;
+  }
+
+  .google-button {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+
+  form input {
+    font-size: 0.65rem;
+  }
+
+  .login-text a {
+    font-size: 0.9rem;
   }
 }

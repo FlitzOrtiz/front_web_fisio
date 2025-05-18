@@ -2,19 +2,59 @@
 <app-welcome></app-welcome>
 
 <div class="info-sections-container">
-  <app-info-section
-    *ngFor="let section of infoSections"
-    [title]="section.title"
-    [subtitle]="section.subtitle"
-    [description]="section.description"
-    [features]="section.features"
-    [imagePath]="section.imagePath"
-    [imageAlt]="section.imageAlt"
-    [imageOnRight]="section.imageOnRight"
-  >
-  </app-info-section>
+  <div id="what-is">
+    <app-info-section
+      [title]="infoSections[0].title"
+      [subtitle]="infoSections[0].subtitle"
+      [description]="infoSections[0].description"
+      [features]="infoSections[0].features"
+      [imagePath]="infoSections[0].imagePath"
+      [imageAlt]="infoSections[0].imageAlt"
+      [imageOnRight]="infoSections[0].imageOnRight"
+    ></app-info-section>
+  </div>
+
+  <div id="how-it-works">
+    <app-info-section
+      [title]="infoSections[1].title"
+      [subtitle]="infoSections[1].subtitle"
+      [description]="infoSections[1].description"
+      [features]="infoSections[1].features"
+      [imagePath]="infoSections[1].imagePath"
+      [imageAlt]="infoSections[1].imageAlt"
+      [imageOnRight]="infoSections[1].imageOnRight"
+    ></app-info-section>
+  </div>
+
+    <div id="library">
+    <app-info-section
+      [title]="infoSections[2].title"
+      [subtitle]="infoSections[2].subtitle"
+      [description]="infoSections[2].description"
+      [features]="infoSections[2].features"
+      [imagePath]="infoSections[2].imagePath"
+      [imageAlt]="infoSections[2].imageAlt"
+      [imageOnRight]="infoSections[2].imageOnRight"
+    ></app-info-section>
+  </div>
+
+  <div id="atention">
+    <app-info-section
+      [title]="infoSections[3].title"
+      [subtitle]="infoSections[3].subtitle"
+      [description]="infoSections[3].description"
+      [features]="infoSections[3].features"
+      [imagePath]="infoSections[3].imagePath"
+      [imageAlt]="infoSections[3].imageAlt"
+      [imageOnRight]="infoSections[3].imageOnRight"
+    ></app-info-section>
+  </div>
 </div>
 
-<app-faq-section></app-faq-section>
+<div id="faq">
+  <app-faq-section></app-faq-section>
+</div>
 
-<app-footer></app-footer>
+<div id="contact">
+  <app-footer></app-footer>
+</div>

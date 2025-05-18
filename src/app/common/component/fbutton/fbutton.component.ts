@@ -1,33 +1,42 @@
 import { Component, ElementRef, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'fbutton',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './fbutton.component.html',
   styleUrl: './fbutton.component.scss',
+  standalone: true
 })
 export class FbuttonComponent {
   @Input() label: string = '';
-  @Input() type: string = 'button'; // 'button', 'submit', 'reset'
-  @Input() color: string = 'primary'; // 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'
-  @Input() size: string = 'md'; // 'sm', 'md', 'lg'
-  @Input() disabled: boolean = false; // true or false
-  @Input() icon: string = ''; // FontAwesome icon name, e.g. 'fa-solid fa-check'
-  @Input() iconPosition: string = 'left'; // 'left', 'right'
-  @Input() loading: boolean = false; // true or false
-  @Input() loadingText: string = ''; // Text to show when loading
-  @Input() loadingIcon: string = 'fa-solid fa-spinner'; // FontAwesome icon name for loading state, e.g. 'fa-solid fa-spinner'
-  @Input() loadingIconPosition: string = 'left'; // 'left', 'right'
-  @Input() loadingSize: string = 'sm'; // 'sm', 'md', 'lg'
-  @Input() loadingColor: string = 'primary'; // 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'
-  @Input() loadingDisabled: boolean = false; // true or false
+  @Input() type: string = 'button';
+  @Input() color: string = 'primary';
+  @Input() size: string = 'md';
+  @Input() disabled: boolean = false;
+  @Input() icon: string = '';
+  @Input() iconPosition: string = 'left';
+  @Input() loading: boolean = false;
+  @Input() loadingText: string = '';
+  @Input() loadingIcon: string = 'fa-solid fa-spinner';
+  @Input() loadingIconPosition: string = 'left';
+  @Input() loadingSize: string = 'sm';
+  @Input() loadingColor: string = 'primary';
+  @Input() loadingDisabled: boolean = false;
+  @Input() routeTo: string | null = null;
+  @Input() onClick: (() => void) | null = null;
 
-  @Input() onClick: () => void = () => { }; // Function to call on button click
+  constructor(private el: ElementRef, private router: Router) {}
 
-  constructor(private el: ElementRef) { }
+  handleClick() {
+    if (this.onClick) {
+      this.onClick();
+    }
 
-  ngOnInit() {
-    // Initialize any properties or perform any setup here
+    if (this.routeTo) {
+      this.router.navigate([this.routeTo]);
+    }
   }
 }

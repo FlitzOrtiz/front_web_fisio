@@ -1,0 +1,91 @@
+.account-wrapper {
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+  background-color: var(--background-color);
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+app-configuration-menu {
+  width: 400px;
+
+  @media (max-width: 1024px) {
+    width: 280px;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    border-right: none;
+  }
+}
+
+.account-container {
+  flex: 1;
+  padding: 70px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+
+  .account-header h2 {
+    font-size: 38px;
+    font-weight: bold;
+    margin-bottom: 20px;
+
+    @media (max-width: 768px) {
+      text-align: center;
+    }
+  }
+
+  .account-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    .form-section {
+      label {
+        font-size: 20px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+
+        input[type='checkbox'] {
+          width: 20px;
+          height: 20px;
+          accent-color: var(--primary-button-color);
+        }
+
+        i {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+
+  .privacy-policies {
+    margin-top: 25px;
+
+    h2 {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .privacy-box {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      max-width: 800px;
+
+      p {
+        margin-bottom: 0px;
+        font-size: 16px;
+      }
+    }
+  }
+}
