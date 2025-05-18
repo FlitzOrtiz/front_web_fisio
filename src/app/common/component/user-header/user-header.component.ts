@@ -1,10 +1,37 @@
 import { Component } from '@angular/core';
-import { FbuttonComponent } from '../fbutton/fbutton.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-user-header',
-  imports: [FbuttonComponent],
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './user-header.component.html',
   styleUrl: './user-header.component.scss',
 })
-export class UserHeaderComponent {}
+export class UserHeaderComponent {
+  searchQuery: string = '';
+
+  constructor(private router: Router) {}
+
+  search(): void {
+    // Implement your search functionality here
+    console.log('Searching for:', this.searchQuery);
+  }
+
+  toggleSidebar(): void {
+    // Implement sidebar toggle functionality
+    console.log('Toggle sidebar');
+  }
+
+  openUserMenu(): void {
+    // Implement user menu functionality
+    console.log('Open user menu');
+  }
+
+  openSettings(): void {
+    // Implement settings menu functionality
+    console.log('Open settings');
+  }
+}

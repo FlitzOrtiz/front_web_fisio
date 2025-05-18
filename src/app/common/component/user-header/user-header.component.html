@@ -1,13 +1,63 @@
-<header class="header">
-  <div class="menu-icon" aria-label="Menu">
-    <fbutton [label]="''" [icon]="'fa-solid fa-bars'"></fbutton>
-    <h2>El Chueco</h2>
+<header class="user-header">
+  <div class="header-left">
+    <button
+      class="menu-toggle"
+      (click)="toggleSidebar()"
+      aria-label="Toggle menu"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    <h1 class="app-title">El Chueco</h1>
   </div>
-  <div class="search-bar">
-    <input type="text" id="search-input" placeholder="Buscar" />
+
+  <div class="search-container">
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      placeholder="Search for resources, reports or patients"
+      class="search-input"
+      (keyup.enter)="search()"
+    />
   </div>
-  <div class="user-profile" aria-label="User Profile">
-    <fbutton [label]="''" [icon]="'fa-solid fa-ellipsis-vertical'"></fbutton>
-    <img src="path-to-user-pfp.jpg" alt="User Profile Picture" />
+
+  <div class="header-right">
+    <button
+      class="action-button"
+      (click)="openSettings()"
+      aria-label="Settings"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="12" r="1"></circle>
+        <circle cx="12" cy="5" r="1"></circle>
+        <circle cx="12" cy="19" r="1"></circle>
+      </svg>
+    </button>
+    <button class="user-profile" (click)="openUserMenu()">
+      <img src="assets/user-ico.png" alt="User" class="profile-image" />
+    </button>
   </div>
 </header>
