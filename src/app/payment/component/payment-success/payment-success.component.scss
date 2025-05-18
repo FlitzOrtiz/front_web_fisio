@@ -62,7 +62,6 @@ h2 {
   box-sizing: border-box;
 }
 
-/* Ícono personalizado dentro del botón */
 ::ng-deep fbutton .custom-home-icon {
   background-image: url('/assets/home-ico.png');
   background-size: contain;
@@ -74,7 +73,6 @@ h2 {
   display: inline-block;
 }
 
-/* ✅ Responsive para pantallas menores a 480px */
 @media (max-width: 480px) {
   .success-container {
     padding: 2rem 1rem;

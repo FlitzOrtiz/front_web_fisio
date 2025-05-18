@@ -1,0 +1,174 @@
+.success-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3.9rem 1rem;
+  background-color: var(--background-color);
+  text-align: center;
+}
+
+.summary-card {
+  background-color:  var(--background-color);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0);
+  width: 100%;
+  max-width: 1000px;
+}
+
+.success-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 1rem;
+}
+
+.message {
+  font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 2rem;
+}
+
+.summary-content {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.summary-box {
+  background: #fefefe;
+  border-radius: 1rem;
+  padding: 1.2rem;
+  flex: 1 1 300px;
+  max-height: 300px;
+  overflow: hidden;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollable-list {
+  max-height: 140px;
+  overflow-y: auto;
+  padding-right: 4px;
+  margin-top: 0.5rem;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #bbb;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+.exercise-scroll {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-right: 6px;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+
+.subtitle {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.rec-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.recommendation {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.metrics-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.metric-button {
+  background: #7a5be1;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.buttons {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.home-button {
+  padding: 0.1rem 1rem;
+}
+
+.refresh-button {
+  padding: 0.1rem 1rem;
+}
+
+::ng-deep fbutton .custom-home-icon {
+  background-image: url('/assets/home-ico.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+  margin-right: 1rem;
+  display: inline-block;
+}
+
+::ng-deep fbutton .refresh-icon {
+  background-image: url('/assets/Again.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+  margin-right: 1rem;
+  display: inline-block;
+}
+
+@media (max-width: 600px) {
+  .summary-content {
+    flex-direction: column;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+}
