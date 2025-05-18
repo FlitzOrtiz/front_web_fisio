@@ -1,7 +1,3 @@
-* {
-  // border: 1px solid black;
-}
-
 .user-header {
   display: flex;
   align-items: center;
@@ -25,7 +21,7 @@
 
 .search-container {
   flex: 1;
-  max-width: 600px;
+  max-width: 500px;
   border-radius: 8px;
   display: flex;
 }

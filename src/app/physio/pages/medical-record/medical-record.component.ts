@@ -24,7 +24,7 @@ export class MedicalRecordComponent {
   public patientRecords: PatientRecord[] = [
     {
       id: 1,
-      namePatient: 'Juan Perez Ramirez',
+      namePatient: 'Walter White',
       recordId: '#P-2023-001',
       diagnosis: 'Rehabilitación post-quirúrgica de rodilla',
       status: 'En tratamiento',
@@ -34,7 +34,7 @@ export class MedicalRecordComponent {
     },
     {
       id: 2,
-      namePatient: 'Juan Perez Ramirez',
+      namePatient: 'Walter White',
       recordId: '#P-2023-001',
       diagnosis: 'Rehabilitación post-quirúrgica de rodilla',
       status: 'En tratamiento',
@@ -44,7 +44,7 @@ export class MedicalRecordComponent {
     },
     {
       id: 3,
-      namePatient: 'Juan Perez Ramirez',
+      namePatient: 'Walter White',
       recordId: '#P-2023-001',
       diagnosis: 'Rehabilitación post-quirúrgica de rodilla',
       status: 'En tratamiento',
@@ -54,7 +54,7 @@ export class MedicalRecordComponent {
     },
     {
       id: 4,
-      namePatient: 'Juan Perez Ramirez',
+      namePatient: 'Walter White',
       recordId: '#P-2023-001',
       diagnosis: 'Rehabilitación post-quirúrgica de rodilla',
       status: 'En espera',

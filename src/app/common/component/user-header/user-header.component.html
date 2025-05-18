@@ -1,10 +1,12 @@
 <header class="user-header">
   <div class="header-left">
     <fbutton
+      id="menu-button"
       [color]="'action'"
       [size]="'none'"
       [isSquare]="true"
       icon="fa-solid fa-bars"
+      (onClick)="toggleSidebar()"
     ></fbutton>
     <h1 class="app-title">El Chueco</h1>
   </div>
@@ -17,7 +19,7 @@
       class="search-input"
       (keyup.enter)="search()"
     />
-    <button class="search-button">
+    <button class="search-button" (click)="search()">
       <i class="fa-solid fa-magnifying-glass"></i>
     </button>
   </div>
@@ -28,9 +30,12 @@
       [size]="'none'"
       [isSquare]="true"
       icon="fa-solid fa-ellipsis-vertical"
+      (onClick)="openSettings()"
     ></fbutton>
     <button class="user-profile" (click)="openUserMenu()">
       <img src="assets/user-ico.png" alt="User" class="profile-image" />
     </button>
   </div>
 </header>
+
+<app-menu-modal [isOpen]="isMenuOpen" (close)="closeMenu()"></app-menu-modal>

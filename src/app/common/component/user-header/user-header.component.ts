@@ -3,16 +3,24 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { FbuttonComponent } from '../fbutton/fbutton.component';
+import { MenuModalComponent } from '../menu-modal/menu-modal.component';
 
 @Component({
   selector: 'app-user-header',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, FbuttonComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    FbuttonComponent,
+    MenuModalComponent,
+  ],
   templateUrl: './user-header.component.html',
   styleUrl: './user-header.component.scss',
 })
 export class UserHeaderComponent {
   searchQuery: string = '';
+  isMenuOpen: boolean = false;
 
   constructor(private router: Router) {}
 
@@ -22,8 +30,12 @@ export class UserHeaderComponent {
   }
 
   toggleSidebar(): void {
-    // Implement sidebar toggle functionality
-    console.log('Toggle sidebar');
+    this.isMenuOpen = !this.isMenuOpen;
+    console.log('Menu open:', this.isMenuOpen);
+  }
+
+  closeMenu(): void {
+    this.isMenuOpen = false;
   }
 
   openUserMenu(): void {
