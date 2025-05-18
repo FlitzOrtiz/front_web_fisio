@@ -6,6 +6,9 @@
   color: white;
   height: 60px;
   padding: 0 0.8rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .header-left {
