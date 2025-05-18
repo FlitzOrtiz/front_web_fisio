@@ -1,0 +1,210 @@
+<div class="exercise-editor">
+  <div class="editor-header">
+    <h2>{{ exercise ? "Editar Ejercicio" : "Añadir Ejercicio" }}</h2>
+    <fbutton
+      label=""
+      size="sm"
+      [isSquare]="true"
+      [isTransparent]="true"
+      s
+      icon="fa-solid fa-xmark"
+      (onClick)="onCancel()"
+    ></fbutton>
+  </div>
+
+  <form [formGroup]="exerciseForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Nombre de la Rutina</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        class="form-control"
+        placeholder="Ej: Rehabilitación Lumbar Básica"
+      />
+      <div
+        *ngIf="
+          exerciseForm.get('name')?.invalid && exerciseForm.get('name')?.touched
+        "
+        class="error-message"
+      >
+        El nombre del ejercicio es obligatorio
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab-header">
+        <button
+          type="button"
+          class="tab-btn"
+          [class.active]="activeTab === 'youtube'"
+          (click)="setActiveTab('youtube')"
+        >
+          Youtube
+        </button>
+        <button
+          type="button"
+          class="tab-btn"
+          [class.active]="activeTab === 'upload'"
+          (click)="setActiveTab('upload')"
+        >
+          Subir
+        </button>
+        <button
+          type="button"
+          class="tab-btn"
+          [class.active]="activeTab === 'library'"
+          (click)="setActiveTab('library')"
+        >
+          Biblioteca
+        </button>
+      </div>
+
+      <div class="tab-content">
+        <div *ngIf="activeTab === 'youtube'" class="youtube-tab">
+          <div class="form-group">
+            <input
+              type="text"
+              formControlName="videoUrl"
+              class="form-control"
+              placeholder="Ej: https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            />
+          </div>
+        </div>
+
+        <div *ngIf="activeTab === 'upload'" class="upload-tab">
+          <div class="upload-area">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <p>
+              Arrastra y suelta un archivo de video o haz clic para seleccionar
+            </p>
+            <input type="file" accept="video/*" class="file-input" />
+          </div>
+        </div>
+
+        <div *ngIf="activeTab === 'library'" class="library-tab">
+          <div class="library-grid">
+            <p>No hay videos en la biblioteca</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col">
+        <label for="series">Series</label>
+        <input
+          type="number"
+          id="series"
+          formControlName="series"
+          class="form-control"
+          min="0"
+        />
+      </div>
+
+      <div class="form-group col">
+        <label for="repetitionsPerSeries">Repeticiones por Serie</label>
+        <input
+          type="number"
+          id="repetitionsPerSeries"
+          formControlName="repetitionsPerSeries"
+          class="form-control"
+          min="0"
+        />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="radio-options">
+        <label class="radio-label">
+          <input
+            type="radio"
+            [value]="false"
+            formControlName="withCompanion"
+            name="withCompanion"
+          />
+          Sin acompañamiento
+        </label>
+        <label class="radio-label">
+          <input
+            type="radio"
+            [value]="true"
+            formControlName="withCompanion"
+            name="withCompanion"
+          />
+          Con acompañamiento
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descripción</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        class="form-control"
+        rows="3"
+        placeholder="Describe el propósito y beneficios de este ejercicio"
+      ></textarea>
+    </div>
+
+    <div class="key-moments-section">
+      <div class="section-header">
+        <h3>Momento Clave</h3>
+        <fbutton
+          label="Añadir"
+          size="sm"
+          icon="fa-solid fa-plus"
+          (onClick)="addKeyMoment()"
+          class="add-btn"
+        ></fbutton>
+      </div>
+
+      <div class="key-moments-list" formArrayName="keyMoments">
+        <div
+          *ngFor="let moment of keyMomentsArray.controls; let i = index"
+          [formGroupName]="i"
+          class="key-moment-item"
+        >
+          <div class="time-input">
+            <i class="fa-regular fa-clock"></i>
+            <input
+              type="number"
+              formControlName="time"
+              class="form-control"
+              placeholder="12"
+            />
+          </div>
+          <input
+            type="text"
+            formControlName="description"
+            class="form-control description-input"
+            placeholder="Value"
+          />
+          <fbutton
+            label=""
+            size="sm"
+            icon="fa-solid fa-trash"
+            (onClick)="removeKeyMoment(i)"
+            class="remove-btn"
+          ></fbutton>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <fbutton
+        label="Cancelar"
+        size="md"
+        icon="fa-solid fa-xmark"
+        (onClick)="onCancel()"
+      ></fbutton>
+      <fbutton
+        label="Guardar"
+        size="md"
+        icon="fa-solid fa-floppy-disk"
+        (onClick)="saveExercise()"
+      ></fbutton>
+    </div>
+  </form>
+</div>

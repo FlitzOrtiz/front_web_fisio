@@ -1,0 +1,241 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 95vh;
+  max-height: 95vh;
+  background-color: var(--background-color);
+  padding: 1rem 2rem;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: var(--text-color);
+}
+
+/* Search and Filter */
+.search-filter-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  justify-content: space-between;
+}
+
+.search-box {
+  display: flex;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: white;
+}
+
+.filter-input {
+  padding: 8px 12px;
+  border: none;
+  font-size: 14px;
+  width: 200px;
+}
+
+.search-button {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--text-light);
+}
+
+.filter-checkboxes {
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  top: 100%;
+  right: 0;
+  width: max-content;
+  padding: 1rem;
+  background-color: var(--card-background-color);
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.filter-box {
+  position: relative;
+}
+
+.create-button,
+.search-filter-box {
+  gap: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.search-filter-box {
+  flex-grow: 1;
+}
+
+.create-button {
+  justify-content: right;
+}
+
+.create-button-inner {
+  width: min-content;
+}
+
+/* Records List */
+.records-container {
+  background-color: var(--card-color);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  max-height: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 16px;
+  margin: 0;
+  color: var(--text-color);
+}
+
+.hr-record {
+  margin: 0rem 1rem;
+  border: none;
+  height: 1px;
+  background-color: var(--border-color);
+}
+
+.records-list {
+  padding: 0;
+  overflow: auto;
+  flex-grow: 1;
+}
+
+.record-card {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.record-star {
+  margin-right: 16px;
+  cursor: pointer;
+  width: 24px;
+  text-align: center;
+}
+
+.record-star i {
+  color: #bdbdbd;
+}
+
+.record-star i.fa-solid.fa-star {
+  color: var(--primary-color);
+}
+
+.record-info {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.record-id-tile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.record-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+  margin-bottom: 4px;
+  color: var(--text-color);
+}
+
+.record-id {
+  font-size: 12px;
+  color: var(--text-light);
+  margin: 0 0 4px 0;
+}
+
+.record-description {
+  font-size: 14px;
+  color: var(--text-color);
+  margin: 0 0 8px 0;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+
+  &.treatment {
+    background-color: var(--primary-color);
+  }
+
+  &.waiting {
+    background-color: var(--secondary-button-border-color-hover);
+  }
+}
+
+.record-details {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  margin-right: 16px;
+  min-width: 150px;
+  flex-grow: 1;
+  justify-self: center;
+}
+
+.record-routines {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-color);
+  width: fit-content;
+}
+
+.record-updated {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 4px;
+  width: fit-content;
+}
+
+.record-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Para que coincida con el diseño de la imagen */
+:host ::ng-deep {
+  .fbutton-square {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 4px !important;
+    background-color: var(--primary-color) !important;
+    color: white !important;
+
+    &:hover {
+      background-color: var(--primary-dark) !important;
+    }
+  }
+
+  .fbutton-md {
+    padding: 8px 16px !important;
+  }
+
+  .fbutton-sm {
+    padding: 6px !important;
+  }
+}

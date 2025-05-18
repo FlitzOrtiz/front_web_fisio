@@ -1,0 +1,87 @@
+<div class="modal" *ngIf="show">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Mis Rutinas</h2>
+      <button class="close-button" (click)="closeModal()">×</button>
+    </div>
+
+    <div class="modal-body">
+      <!-- Filtros -->
+      <div class="filters">
+        <div class="search-container">
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Buscar rutinas..."
+            [(ngModel)]="searchTerm"
+          />
+          <i class="fa-solid fa-search search-icon"></i>
+        </div>
+
+        <div class="filter-options">
+          <label class="filter-option">
+            <input type="checkbox" [(ngModel)]="filterFavorites" />
+            <span>Solo favoritos</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Lista de rutinas -->
+      <div class="routines-list">
+        <ng-container *ngIf="filteredRoutines.length > 0; else noRoutines">
+          <div class="routine-item" *ngFor="let routine of filteredRoutines">
+            <div
+              class="routine-star"
+              (click)="handleToggleFavorite(routine.id)"
+            >
+              <i
+                [ngClass]="{
+                  'fa-solid': routine.isfavorite,
+                  'fa-regular': !routine.isfavorite
+                }"
+                class="fa-star"
+              ></i>
+            </div>
+
+            <div class="routine-info">
+              <h4>{{ routine.name }}</h4>
+              <p>{{ routine.description }}</p>
+            </div>
+
+            <div class="routine-details">
+              <div class="routine-duration">
+                {{ routine.estimateduration }} min
+              </div>
+              <div class="routine-exercises">
+                {{ routine.exercises?.length }} ejercicios
+              </div>
+            </div>
+
+            <fbutton
+              [icon]="'fa-solid fa-plus'"
+              [size]="'sm'"
+              [isSquare]="true"
+              (onClick)="handleSelectRoutine(routine.id)"
+            ></fbutton>
+          </div>
+        </ng-container>
+
+        <ng-template #noRoutines>
+          <div class="no-routines">
+            <i class="fa-solid fa-folder-open no-data-icon"></i>
+            <p>No se encontraron rutinas</p>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <fbutton
+        [label]="'Cerrar'"
+        [type]="'secondary'"
+        [size]="'md'"
+        (onClick)="closeModal()"
+      ></fbutton>
+    </div>
+  </div>
+</div>

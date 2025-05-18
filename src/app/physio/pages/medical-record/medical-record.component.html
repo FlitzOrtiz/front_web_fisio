@@ -1,0 +1,99 @@
+<div class="container">
+  <h1 class="page-title">Mis Fichas</h1>
+
+  <!-- Search and Filter -->
+  <div class="search-filter-container">
+    <div class="search-filter-box">
+      <div class="search-box">
+        <input type="text" placeholder="Value" class="filter-input" />
+        <button class="search-button">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+      <div class="filter-box">
+        <fbutton
+          size="sm"
+          [isSquare]="true"
+          icon="fa-solid fa-filter"
+          (onClick)="openFilter()"
+        ></fbutton>
+        <div #filterpanel class="filter-checkboxes">
+          <label>
+            <input type="checkbox" />
+            En tratamiento
+          </label>
+          <label>
+            <input type="checkbox" />
+            En espera
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="create-button">
+      <div class="create-button-inner">
+        <fbutton
+          label="Nuevo"
+          size="md"
+          icon="fa-solid fa-plus"
+          routeTo="/patientrecord"
+        ></fbutton>
+      </div>
+    </div>
+  </div>
+
+  <!-- Patient Records List -->
+  <div class="records-container">
+    <h2 class="section-title">Favoritos</h2>
+    <hr class="hr-record" />
+
+    <div class="records-list">
+      <div class="record-card" *ngFor="let record of patientRecords">
+        <div class="record-info">
+          <div class="record-id-tile">
+            <h3 class="record-title">{{ record.namePatient }}</h3>
+            <p class="record-id">{{ record.recordId }}</p>
+          </div>
+          <p class="record-description">{{ record.diagnosis }}</p>
+          <div
+            class="status-badge"
+            [ngClass]="
+              record.status === 'En tratamiento' ? 'treatment' : 'waiting'
+            "
+          >
+            {{ record.status }}
+          </div>
+        </div>
+
+        <div class="record-details">
+          <div class="record-routines">
+            {{ record.assignedRoutines }} rutinas asignadas
+          </div>
+          <div class="record-updated">
+            Actualizado: {{ record.lastUpdate | date : "dd/MM/yyyy" }}
+          </div>
+        </div>
+
+        <div class="record-actions">
+          <fbutton
+            size="sm"
+            [isSquare]="true"
+            icon="fa-solid fa-pen-to-square"
+            (onClick)="editRecord(record.id)"
+          ></fbutton>
+          <fbutton
+            size="sm"
+            [isSquare]="true"
+            icon="fa-solid fa-share-nodes"
+            (onClick)="shareRecord(record.id)"
+          ></fbutton>
+          <fbutton
+            size="sm"
+            [isSquare]="true"
+            icon="fa-solid fa-trash"
+            (onClick)="deleteRecord(record.id)"
+          ></fbutton>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="card-header">
+  <div *ngIf="icon" class="icon-container" [class.icon-only]="!title">
+    <i [class]="icon + ' left-icon'"></i>
+  </div>
+  <h3 *ngIf="title">{{ title }}</h3>
+  <fbutton
+    class="close-btn"
+    [icon]="'fa-solid fa-xmark'"
+    (click)="onClose()"
+  ></fbutton>
+</div>
