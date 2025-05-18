@@ -13,20 +13,68 @@
   width: 100%;
 }
 
-.btn:hover {
-  transition: background-color 0.3s ease, color 0.3s ease;
-  background-color: var(--primary-button-hover-color);
-  color: var(--primary-button-text-color);
-}
-
 .primary {
   background-color: var(--primary-button-color);
   color: var(--primary-button-text-color);
 }
 
+.primary:hover {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: var(--primary-button-hover-color);
+  color: var(--primary-button-text-color);
+}
+
 .secondary {
+  background-color: var(--primary-color);
+  color: var(--primary-button-text-color);
+}
+
+.secondary:hover {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: var(--primary-button-color);
+  color: var(--primary-button-text-color);
+}
+
+.tertiary {
+  background-color: var(--card-background-color);
+  color: var(--secondary-button-text-color);
+}
+
+.tertiary:hover {
+  transition: background-color 0.3s ease, color 0.3s ease;
   background-color: var(--secondary-button-color);
   color: var(--secondary-button-text-color);
+}
+
+.quaternary {
+  background-color: var(--secondary-button-color);
+  color: var(--secondary-button-text-color);
+}
+
+.quaternary:hover {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: var(--primary-button-color);
+  color: var(--primary-button-text-color);
+}
+
+.square-sm {
+  width: 32px;
+}
+
+.square-md {
+  width: 38px;
+}
+
+.square-lg {
+  width: 45px;
+}
+
+.sm,
+.md,
+.lg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sm {
@@ -37,7 +85,7 @@
 
 .md {
   font-size: 1rem;
-  padding: 0.5rem 2.5rem;
+  padding: 0.5rem 1.5rem;
   height: 38px;
 }
 
@@ -58,4 +106,20 @@
 [disabled] {
   opacity: 0.65;
   cursor: not-allowed;
+}
+
+.selected-primary {
+  background-color: var(--secondary-button-color);
+  color: var(--secondary-button-text-color);
+}
+
+.selected-quaternary {
+  background-color: var(--primary-button-color);
+  color: var(--primary-button-text-color);
+}
+
+.transparent {
+  background-color: transparent;
+  color: var(--primary-button-color);
+  box-shadow: none;
 }

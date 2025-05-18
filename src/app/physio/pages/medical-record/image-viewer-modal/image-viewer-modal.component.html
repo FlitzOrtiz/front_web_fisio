@@ -1,0 +1,51 @@
+<div
+  class="image-viewer-modal"
+  *ngIf="show"
+  (keydown)="handleKeydown($event)"
+  tabindex="0"
+>
+  <div class="image-viewer-content">
+    <button class="close-button" (click)="closeViewer()">
+      <i class="fa-solid fa-times"></i>
+    </button>
+
+    <div
+      class="image-container"
+      [class.zoomed]="isZoomed"
+      (click)="toggleZoom()"
+    >
+      <img
+        *ngIf="image"
+        [src]="image.photoUrl"
+        [alt]="image.description"
+        class="full-image"
+      />
+    </div>
+
+    <div class="image-info" *ngIf="image">
+      <div class="image-time">{{ image.videoTimestamp }}</div>
+      <div class="image-description">{{ image.description }}</div>
+    </div>
+
+    <div class="navigation-controls" *ngIf="images.length > 1">
+      <button class="nav-button prev-button" (click)="prevImage()">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <div class="image-counter">
+        {{ currentIndex + 1 }} / {{ images.length }}
+      </div>
+      <button class="nav-button next-button" (click)="nextImage()">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <div class="viewer-controls">
+      <button class="control-button" (click)="toggleZoom()">
+        <i
+          class="fa-solid"
+          [ngClass]="isZoomed ? 'fa-search-minus' : 'fa-search-plus'"
+        ></i>
+      </button>
+    </div>
+  </div>
+</div>

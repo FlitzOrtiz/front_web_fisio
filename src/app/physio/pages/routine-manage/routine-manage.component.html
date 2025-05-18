@@ -1,0 +1,101 @@
+<div class="container">
+  <h1 class="page-title">Mis Rutinas</h1>
+
+  <!-- Search and Filter -->
+  <div class="search-filter-container">
+    <div class="search-filter-box">
+      <div class="search-box">
+        <input type="text" placeholder="Value" class="filter-input" />
+        <button class="search-button">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+      <div class="filter-box">
+        <fbutton
+          size="md"
+          [isSquare]="true"
+          icon="fa-solid fa-filter"
+          (onClick)="openFilter()"
+        ></fbutton>
+        <div #filterpanel class="filter-checkboxes">
+          <label>
+            <input type="checkbox" />
+            Favoritos
+          </label>
+          <label>
+            <input type="checkbox" />
+            Asignados
+          </label>
+          <label>
+            <input type="checkbox" />
+            Activos
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="create-button">
+      <div class="create-button-inner">
+        <fbutton
+          label="Nuevo"
+          size="md"
+          icon="fa-solid fa-plus"
+          routeTo="/routinecreator"
+        ></fbutton>
+      </div>
+    </div>
+  </div>
+
+  <!-- Routines List -->
+  <div class="routines-container">
+    <h2 class="section-title">Favoritos</h2>
+    <hr class="hr-routine" />
+
+    <div class="routines-list">
+      <div class="routine-card" *ngFor="let routine of routineList">
+        <div class="routine-star">
+          <i
+            [ngClass]="{
+              'fa-solid': routine.isfavorite,
+              'fa-star': true,
+              'fa-regular': !routine.isfavorite
+            }"
+            (click)="toggleFavorite(routine.id)"
+          ></i>
+        </div>
+
+        <div class="routine-info">
+          <h3 class="routine-title">{{ routine.name }}</h3>
+          <p class="routine-description">{{ routine.description }}</p>
+        </div>
+
+        <div class="routine-details">
+          <div class="routine-duration">{{ routine.estimateduration }} min</div>
+          <div class="routine-exercises">
+            {{ routine.exercises?.length || 0 }} ejercicios
+          </div>
+        </div>
+
+        <div class="routine-actions">
+          <fbutton
+            size="sm"
+            [isSquare]="true"
+            icon="fa-solid fa-pen-to-square"
+            (onClick)="editRoutine(routine.id)"
+          ></fbutton>
+          <fbutton
+            size="sm"
+            [isSquare]="true"
+            icon="fa-solid fa-user-plus"
+            (onClick)="assignRoutine(routine.id)"
+          ></fbutton>
+          <fbutton
+            size="sm"
+            [isSquare]="true"
+            icon="fa-solid fa-trash"
+            (onClick)="deleteRoutine(routine.id)"
+          ></fbutton>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

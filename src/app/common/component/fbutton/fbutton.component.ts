@@ -1,4 +1,10 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -8,16 +14,19 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, RouterModule],
   templateUrl: './fbutton.component.html',
   styleUrl: './fbutton.component.scss',
-  standalone: true
+  standalone: true,
 })
 export class FbuttonComponent {
   @Input() label: string = '';
   @Input() type: string = 'button';
   @Input() color: string = 'primary';
-  @Input() size: string = 'md';
+  @Input() size: 'sm' | 'md' | 'lg' = 'md';
   @Input() disabled: boolean = false;
+  @Input() classSelected: boolean = false;
   @Input() icon: string = '';
   @Input() iconPosition: string = 'left';
+  @Input() isSquare: boolean = false;
+  @Input() isTransparent: boolean = false;
   @Input() loading: boolean = false;
   @Input() loadingText: string = '';
   @Input() loadingIcon: string = 'fa-solid fa-spinner';
@@ -26,13 +35,14 @@ export class FbuttonComponent {
   @Input() loadingColor: string = 'primary';
   @Input() loadingDisabled: boolean = false;
   @Input() routeTo: string | null = null;
-  @Input() onClick: (() => void) | null = null;
+
+  @Output() onClick = new EventEmitter<any>();
 
   constructor(private el: ElementRef, private router: Router) {}
 
   handleClick() {
     if (this.onClick) {
-      this.onClick();
+      this.onClick.emit();
     }
 
     if (this.routeTo) {

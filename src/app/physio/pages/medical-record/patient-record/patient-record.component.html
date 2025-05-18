@@ -1,0 +1,355 @@
+<div class="container">
+  <div class="header">
+    <h1 class="record-title">Ficha #{{ patient.recordId }}</h1>
+    <div class="action-buttons">
+      <fbutton
+        size="sm"
+        [isSquare]="true"
+        icon="fa-solid fa-pen-to-square"
+        (onClick)="cancel()"
+      ></fbutton>
+      <fbutton
+        size="sm"
+        [isSquare]="true"
+        icon="fa-solid fa-pen-to-square"
+        (onClick)="save()"
+      ></fbutton>
+    </div>
+  </div>
+
+  <div class="record-content">
+    <!-- Columna izquierda - Información del paciente -->
+    <div class="patient-info">
+      <div class="form-group">
+        <label for="fullName">Nombre completo</label>
+        <input
+          type="text"
+          id="fullName"
+          class="form-control"
+          [(ngModel)]="patient.namePatient"
+          placeholder="Ej: Juan Perez Ramirez"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="identification">Cédula</label>
+        <input
+          type="text"
+          id="identification"
+          class="form-control"
+          [(ngModel)]="patient.identification"
+          placeholder="Ej: 0101010202"
+        />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-6">
+          <label for="age">Edad</label>
+          <input
+            type="number"
+            id="age"
+            class="form-control"
+            [(ngModel)]="patient.age"
+            min="0"
+          />
+        </div>
+        <div class="form-group col-6">
+          <label for="sex">Sexo</label>
+          <select id="sex" class="form-control" [(ngModel)]="patient.sex">
+            <option [value]="Sex.Masculino">Masculino</option>
+            <option [value]="Sex.Femenino">Femenino</option>
+            <option [value]="Sex.Otro">Otro</option>
+            <option [value]="Sex.NoEspecificado">No Especificado</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-6">
+          <label for="phone">Teléfono</label>
+          <input
+            type="tel"
+            id="phone"
+            class="form-control"
+            [(ngModel)]="patient.telephone"
+            placeholder="Ej: 0990401499 o 2380078"
+          />
+        </div>
+        <div class="form-group col-6">
+          <label for="email">Correo</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            [(ngModel)]="patient.email"
+            placeholder="Ej: ejemplo@correo.com"
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Cirugías previas:</label>
+        <div class="radio-group">
+          <label class="radio-inline">
+            <input
+              type="radio"
+              name="hasPreviousSurgeries"
+              [value]="true"
+              [(ngModel)]="patient.hasPreviousInjuries"
+            />
+            Sí
+          </label>
+          <label class="radio-inline">
+            <input
+              type="radio"
+              name="hasPreviousSurgeries"
+              [value]="false"
+              [(ngModel)]="patient.hasPreviousInjuries"
+            />
+            No
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group" *ngIf="patient.hasPreviousInjuries">
+        <label for="previousSurgeries">Especifique:</label>
+        <input
+          type="text"
+          id="previousSurgeries"
+          class="form-control"
+          [(ngModel)]="patient.previousInjuries"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Enfermedades crónicas:</label>
+        <div class="checkbox-group">
+          <label class="checkbox-inline">
+            <input
+              type="checkbox"
+              [checked]="patient.chronicDiseases?.includes('diabetes')"
+              (change)="onChronicDiseaseChange('diabetes', $event)"
+            />
+            Diabetes
+          </label>
+          <label class="checkbox-inline">
+            <input
+              type="checkbox"
+              [checked]="patient.chronicDiseases?.includes('hypertension')"
+              (change)="onChronicDiseaseChange('hypertension', $event)"
+            />
+            Hipertensión
+          </label>
+          <label class="checkbox-inline">
+            <input
+              type="checkbox"
+              [checked]="patient.chronicDiseases?.includes('asthma')"
+              (change)="onChronicDiseaseChange('asthma', $event)"
+            />
+            Asma
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="otherChronicDiseases">Otra</label>
+        <input type="text" id="otherChronicDiseases" class="form-control" />
+      </div>
+    </div>
+
+    <!-- Columna derecha - Información de fisioterapia -->
+    <div class="therapy-info">
+      <h2>Información de Fisioterapia</h2>
+
+      <div class="form-group">
+        <label>Zona afectada:</label>
+        <div class="badge-group">
+          <div class="badge-container">
+            <span class="badge badge-primary">Lumbar</span>
+            <fbutton
+              size="sm"
+              [isSquare]="true"
+              icon="fa-solid fa-pen-to-square"
+              (onClick)="removeAffectedZone('Lumbar')"
+            ></fbutton>
+          </div>
+          <div class="badge-container">
+            <span class="badge badge-primary">Cervical</span>
+            <fbutton
+              size="sm"
+              [isSquare]="true"
+              icon="fa-solid fa-pen-to-square"
+              (onClick)="removeAffectedZone('Cervical')"
+            ></fbutton>
+          </div>
+        </div>
+        <fbutton
+          size="sm"
+          [isSquare]="true"
+          icon="fa-solid fa-pen-to-square"
+          (onClick)="showZoneSelector()"
+        ></fbutton>
+
+        <!-- Selector de zona (se muestra al hacer clic en +) -->
+        <div class="zone-selector" *ngIf="showingZoneSelector">
+          <div class="zone-option" (click)="addAffectedZone('Cuello')">
+            Cuello
+          </div>
+          <div class="zone-option" (click)="addAffectedZone('Columna')">
+            Columna
+          </div>
+          <div class="zone-option" (click)="addAffectedZone('Cadera')">
+            Cadera
+          </div>
+          <div class="zone-option" (click)="addAffectedZone('Otro')">Otro</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Tipo de lesión:</label>
+        <div class="badge-group">
+          <div class="badge-container">
+            <span class="badge badge-secondary">Neurológica</span>
+            <fbutton
+              size="sm"
+              [isSquare]="true"
+              icon="fa-solid fa-pen-to-square"
+              (onClick)="removeLesionType('Neurológica')"
+            ></fbutton>
+          </div>
+          <div class="badge-container">
+            <span class="badge badge-secondary">Postquirúrgica</span>
+            <fbutton
+              size="sm"
+              [isSquare]="true"
+              icon="fa-solid fa-pen-to-square"
+              (onClick)="removeLesionType('Postquirúrgica')"
+            ></fbutton>
+          </div>
+        </div>
+        <fbutton
+          size="sm"
+          [isSquare]="true"
+          icon="fa-solid fa-pen-to-square"
+          (onClick)="showLesionTypeSelector()"
+        ></fbutton>
+      </div>
+
+      <div class="form-group">
+        <label for="symptomStartDate">Fecha de inicio de la molestia</label>
+        <input
+          type="date"
+          id="symptomStartDate"
+          class="form-control"
+          [(ngModel)]="symptomStartDateStr"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="painLevel">Dolor</label>
+        <div class="pain-slider-container">
+          <input
+            type="range"
+            id="painLevel"
+            min="0"
+            max="10"
+            step="1"
+            [(ngModel)]="patient.painLevel"
+          />
+          <span class="pain-level">{{ patient.painLevel }}</span>
+          <div class="pain-scale">
+            <span>0</span>
+            <span>10</span>
+          </div>
+        </div>
+        <div class="pain-label">Intensidad del dolor</div>
+      </div>
+
+      <div class="form-group">
+        <label for="medicalDiagnosis">Diagnóstico médico</label>
+        <textarea
+          id="medicalDiagnosis"
+          class="form-control"
+          rows="4"
+          [(ngModel)]="patient.medicalDiagnosis"
+          placeholder="Describa los dolencias y tratamientos"
+        ></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección de rutinas asignadas -->
+  <div class="assigned-routines">
+    <div class="section-header">
+      <h2>Rutinas Asignadas</h2>
+      <fbutton
+        size="sm"
+        [isSquare]="true"
+        icon="fa-solid fa-pen-to-square"
+        (onClick)="openRoutinesModal()"
+      ></fbutton>
+    </div>
+
+    <div class="routines-list">
+      <div
+        class="routine-item"
+        *ngFor="let routine of patient.sessionRoutine; let i = index"
+      >
+        <div class="routine-status">
+          <i
+            class="fa-solid"
+            [ngClass]="{
+              'fa-check-circle': !routine.isActive,
+              'fa-clock': routine.isActive
+            }"
+          ></i>
+        </div>
+        <div class="routine-info">
+          <h3 class="routine-title">{{ routine.id }}</h3>
+          <p class="routine-description">{{ routine.id }}</p>
+        </div>
+        <div class="routine-details">
+          <div class="routine-duration">{{ routine.id }} min</div>
+          <div class="routine-exercises">{{ routine.id }} ejercicios</div>
+        </div>
+        <div class="routine-actions">
+          <fbutton
+            size="sm"
+            [isSquare]="true"
+            icon="fa-solid fa-pen-to-square"
+            (onClick)="viewRoutineDetails(routine.id)"
+          ></fbutton>
+          <fbutton
+            size="sm"
+            [isSquare]="true"
+            icon="fa-solid fa-pen-to-square"
+            (onClick)="openResultsModal(routine.id)"
+          ></fbutton>
+          <fbutton
+            size="sm"
+            [isSquare]="true"
+            icon="fa-solid fa-pen-to-square"
+            (onClick)="removeRoutine(i)"
+          ></fbutton>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para seleccionar rutinas -->
+<app-routines-modal
+  [show]="showRoutinesModal"
+  [routines]="availableRoutines"
+  (close)="closeRoutinesModal()"
+  (selectRoutine)="selectRoutine($event)"
+></app-routines-modal>
+
+<!-- Modal para detalles de resultados -->
+<app-result-details-modal
+  [show]="showResultsModal"
+  [routineId]="selectedRoutineId"
+  [routineName]="selectedRoutineName"
+  (close)="closeResultsModal()"
+  (save)="saveResult($event)"
+></app-result-details-modal>

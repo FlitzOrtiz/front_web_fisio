@@ -11,6 +11,12 @@ import { PrivacyComponent } from './physio/pages/privacy/privacy.component';
 import { ChangePasswordComponent } from './physio/pages/change-password/change-password.component';
 import { PayComponent } from './payment/pages/pay/pay.component';
 import { AccountPaymentComponent } from './payment/pages/account-payment/account-payment.component';
+
+import { RoutineManageComponent } from './physio/pages/routine-manage/routine-manage.component';
+import { RoutineCreatorComponent } from './physio/pages/routine-manage/routine-creator/routine-creator.component';
+import { MedicalRecordComponent } from './physio/pages/medical-record/medical-record.component';
+import { PatientRecordComponent } from './physio/pages/medical-record/patient-record/patient-record.component';
+
 import { ExerciseComponent } from './routine/pages/exercise/exercise.component';
 
 export const routes: Routes = [
@@ -22,10 +28,16 @@ export const routes: Routes = [
   { path: 'login/camera', component: LoginCameraComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'game/counter', component: GameCounterComponent },
-  { path : 'account', component: AccountComponent },
-  { path : 'privacy', component: PrivacyComponent },
-  { path : 'change/password', component: ChangePasswordComponent },
-  { path : 'payment', component: PayComponent },
-  { path : 'account/payment', component: AccountPaymentComponent },
-  { path : 'exercise', component: ExerciseComponent },
+
+  { path: 'account', component: AccountComponent },
+  { path: 'privacy', component: PrivacyComponent },
+  { path: 'change/password', component: ChangePasswordComponent },
+  { path: 'payment', component: PayComponent },
+  { path: 'account/payment', component: AccountPaymentComponent },
+  { path: 'routinemanage', component: RoutineManageComponent },
+  { path: 'routinecreator', component: RoutineCreatorComponent },
+  { path: 'routinecreator/:id', component: RoutineCreatorComponent },
+  { path: 'medicalrecordmanage', component: MedicalRecordComponent },
+  { path: 'patientrecord', component: PatientRecordComponent },
+  { path: 'exercise', component: ExerciseComponent },
 ];
