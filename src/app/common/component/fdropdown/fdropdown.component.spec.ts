@@ -10,7 +10,7 @@ describe('FdropdownComponent', () => {
     await TestBed.configureTestingModule({
       imports: [FdropdownComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(FdropdownComponent);
     component = fixture.componentInstance;
