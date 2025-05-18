@@ -1,0 +1,211 @@
+<div class="routine-creator">
+  <div class="header">
+    <h1>Prepara tu espacio para el ejercicio</h1>
+    <div class="actions">
+      <fbutton
+        label="Cancelar"
+        size="md"
+        color="secondary"
+        icon="fa-solid fa-xmark"
+        routeTo="/routinemanage"
+      ></fbutton>
+      <fbutton
+        label="Guardar"
+        size="md"
+        color="tertiary"
+        icon="fa-solid fa-floppy-disk"
+        (onClick)="saveRoutine()"
+      ></fbutton>
+    </div>
+  </div>
+
+  <div class="content">
+    <form [formGroup]="routineForm" class="routine-form">
+      <div class="form-group">
+        <label for="name">Nombre de la Rutina</label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          class="form-control"
+          placeholder="Ej: Rehabilitación Lumbar Básica"
+        />
+        <div
+          *ngIf="
+            routineForm.get('name')?.invalid && routineForm.get('name')?.touched
+          "
+          class="error-message"
+        >
+          El nombre de la rutina es obligatorio
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="category">Categoría</label>
+        <input
+          type="text"
+          id="category"
+          formControlName="category"
+          class="form-control"
+          placeholder="Ej: Lumbar, Rodilla, Hombro"
+        />
+        <div
+          *ngIf="
+            routineForm.get('category')?.invalid &&
+            routineForm.get('category')?.touched
+          "
+          class="error-message"
+        >
+          La categoría es obligatoria
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          class="form-control"
+          rows="4"
+          placeholder="Describe el propósito y beneficios de esta rutina"
+        ></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="difficulty">Dificultad</label>
+          <select
+            id="difficulty"
+            formControlName="difficulty"
+            class="form-control"
+          >
+            <option
+              *ngFor="let difficulty of difficulties"
+              [value]="difficulty"
+            >
+              {{ difficulty }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group col">
+          <label for="estimatedDuration">Duración Estimada</label>
+          <input
+            type="number"
+            id="estimatedDuration"
+            formControlName="estimatedDuration"
+            class="form-control"
+            min="0"
+          />
+        </div>
+
+        <div class="form-group col">
+          <label for="targetArea">Área Objetivo</label>
+          <select
+            id="targetArea"
+            formControlName="targetArea"
+            class="form-control"
+          >
+            <option *ngFor="let area of targetAreas" [value]="area">
+              {{ area }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group weeks">
+        <label for="weeks">Semanas</label>
+        <input
+          type="number"
+          id="weeks"
+          formControlName="weeks"
+          class="form-control"
+          placeholder="Solo números enteros"
+          min="1"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Días</label>
+        <div class="weekdays">
+          <ng-container *ngFor="let day of weekdays; let i = index">
+            <fbutton
+              label="{{ day.code }}"
+              size="sm"
+              color="quaternary"
+              [classSelected]="daysFormArray.at(i).value"
+              (onClick)="toggleDay(i)"
+            ></fbutton>
+          </ng-container>
+        </div>
+      </div>
+    </form>
+
+    <div class="exercises-section">
+      <div class="exercises-header">
+        <h2>Ejercicios</h2>
+        <div class="exercises-summary">
+          <span>{{ exercises.length }} ejercicios</span>
+          <span>•</span>
+          <span>{{ totalDuration / 60 }} minutos en total</span>
+        </div>
+        <fbutton
+          label="Añadir"
+          size="md"
+          icon="fa-solid fa-plus"
+          (onClick)="openAddExerciseModal()"
+        ></fbutton>
+      </div>
+
+      <div class="exercises-list">
+        <div
+          *ngFor="let exercise of exercises; let i = index"
+          class="exercise-card"
+        >
+          <div class="exercise-image">
+            <img [src]="exercise.videoUrl" [alt]="exercise.name" />
+          </div>
+          <div class="exercise-info">
+            <h3>{{ exercise.name }}</h3>
+            <div class="exercise-details">
+              <span>{{ exercise.id }}</span>
+              <span>•</span>
+              <span>{{ exercise.repetitions }} series</span>
+            </div>
+            <p>{{ exercise.description }}</p>
+          </div>
+          <div class="exercise-actions">
+            <fbutton
+              size="sm"
+              [isSquare]="true"
+              icon="fa-solid fa-pen"
+              (onClick)="openEditExerciseModal(i)"
+            ></fbutton>
+          </div>
+        </div>
+
+        <div class="add-exercise-card" (click)="openAddExerciseModal()">
+          <div class="add-icon">
+            <i class="fa-solid fa-plus"></i>
+          </div>
+          <div class="add-text">
+            <h3>Añadir Ejercicio</h3>
+            <p>Agrega un nuevo ejercicio a la rutina</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para editar ejercicio -->
+  <div class="modal" *ngIf="showExerciseModal">
+    <div class="modal-backdrop" (click)="closeExerciseModal()"></div>
+    <div class="modal-content">
+      <app-exercise-editor
+        [exercise]="currentExercise"
+        (save)="saveExercise($event)"
+        (cancel)="closeExerciseModal()"
+      ></app-exercise-editor>
+    </div>
+  </div>
+</div>

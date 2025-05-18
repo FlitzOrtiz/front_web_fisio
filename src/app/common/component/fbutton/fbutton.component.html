@@ -4,11 +4,17 @@
   [class]="color + ' ' + size"
   [disabled]="disabled || loadingDisabled"
   class="btn"
-  style="display: flex"
+  [ngClass]="[
+    isSquare ? 'square-' + size : '',
+    classSelected ? 'selected-' + color : '',
+    isTransparent ? 'transparent' : ''
+  ]"
 >
   <i
     *ngIf="icon && !loading"
-    [class]="(label ? (iconPosition === 'right' ? 'mr-2' : 'ml-2') : '') + ' ' + icon"
+    [class]="
+      (label ? (iconPosition === 'right' ? 'ml-2' : 'mr-2') : '') + ' ' + icon
+    "
   ></i>
 
   <span *ngIf="loading && !(loadingIconPosition === 'left')">
@@ -17,8 +23,10 @@
 
   <i
     *ngIf="loading"
-    [class]="(loadingIcon || 'fa-solid fa-spinner') +
-              (loadingText ? (loadingIconPosition === 'right' ? ' ml-2' : ' mr-2') : '')"
+    [class]="
+      (loadingIcon || 'fa-solid fa-spinner') +
+      (loadingText ? (loadingIconPosition === 'right' ? ' ml-2' : ' mr-2') : '')
+    "
   ></i>
 
   <span *ngIf="loading && loadingIconPosition === 'left'">

@@ -1,0 +1,155 @@
+<div class="modal" *ngIf="show">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Detalles del Resultado - {{ routineName }}</h2>
+      <fbutton
+        [icon]="'fa-solid fa-times'"
+        [isSquare]="true"
+        [size]="'sm'"
+        (onClick)="closeModal()"
+      ></fbutton>
+    </div>
+
+    <div class="modal-body">
+      <div class="tabs">
+        <div
+          class="tab"
+          [class.active]="activeTab === 'metrics'"
+          (click)="activeTab = 'metrics'"
+        >
+          <i class="fa-solid fa-chart-line"></i> Métricas
+        </div>
+        <div
+          class="tab"
+          [class.active]="activeTab === 'photos'"
+          (click)="activeTab = 'photos'"
+        >
+          <i class="fa-solid fa-camera"></i> Fotos
+        </div>
+      </div>
+
+      <!-- Pestaña de métricas -->
+      <div class="tab-content" *ngIf="activeTab === 'metrics'">
+        <div class="form-row">
+          <div class="form-group col-4">
+            <label>Fecha</label>
+            <input type="date" class="form-control" [(ngModel)]="resultDate" />
+          </div>
+          <div class="form-group col-4">
+            <label>Hora</label>
+            <input type="time" class="form-control" [(ngModel)]="resultTime" />
+          </div>
+          <div class="form-group col-4">
+            <label>Duración</label>
+            <input
+              type="time"
+              class="form-control"
+              [(ngModel)]="resultDuration"
+              step="1"
+            />
+          </div>
+        </div>
+
+        <div class="section-header">
+          <h3>Métricas de Ejercicios</h3>
+          <fbutton
+            [icon]="'fa-solid fa-plus'"
+            [size]="'sm'"
+            [isSquare]="true"
+          ></fbutton>
+        </div>
+
+        <div class="metrics-list">
+          <div
+            class="metric-item"
+            *ngFor="let metric of exerciseMetrics; let i = index"
+          >
+            <div class="metric-header">
+              <input
+                type="text"
+                class="metric-name-input"
+                placeholder="Nombre del ejercicio"
+              />
+              <div class="metric-actions">
+                <input type="number" class="metric-value-input" min="0" />
+                <button class="remove-button" (click)="removeMetric(i)">
+                  <i class="fa-solid fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <app-progress-bar
+              [value]="metric.valueEvaluated"
+              [maxValue]="100"
+            ></app-progress-bar>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Comentarios Paciente</label>
+          <textarea
+            class="form-control"
+            rows="4"
+            [(ngModel)]="patientComments"
+            placeholder="Comentarios del paciente después de la rutina"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Pestaña de fotos -->
+      <div class="tab-content" *ngIf="activeTab === 'photos'">
+        <div class="upload-section">
+          <label class="upload-button">
+            <i class="fa-solid fa-upload"></i>
+            <span>Subir foto</span>
+          </label>
+        </div>
+
+        <div class="photos-grid">
+          <div
+            class="photo-item"
+            *ngFor="let photo of exercisePhotos; let i = index"
+          >
+            <div class="photo-container" (click)="openImageViewer(photo)">
+              <img [src]="photo.photoUrl" [alt]="photo.description" />
+            </div>
+            <div class="photo-info">
+              <div class="photo-time">{{ photo.videoTimestamp }}</div>
+              <input
+                type="text"
+                class="photo-description-input"
+                [value]="photo.description"
+                (input)="updatePhotoDescription(i, $event)"
+                placeholder="Descripción"
+              />
+              <button class="remove-photo" (click)="removePhoto(i)">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Modal para visualizar imagen -->
+        <app-image-viewer-modal
+          [show]="showImageViewer"
+          [image]="selectedImage"
+          [images]="exercisePhotos"
+          (close)="closeImageViewer()"
+        ></app-image-viewer-modal>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <fbutton
+        [label]="'Cancelar'"
+        [type]="'secondary'"
+        [size]="'md'"
+        (onClick)="closeModal()"
+      ></fbutton>
+      <fbutton
+        [label]="'Guardar'"
+        [type]="'primary'"
+        [size]="'md'"
+        (onClick)="saveResult()"
+      ></fbutton>
+    </div>
+  </div>
+</div>
