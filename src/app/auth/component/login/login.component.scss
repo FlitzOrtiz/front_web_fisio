@@ -2,11 +2,10 @@
   background: var(--background-color);
   height: 100vh;
   display: flex;
-  flex-direction: column; /* Para apilar el título arriba del cuadro */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: 'Arial', sans-serif;
-  padding: 2rem;
+  font-family: "Arial", sans-serif;
 }
 
 .title {
@@ -25,7 +24,7 @@
 }
 
 .login-box .subtitle {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   margin-bottom: 0.5rem;
   text-align: center;
 }
@@ -38,7 +37,7 @@
 
 .login-box .google-btn {
   width: 100%;
-  background-color: #E9F1FF;
+  background-color: #e9f1ff;
   border: none;
   padding: 0.7rem;
   border-radius: 5px;
@@ -47,6 +46,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.login-box .google-btn:hover {
+  background-color: #cfe2ff;
 }
 
 .login-box .google-btn img {
@@ -94,7 +98,7 @@
   background: none;
   border: none;
   position: absolute;
-  right: 5px;
+  right: 3px;
   top: 60%;
   transform: translateY(-50%);
   cursor: pointer;
@@ -105,29 +109,24 @@
   justify-content: space-between;
   align-items: center;
   font-size: 0.85rem;
-  margin-top: 0.5rem;
+  margin-top: 0.8rem;
 }
 
 .options label input[type="checkbox"] {
-  margin: 0;
-  transform: translateY(2px); 
+  margin: 3px;
+  transform: translateY(0px);
+  margin-bottom: -1.5rem;
+  margin-top: -1.5rem;
 }
 
 .options a {
   text-decoration: none;
   color: #333;
+  transition: color 0.3s ease;
 }
 
-.submit-btn {
-  margin-top: 1.5rem;
-  width: 100%;
-  padding: 0.7rem;
-  background-color: var(--primary-button-color);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
+.options a:hover {
+  color: #66aaff;
 }
 
 .login-box .register-text {
@@ -140,4 +139,104 @@
   color: #000;
   font-weight: bold;
   text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.login-box .register-text a:hover {
+  color: #66aaff;
+}
+
+@media screen and (max-width: 768px) {
+  .login-container {
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .login-box {
+    padding: 1.5rem;
+  }
+
+  .login-box .subtitle {
+    font-size: 1.6rem;
+  }
+
+  .login-box .description {
+    font-size: 0.9rem;
+  }
+
+  .login-box form input[type="email"],
+  .login-box form input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .options {
+    font-size: 0.65rem;
+  }
+
+  .login-box .register-text {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .login-container {
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .login-box {
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  .login-box .subtitle {
+    font-size: 1.4rem;
+  }
+
+  .login-box .description {
+    font-size: 0.8rem;
+  }
+
+  .login-box form input[type="email"],
+  .login-box form input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .options {
+    font-size: 0.7rem;
+  }
+
+  .login-box .register-text {
+    font-size: 0.85rem;
+  }
+}
+
+form {
+  label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+}
+
+#recordarme {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem;
 }

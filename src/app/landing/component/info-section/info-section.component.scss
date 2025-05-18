@@ -32,7 +32,7 @@
 
   .subtitle {
     font-size: 1.4rem;
-    color: #664cad;
+    color: var(--primary-color);
     margin-bottom: 1.5rem;
     font-weight: normal;
   }
@@ -58,7 +58,7 @@
 
   .icon {
     font-size: 1.2rem;
-    color: #664cad;
+    color: var(--primary-color);
   }
 
   .text {

@@ -9,4 +9,13 @@ import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.comp
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+
+  scrollTo(id: string) {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+}

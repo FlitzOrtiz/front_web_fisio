@@ -1,0 +1,38 @@
+<app-user-header></app-user-header>
+<div class="account-wrapper">
+  <app-configuration-menu></app-configuration-menu>
+
+  <div class="account-container">
+    <div class="account-header">
+      <h2>Cuenta</h2>
+    </div>
+
+    <div class="account-form">
+      <div class="form-section">
+        <label>Nombre Completo</label>
+        <input type="text" placeholder="ej: nombre apellido" />
+
+        <label>Nombre de usuario</label>
+        <input type="text" placeholder="ej: nombre" />
+
+        <label>Dirección de correo electrónico</label>
+        <input type="email" placeholder="ej: ejemplo@hotmail.com" />
+      </div>
+
+      <div class="profile-section">
+        <h3>Foto de perfil</h3>
+        <div class="profile-image-container">
+          <img src="https://i.pinimg.com/736x/e9/ea/ba/e9eabad5f189d26b31f77a03570ffea7.jpg" alt="Foto de perfil" />
+          <button class="edit-button">✎ Edit</button>
+        </div>
+      </div>
+    </div>
+    <fbutton
+        [label]="'Actualizar la cuenta'"
+        [color]="'primary'"
+        [type]="'button'"
+        [size]="'lg'"
+        class="start-button"
+      ></fbutton>
+  </div>
+</div>

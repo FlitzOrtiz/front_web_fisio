@@ -1,0 +1,170 @@
+.account-wrapper {
+  display: flex;
+  height: 100%;
+  flex-direction: row;;
+  background-color: var(--background-color);
+
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+app-configuration-menu {
+  width: 400px;
+
+  @media (max-width: 1024px) {
+    width: 280px;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    border-right: none;
+  }
+}
+
+.account-container {
+  flex: 1;
+  padding: 70px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+
+  .account-header h2 {
+    font-size: 38px;
+    font-weight: bold;
+    margin-bottom: 40px;
+
+    @media (max-width: 768px) {
+      text-align: center;
+    }
+  }
+
+  .account-form {
+    display: flex;
+    justify-content: space-between;
+    gap: 90px;
+
+    @media (max-width: 1024px) {
+      gap: 50px;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .form-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 800px;
+      margin-left: 30px;
+      margin-right: auto;
+
+      @media (max-width: 768px) {
+        margin-left: 0;
+        max-width: 90%;
+      }
+
+      label {
+        font-weight: 700;
+        font-size: 22px;
+        margin-top: 20px;
+        margin-bottom: 5px;
+        text-align: left;
+      }
+
+      input {
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        margin-bottom: 30px;
+        font-size: 16px;
+
+        @media (max-width: 768px) {
+          font-size: 14px;
+          padding: 10px;
+        }
+      }
+    }
+
+    .profile-section {
+      width: 300px;
+      text-align: center;
+      margin-top: -140px;
+
+      @media (max-width: 768px) {
+        margin-top: 20px;
+        width: 200px;
+      }
+
+      h3 {
+        font-size: 26px;
+        margin-bottom: 15px;
+
+        @media (max-width: 768px) {
+          font-size: 20px;
+        }
+      }
+
+      .profile-image-container {
+        position: relative;
+        width: 210px;
+        height: 210px;
+        margin: 0 auto;
+
+        @media (max-width: 768px) {
+          width: 160px;
+          height: 160px;
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+
+      .edit-button {
+      position: absolute;
+      bottom: 0px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--primary-button-color);
+      border-color: var(--border-color);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 5px 20px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+
+      &:hover {
+        background-color: var(--primary-button-hover-color);
+        transform: translateX(-50%) scale(1.05);
+      }
+      &:active {
+        transform: translateX(-10%) scale(0.95);
+      }
+      @media (max-width: 768px) {
+        font-size: 14px;
+        padding: 4px 12px;
+      }
+    }
+      }
+    }
+  }
+  .start-button {
+    display: flex;
+    justify-content: center;
+    padding: 0.7rem 4rem;
+    max-width: 500px;
+
+    @media (max-width: 768px) {
+      max-width: 90%;
+      padding: 1.5rem 2rem;
+    }
+  }
+}

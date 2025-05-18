@@ -1,0 +1,54 @@
+<div class="menu-container">
+  <div class="profile">
+    <img [src]="profileImage" alt="Foto de perfil" class="avatar" />
+    <div class="user-info">
+      <strong>{{ userName }}</strong> <span>({{ userNickname }})</span>
+    </div>
+  </div>
+
+  <ul class="menu">
+    <a [routerLink]="['/account']" class="menu-link">
+      <li>
+        <img src="assets/user-ico.png" class="menu-icon" />
+        <span>Cuenta</span>
+        <span class="arrow">›</span>
+      </li>
+    </a>
+
+    <a [routerLink]="['/change/password']" class="menu-link">
+      <li>
+        <img src="assets/password-ico.png" class="menu-icon" />
+        <span>Cambiar la contraseña</span>
+        <span class="arrow">›</span>
+      </li>
+    </a>
+
+    <a [routerLink]="['/privacy']" class="menu-link">
+      <li>
+        <img src="assets/priva-ico.png" class="menu-icon" />
+        <span>Privacidad</span>
+        <span class="arrow">›</span>
+      </li>
+    </a>
+
+    <li class="menu-link" (click)="openDeleteModal()" style="cursor: pointer;">
+      <img src="assets/delete-ico.png" class="menu-icon" />
+      <span>Borrar la cuenta</span>
+      <span class="arrow">›</span>
+    </li>
+  </ul>
+</div>
+
+<div 
+  class="modal-backdrop" 
+  *ngIf="showDeleteModal" 
+  (click)="closeDeleteModal()"
+  style="position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.5); z-index: 99;">
+</div>
+
+<app-delete-account-modal 
+  *ngIf="showDeleteModal"
+  (click)="$event.stopPropagation()" 
+  (close)="closeDeleteModal()"
+  style="position: fixed; z-index: 100; inset: 0; display: flex; align-items: center; justify-content: center;">
+</app-delete-account-modal>

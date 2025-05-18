@@ -1,33 +1,29 @@
 <button
+  (click)="handleClick()"
   [type]="type"
   [class]="color + ' ' + size"
   [disabled]="disabled || loadingDisabled"
-  (click)="onClick()"
   class="btn"
   style="display: flex"
 >
-  <!-- Condicional para mostrar icono y texto -->
   <i
     *ngIf="icon && !loading"
-    [class]="(iconPosition === 'left' ? 'mr-2' : 'ml-2') + ' ' + icon"
+    [class]="(label ? (iconPosition === 'right' ? 'mr-2' : 'ml-2') : '') + ' ' + icon"
   ></i>
 
-  <span *ngIf="loading && !(loadingIconPosition === 'right')">
+  <span *ngIf="loading && !(loadingIconPosition === 'left')">
     {{ loadingText }}
   </span>
 
-  <!-- Icono de carga -->
   <i
     *ngIf="loading"
-    [class]="loadingIcon"
-    [class]="loadingIconPosition === 'left' ? 'mr-2' : 'ml-2'"
-    [class]="'fa-spin ' + loadingSize"
+    [class]="(loadingIcon || 'fa-solid fa-spinner') +
+              (loadingText ? (loadingIconPosition === 'right' ? ' ml-2' : ' mr-2') : '')"
   ></i>
 
-  <span *ngIf="loading && loadingIconPosition === 'right'">
+  <span *ngIf="loading && loadingIconPosition === 'left'">
     {{ loadingText }}
   </span>
 
-  <!-- Texto del botón -->
   <span *ngIf="!loading">{{ label }}</span>
 </button>
