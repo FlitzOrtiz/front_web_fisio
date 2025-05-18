@@ -1,0 +1,22 @@
+.notification {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 90%;
+  margin: 1rem;
+}
+
+.sender_name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 0rem;
+  margin-top: 0rem;
+}
+
+.content {
+  font-size: 1rem;
+  color: gray;
+  margin-top: 0rem;
+  margin-bottom: 0.5rem;
+}

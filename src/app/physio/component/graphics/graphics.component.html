@@ -1,0 +1,26 @@
+<div class="graphic_container">
+  <div class="nav-bar">
+    <fbutton
+      label="Rutinas Completadas"
+      icon="''"
+      (onClick)="selectType('completed')"
+    ></fbutton>
+    <fbutton
+      label="Rutinas Planeadas"
+      icon="''"
+      (onClick)="selectType('planned')"
+    ></fbutton>
+    <fdropdown
+      [options]="years"
+      [value]="selectedYear"
+      (valueChange)="selectYear($event)"
+    ></fdropdown>
+  </div>
+  <div class="content">
+    <img
+      *ngIf="selectedGraphic"
+      [src]="selectedGraphic.src"
+      alt="'imagen no cargada'"
+    />
+  </div>
+</div>
