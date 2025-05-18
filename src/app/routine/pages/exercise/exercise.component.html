@@ -1,0 +1,68 @@
+<div class="exercise-container">
+  <div class="exercise-counter">
+    Ejercicio {{ currentExerciseIndex + 1 }} de {{ exercises.length }}
+  </div>
+
+  <div class="exercise-content">
+    <div class="exercise-left">
+      <h2>{{ currentExercise.title }}</h2>
+
+      <div class="video-container">
+        <div id="exercise-video"></div>
+      </div>
+
+      <div class="instructions">
+        <p><strong>Instrucciones</strong></p>
+        <p class="highlight">{{ currentExercise.instructions }}</p>
+        <p><strong>Tiempo restante:</strong> {{ duration - currentTime | number:'1.0-0' }} segundos</p>
+        <div class="progress-bar">
+          <div class="progress" [style.width.%]="(currentTime / duration) * 100"></div>
+        </div>
+      </div>
+
+      <fbutton 
+        [label]="'Saltar Ejercicio'"
+        [color]="'primary'"
+        [type]="'button'"
+        [size]="'lg'"
+        class="start-button"
+        (click)="skipExercise()">
+      </fbutton>
+    </div>
+
+    <div class="exercise-right">
+      <h3>Tu Movimiento</h3>
+      <div class="video-container camera-placeholder">
+        <video #cameraVideo autoplay muted playsinline></video>
+      </div>
+
+      <div class="metrics">
+        <p>
+          Precisión de movimiento:
+          <span [style.color]="getColor(currentExercise.metrics.precision)">
+            {{ currentExercise.metrics.precision }}%
+          </span>
+        </p>
+        <p>
+          Postura correcta:
+          <span [style.color]="getColor(currentExercise.metrics.posture)">
+            {{ currentExercise.metrics.posture }}%
+          </span>
+        </p>
+        <p>
+          Velocidad de ejecución:
+          <span [style.color]="getColor(currentExercise.metrics.speed)">
+            {{ currentExercise.metrics.speed }}%
+          </span>
+        </p>
+      </div>
+
+      <div class="tips-box">
+        <strong>Consejos</strong>
+        <ul>
+          <li *ngFor="let tip of currentExercise.tips">{{ tip }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
