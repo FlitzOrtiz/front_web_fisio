@@ -13,25 +13,10 @@
   align-items: center;
 }
 
-.menu-toggle {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  padding: 0.5rem;
-  display: flex;
-  margin-right: 0.75rem;
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-  }
-}
-
 .app-title {
   font-size: 1.1rem;
   font-weight: 500;
-  margin: 0;
+  margin: 0 10px;
 }
 
 .search-container {
@@ -55,21 +40,8 @@
 
 .header-right {
   display: flex;
+  align-items: center;
   gap: 0.5rem;
-}
-
-.action-button {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  padding: 0.5rem;
-  display: flex;
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-  }
 }
 
 .user-profile {
