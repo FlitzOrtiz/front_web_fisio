@@ -32,7 +32,7 @@ export class GameCounterComponent implements AfterViewInit {
       this.counter--;
     }
 
-    this.router.navigate(['register']);
+    this.router.navigate(['exercise']);
   }
 
   sleep(ms: number): Promise<void> {

@@ -1,5 +1,6 @@
 .welcome-section {
-  background-color: var(--background-color);
+  background: linear-gradient(135deg, var(--background-color) 0%, #e8e4f0 80%);
+  // background: var(--background-color);
   height: calc(100vh - 4rem);
   display: flex;
 }
@@ -7,7 +8,7 @@
 .welcome-content {
   display: flex;
   align-items: center;
-  width: 80%;
+  width: 85%;
   margin: 0 auto;
 }
 
@@ -28,16 +29,26 @@
     font-size: 2rem;
     font-weight: lighter;
     color: #757575;
-    margin: 0 0 1rem 0;
+    margin: 0 0 2rem 0;
     line-height: 1.2;
   }
 }
 
 .image-container {
   flex: 1;
-  min-height: 400px;
+  min-height: 500px;
   background-image: url("../../assets/landing_main_image.jpeg");
   background-size: contain;
   background-position: right center;
   background-repeat: no-repeat;
+  animation: floatImage 5s infinite alternate ease-in-out;
+
+  @keyframes floatImage {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-15px);
+    }
+  }
 }
