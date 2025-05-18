@@ -1,0 +1,64 @@
+<div class="success-container">
+  <div class="summary-card">
+    <img src="assets/check-circle.png" alt="Success" class="success-icon" />
+    <h2>¡Sesión Completada!</h2>
+    <p class="message">
+      Buen trabajo. Has completado los ejercicios correctamente<br />con algunas áreas de mejora.
+    </p>
+
+    <div class="summary-content"> 
+      <div class="summary-box recommendations">
+        <h3>Recomendaciones</h3>
+        <p class="subtitle">Basadas en tu desempeño durante la sesión</p>
+        <div class="scrollable-list">
+          <div class="recommendation" *ngFor="let rec of recomendaciones">
+            <img src="assets/check-circle.png" alt="check" class="rec-icon" />
+            {{ rec }}
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-box performance">
+        <h3>Resumen de Desempeño</h3>
+        <div class="exercise-scroll">
+        <p class="subtitle">
+          Tu puntuación general:
+          <span [ngStyle]="{ color: getColor(generalScore) }">{{ generalScore }}%</span>
+        </p>
+        <div class="metrics-breakdown">
+          <div class="metric-button">
+            Precisión:
+            <span [ngStyle]="{ color: getColor(averagePrecision) }">{{ averagePrecision }}%</span>
+          </div>
+          <div class="metric-button">
+            Postura:
+            <span [ngStyle]="{ color: getColor(averagePosture) }">{{ averagePosture }}%</span>
+          </div>
+          <div class="metric-button">
+            Velocidad:
+            <span [ngStyle]="{ color: getColor(averageSpeed) }">{{ averageSpeed }}%</span>
+          </div>
+        </div>
+
+        <p class="subtitle" style="margin-top: 1rem;">Resumen por ejercicio</p>
+        <div class="metric-button" *ngFor="let res of resumen">
+            {{ res.title }}
+            <span [ngStyle]="{ color: getColor(res.avg) }">{{ res.avg }}%</span>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <fbutton label="Repetir Sesión" icon="refresh-icon" color="gray" size="md" class="refresh-button"></fbutton>
+      <fbutton
+        label="Finalizar Sesión"
+        icon="custom-home-icon"
+        [routeTo]="'/home'"
+        color="primary"
+        size="md"
+        class="home-button"
+      ></fbutton>
+    </div>
+  </div>
+</div>
