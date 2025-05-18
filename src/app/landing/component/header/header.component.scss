@@ -1,5 +1,5 @@
 .header {
-  background-color: var(--primary-color);
+  background: var(--primary-background);
   color: var(--secondary-text-color);
   padding: 1rem 0;
 }
@@ -30,7 +30,7 @@
         border-radius: 8px;
 
         &:hover {
-          background-color: rgba(255, 255, 255, 0.2);
+          background-color: rgba(255, 255, 255, 0.15);
           color: var(--secondary-text-color);
           opacity: 1;
           cursor: pointer;
