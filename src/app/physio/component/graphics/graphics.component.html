@@ -1,5 +1,5 @@
 <div class="graphic_container">
-  <div class="nav-bar">
+  <div class="filter">
     <fbutton
       label="Rutinas Completadas"
       icon="''"
@@ -12,14 +12,14 @@
       (onClick)="selectType('planned')"
       color="tertiary"
     ></fbutton>
-    <fdropdown
-      [options]="years"
-      [value]="selectedYear"
-      (valueChange)="selectYear($event)"
-    ></fdropdown>
+    <label for="years" class="visually-hidden" *ngIf="false">Año</label>
+    <select id="years" class="year-selector" (change)="selectYear($event)">
+      <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+    </select>
   </div>
   <div class="content">
     <img
+      class="graphic"
       *ngIf="selectedGraphic"
       [src]="selectedGraphic.src"
       alt="'imagen no cargada'"
