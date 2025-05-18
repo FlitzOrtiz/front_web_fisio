@@ -38,7 +38,6 @@ export class GraphicsComponent implements OnInit {
 
   ngOnInit(): void {
     this.graphics = this._dashboardService.getGraphics();
-    console.log(this.graphics);
     this.selectedType = this.graphics[0]?.type;
     this.getYears();
     this.updateSelectedGraphic();
@@ -56,7 +55,6 @@ export class GraphicsComponent implements OnInit {
 
   selectType(type: string): void {
     this.selectedType = type;
-    console.log(type);
     this.updateSelectedGraphic();
   }
 

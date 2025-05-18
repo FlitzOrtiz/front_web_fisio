@@ -39,8 +39,7 @@ export class UserHeaderComponent {
   }
 
   openUserMenu(): void {
-    // Implement user menu functionality
-    console.log('Open user menu');
+    this.router.navigate(['account']);
   }
 
   openSettings(): void {
