@@ -12,6 +12,7 @@ import { ChangePasswordComponent } from './physio/pages/change-password/change-p
 import { PayComponent } from './payment/pages/pay/pay.component';
 import { AccountPaymentComponent } from './payment/pages/account-payment/account-payment.component';
 import { ExerciseComponent } from './routine/pages/exercise/exercise.component';
+import { ExerciseSummaryComponent } from './routine/pages/exercise-summary/exercise-summary.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -28,4 +29,5 @@ export const routes: Routes = [
   { path : 'payment', component: PayComponent },
   { path : 'account/payment', component: AccountPaymentComponent },
   { path : 'exercise', component: ExerciseComponent },
+  { path : 'exercise/summary', component: ExerciseSummaryComponent },
 ];

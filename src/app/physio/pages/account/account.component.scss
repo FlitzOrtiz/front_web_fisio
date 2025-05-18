@@ -146,7 +146,7 @@ app-configuration-menu {
         transform: translateX(-50%) scale(1.05);
       }
       &:active {
-        transform: translateX(-10%) scale(0.95);
+        transform: translateX(-50%) scale(1.05);
       }
       @media (max-width: 768px) {
         font-size: 14px;
