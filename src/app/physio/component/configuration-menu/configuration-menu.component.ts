@@ -8,13 +8,13 @@ import { DeleteAccountModalComponent } from '../delete-account-modal/delete-acco
   standalone: true,
   imports: [CommonModule, RouterModule, DeleteAccountModalComponent],
   templateUrl: './configuration-menu.component.html',
-  styleUrls: ['./configuration-menu.component.scss']
+  styleUrls: ['./configuration-menu.component.scss'],
 })
-
 export class ConfigurationMenuComponent {
-  userName = 'Jessie Brown';
+  userName = 'Jessie Pinkman';
   userNickname = 'Jessie';
-  profileImage = 'https://i.pinimg.com/736x/e9/ea/ba/e9eabad5f189d26b31f77a03570ffea7.jpg';
+  profileImage =
+    'https://i.pinimg.com/736x/e9/ea/ba/e9eabad5f189d26b31f77a03570ffea7.jpg';
   showDeleteModal = false;
 
   openDeleteModal() {
