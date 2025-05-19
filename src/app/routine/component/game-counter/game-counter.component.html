@@ -1,3 +1,4 @@
+<ng-container *ngIf="!contadorTerminado; else resumen">
 <div class="container">
   <h1>Prepárate para comenzar</h1>
     
@@ -7,3 +8,8 @@
 
   <p class="description">Prepárate para seguir los ejercicios</p>
 </div>
+</ng-container>
+
+<ng-template #resumen>
+  <app-exercise></app-exercise>
+</ng-template>

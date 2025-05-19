@@ -1,15 +1,17 @@
 import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { ExerciseComponent } from "../../pages/exercise/exercise.component";
 
 @Component({
   selector: 'app-game-counter',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ExerciseComponent],
   templateUrl: './game-counter.component.html',
   styleUrls: ['./game-counter.component.scss']
 })
 export class GameCounterComponent implements AfterViewInit {
+  contadorTerminado = false;
   counter = 10;
 
   constructor(
@@ -31,8 +33,8 @@ export class GameCounterComponent implements AfterViewInit {
       await this.sleep(1000);
       this.counter--;
     }
-
-    this.router.navigate(['exercise']);
+    this.contadorTerminado = true;
+    //this.router.navigate(['exercise']);
   }
 
   sleep(ms: number): Promise<void> {

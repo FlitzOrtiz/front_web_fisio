@@ -10,17 +10,19 @@ import {
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.component';
 import { Router } from '@angular/router';
+import { ExerciseSummaryComponent } from "../exercise-summary/exercise-summary.component";
 
 declare var YT: any;
 
 @Component({
   selector: 'app-exercise',
   standalone: true,
-  imports: [CommonModule, FbuttonComponent],
+  imports: [CommonModule, FbuttonComponent, ExerciseSummaryComponent],
   templateUrl: './exercise.component.html',
   styleUrls: ['./exercise.component.scss'],
 })
 export class ExerciseComponent implements AfterViewInit, OnDestroy {
+  ejercicioTerminado = false;
   @ViewChild('cameraVideo') cameraVideo!: ElementRef<HTMLVideoElement>;
 
   exercises = [
@@ -167,8 +169,9 @@ export class ExerciseComponent implements AfterViewInit, OnDestroy {
     this.currentExerciseIndex++;
 
     if (this.currentExerciseIndex >= this.exercises.length) {
-      this.stopCamera
-      this.router.navigate(['exercise/summary']);
+      this.stopCamera();
+      this.ejercicioTerminado = true;
+      //this.router.navigate(['exercise/summary']);
       return;
     }
 
