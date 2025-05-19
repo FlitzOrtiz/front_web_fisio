@@ -10,7 +10,7 @@ import { Exercise, Routine } from '../../../domain/routine';
 import { ExerciseEditorComponent } from '../exercise-editor/exercise-editor.component';
 import { CommonModule } from '@angular/common';
 import { FbuttonComponent } from '../../../../common/component/fbutton/fbutton.component';
-import { json } from 'stream/consumers';
+import { UserHeaderComponent } from '../../../../common/component/user-header/user-header.component';
 
 @Component({
   selector: 'app-routine-creator',
@@ -19,6 +19,7 @@ import { json } from 'stream/consumers';
     CommonModule,
     ReactiveFormsModule,
     FbuttonComponent,
+    UserHeaderComponent,
   ],
   templateUrl: './routine-creator.component.html',
   styleUrl: './routine-creator.component.scss',

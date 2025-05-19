@@ -25,6 +25,7 @@ export class FbuttonComponent {
   @Input() classSelected: boolean = false;
   @Input() icon: string = '';
   @Input() iconPosition: string = 'left';
+  @Input() iconColor: string = '';
   @Input() isSquare: boolean = false;
   @Input() isTransparent: boolean = false;
   @Input() loading: boolean = false;

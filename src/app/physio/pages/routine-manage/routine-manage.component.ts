@@ -2,10 +2,11 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.component';
 import { CommonModule } from '@angular/common';
 import { Routine, RoutineDifficulty } from '../../domain/routine';
+import { UserHeaderComponent } from '../../../common/component/user-header/user-header.component';
 
 @Component({
   selector: 'app-routine-manage',
-  imports: [FbuttonComponent, CommonModule],
+  imports: [FbuttonComponent, CommonModule, UserHeaderComponent],
   templateUrl: './routine-manage.component.html',
   styleUrl: './routine-manage.component.scss',
 })

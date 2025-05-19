@@ -1,3 +1,5 @@
+<app-user-header></app-user-header>
+
 <div class="container">
   <div class="header">
     <h1 class="record-title">Ficha #{{ patient.recordId }}</h1>
@@ -88,37 +90,38 @@
       </div>
 
       <div class="form-group">
-        <label>Cirugías previas:</label>
-        <div class="radio-group">
-          <label class="radio-inline">
-            <input
-              type="radio"
-              name="hasPreviousSurgeries"
-              [value]="true"
-              [(ngModel)]="patient.hasPreviousInjuries"
-            />
-            Sí
-          </label>
-          <label class="radio-inline">
-            <input
-              type="radio"
-              name="hasPreviousSurgeries"
-              [value]="false"
-              [(ngModel)]="patient.hasPreviousInjuries"
-            />
-            No
-          </label>
+        <div class="form-row">
+          <label>Cirugías previas:</label>
+          <div class="radio-group">
+            <label class="radio-inline">
+              <input
+                type="radio"
+                name="hasPreviousSurgeries"
+                [value]="true"
+                [(ngModel)]="patient.hasPreviousInjuries"
+              />
+              Sí
+            </label>
+            <label class="radio-inline">
+              <input
+                type="radio"
+                name="hasPreviousSurgeries"
+                [value]="false"
+                [(ngModel)]="patient.hasPreviousInjuries"
+              />
+              No
+            </label>
+          </div>
         </div>
-      </div>
-
-      <div class="form-group" *ngIf="patient.hasPreviousInjuries">
-        <label for="previousSurgeries">Especifique:</label>
-        <input
-          type="text"
-          id="previousSurgeries"
-          class="form-control"
-          [(ngModel)]="patient.previousInjuries"
-        />
+        <div class="form-group" *ngIf="patient.hasPreviousInjuries">
+          <input
+            type="text"
+            id="previousSurgeries"
+            class="form-control"
+            [(ngModel)]="patient.previousInjuries"
+            placeholder="Especifique:"
+          />
+        </div>
       </div>
 
       <div class="form-group">
@@ -149,29 +152,62 @@
             Asma
           </label>
         </div>
-      </div>
-
-      <div class="form-group">
-        <label for="otherChronicDiseases">Otra</label>
-        <input type="text" id="otherChronicDiseases" class="form-control" />
+        <div class="form-group">
+          <input
+            type="text"
+            id="otherChronicDiseases"
+            class="form-control"
+            placeholder="Otra"
+          />
+        </div>
       </div>
     </div>
 
     <!-- Columna derecha - Información de fisioterapia -->
     <div class="therapy-info">
-      <h2>Información de Fisioterapia</h2>
+      <h2 class="info-physio-title">Información de Fisioterapia</h2>
 
       <div class="form-group">
-        <label>Zona afectada:</label>
-        <div class="badge-group">
-          <div class="badge-container">
-            <span class="badge badge-primary">Lumbar</span>
+        <div class="form-row row-full-space-between">
+          <label>Zona afectada:</label>
+          <div class="dropdown-menu-container">
             <fbutton
               size="sm"
+              color="action"
               [isSquare]="true"
-              icon="fa-solid fa-pen-to-square"
-              (onClick)="removeAffectedZone('Lumbar')"
+              icon="fa-solid fa-plus"
+              (onClick)="showZoneSelector()"
             ></fbutton>
+            <div class="zone-selector" *ngIf="showingZoneSelector">
+              <div class="zone-option" (click)="addAffectedZone('Cuello')">
+                Cuello
+              </div>
+              <div class="zone-option" (click)="addAffectedZone('Columna')">
+                Columna
+              </div>
+              <div class="zone-option" (click)="addAffectedZone('Cadera')">
+                Cadera
+              </div>
+              <div class="zone-option" (click)="addAffectedZone('Otro')">
+                Otro
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="badge-group">
+          <div class="badge-container">
+            <span class="badge badge-primary"
+              >Lumbar
+              <fbutton
+                size="sm"
+                iconColor="white"
+                [isSquare]="true"
+                [isTransparent]="true"
+                icon="fa-solid fa-pen-to-square"
+                (onClick)="removeAffectedZone('Lumbar')"
+              ></fbutton
+            ></span>
           </div>
           <div class="badge-container">
             <span class="badge badge-primary">Cervical</span>
@@ -183,30 +219,37 @@
             ></fbutton>
           </div>
         </div>
-        <fbutton
-          size="sm"
-          [isSquare]="true"
-          icon="fa-solid fa-pen-to-square"
-          (onClick)="showZoneSelector()"
-        ></fbutton>
 
         <!-- Selector de zona (se muestra al hacer clic en +) -->
-        <div class="zone-selector" *ngIf="showingZoneSelector">
-          <div class="zone-option" (click)="addAffectedZone('Cuello')">
-            Cuello
-          </div>
-          <div class="zone-option" (click)="addAffectedZone('Columna')">
-            Columna
-          </div>
-          <div class="zone-option" (click)="addAffectedZone('Cadera')">
-            Cadera
-          </div>
-          <div class="zone-option" (click)="addAffectedZone('Otro')">Otro</div>
-        </div>
       </div>
 
       <div class="form-group">
-        <label>Tipo de lesión:</label>
+        <div class="form-row row-full-space-between">
+          <label>Tipo de Lesión: </label>
+          <div class="dropdown-menu-container">
+            <fbutton
+              size="sm"
+              color="action"
+              [isSquare]="true"
+              icon="fa-solid fa-plus"
+              (onClick)="showLesionTypeSelector()"
+            ></fbutton>
+            <div class="zone-selector" *ngIf="showingLesionSelector">
+              <div class="zone-option" (click)="addAffectedLesion('Cuello')">
+                Cuello
+              </div>
+              <div class="zone-option" (click)="addAffectedLesion('Columna')">
+                Columna
+              </div>
+              <div class="zone-option" (click)="addAffectedLesion('Cadera')">
+                Cadera
+              </div>
+              <div class="zone-option" (click)="addAffectedLesion('Otro')">
+                Otro
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="badge-group">
           <div class="badge-container">
             <span class="badge badge-secondary">Neurológica</span>
@@ -227,12 +270,6 @@
             ></fbutton>
           </div>
         </div>
-        <fbutton
-          size="sm"
-          [isSquare]="true"
-          icon="fa-solid fa-pen-to-square"
-          (onClick)="showLesionTypeSelector()"
-        ></fbutton>
       </div>
 
       <div class="form-group">

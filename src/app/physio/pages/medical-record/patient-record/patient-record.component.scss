@@ -9,7 +9,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .record-title {
@@ -93,7 +93,6 @@
 .form-row {
   display: flex;
   gap: 15px;
-  margin-bottom: 15px;
 }
 
 .col-6 {
@@ -152,6 +151,8 @@ label {
 }
 
 .badge {
+  display: flex;
+  flex-direction: row;
   padding: 4px 8px;
   border-radius: 16px;
   font-size: 12px;
@@ -198,6 +199,10 @@ label {
   padding: 8px 0;
   z-index: 10;
   margin-top: 5px;
+  max-height: 250px;
+  overflow-y: auto;
+  right: 0;
+  left: auto;
 }
 
 .zone-option {
@@ -362,6 +367,22 @@ input[type="range"] {
     font-weight: 500;
     margin: 0;
   }
+}
+
+.info-physio-title {
+  margin: 0;
+}
+
+.dropdown-menu-container {
+  position: relative;
+  display: block;
+  gap: 10px;
+}
+
+.row-full-space-between {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .close-button {

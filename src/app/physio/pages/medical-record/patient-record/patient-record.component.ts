@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { ResultDetailsModalComponent } from '../result-details-modal/result-details-modal.component';
 import { RoutinesModalComponent } from '../routines-modal/routines-modal.component';
 import { ImageViewerModalComponent } from '../image-viewer-modal/image-viewer-modal.component';
+import { UserHeaderComponent } from '../../../../common/component/user-header/user-header.component';
 
 @Component({
   selector: 'app-patient-record',
@@ -21,6 +22,7 @@ import { ImageViewerModalComponent } from '../image-viewer-modal/image-viewer-mo
     FbuttonComponent,
     ResultDetailsModalComponent,
     RoutinesModalComponent,
+    UserHeaderComponent,
   ],
   templateUrl: './patient-record.component.html',
   styleUrl: './patient-record.component.scss',
@@ -60,6 +62,7 @@ export class PatientRecordComponent {
 
   // UI state
   showingZoneSelector: boolean = false;
+  showingLesionSelector: boolean = false;
   showRoutinesModal: boolean = false;
   showResultsModal: boolean = false;
   showImageViewer: boolean = false;
@@ -130,7 +133,7 @@ export class PatientRecordComponent {
   }
 
   showLesionTypeSelector(): void {
-    // Implementación similar a showZoneSelector
+    this.showingLesionSelector = !this.showingLesionSelector;
   }
 
   addAffectedZone(zoneName: string): void {
@@ -269,5 +272,16 @@ export class PatientRecordComponent {
         this.patient.chronicDiseases ?? []
       ).filter((disease) => disease !== injury);
     }
+  }
+
+  addAffectedLesion(typeName: string): void {
+    this.patient.lesionTypes.push(typeName);
+    this.showingLesionSelector = false;
+  }
+
+  removeAffectedLesion(typeName: string): void {
+    this.patient.lesionTypes = this.patient.lesionTypes.filter(
+      (type) => type !== typeName
+    );
   }
 }

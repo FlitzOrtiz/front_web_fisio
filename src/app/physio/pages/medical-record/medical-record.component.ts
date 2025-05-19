@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.component';
 import { CommonModule } from '@angular/common';
 import { MedicalRecord, EnumSex } from '../../domain/medical-record';
+import { UserHeaderComponent } from '../../../common/component/user-header/user-header.component';
 
 interface PatientRecord {
   id: number;
@@ -16,7 +17,7 @@ interface PatientRecord {
 
 @Component({
   selector: 'app-medical-record',
-  imports: [FbuttonComponent, CommonModule],
+  imports: [FbuttonComponent, CommonModule, UserHeaderComponent],
   templateUrl: './medical-record.component.html',
   styleUrl: './medical-record.component.scss',
 })
