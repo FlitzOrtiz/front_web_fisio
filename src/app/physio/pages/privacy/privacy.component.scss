@@ -3,6 +3,7 @@
   height: 100%;
   flex-direction: row;
   background-color: var(--background-color);
+  padding : 0.6rem;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -67,7 +68,7 @@ app-configuration-menu {
   }
 
   .privacy-policies {
-    margin-top: 25px;
+    margin-top: 24px;
 
     h2 {
       font-size: 28px;
