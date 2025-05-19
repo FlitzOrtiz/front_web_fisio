@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
 
-:root {
+:root,
+.color-scheme-light {
   --primary-color: #7660a6;
   --secondary-color: #faf7f6;
   --background-color: #faf7f6;
@@ -22,7 +23,31 @@
   --primary-background: linear-gradient(135deg, #392973 0%, #7660a6 100%);
 }
 
+.color-scheme-dark {
+  --primary-color: #8b77bb;
+  --secondary-color: #2a2a2a;
+  --background-color: #121212;
+  --card-background-color: #1e1e1e;
+  --primary-button-color: #584a8a;
+  --primary-button-hover-color: #6c5fa0;
+  --primary-button-border-color: #584a8a;
+  --secondary-button-color: #444444;
+  --secondary-button-hover-color: #555555;
+  --secondary-button-border-color-hover: #888888;
+  --primary-button-text-color: #ffffff;
+  --secondary-button-text-color: #f0f0f0;
+  --primary-text-color: #f0f0f0;
+  --secondary-text-color: #ffffff;
+  --border-color: #333333;
+  --success-color: #66bb6a;
+  --danger-color: #f55a4e;
+  --primary-background: linear-gradient(135deg, #473681 0%, #8b77bb 100%);
+}
+
 body {
   margin: 0;
   padding: 0;
+  background-color: var(--background-color);
+  color: var(--primary-text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

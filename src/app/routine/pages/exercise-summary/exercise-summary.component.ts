@@ -3,15 +3,17 @@ import { Router } from '@angular/router';
 import { FbuttonComponent } from "../../../common/component/fbutton/fbutton.component";
 import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FeedbackModalComponent } from "../feedback-modal/feedback-modal.component";
 
 @Component({
   selector: 'app-exercise-summary',
-  imports: [CommonModule, FbuttonComponent],
+  imports: [CommonModule, FbuttonComponent, FeedbackModalComponent],
   templateUrl: './exercise-summary.component.html',
   styleUrls: ['./exercise-summary.component.scss'],
   standalone: true
 })
 export class ExerciseSummaryComponent implements OnInit {
+  modalActivo = false;
   exercises = [
     {
       title: 'Movilidad de hombro',
@@ -56,7 +58,6 @@ export class ExerciseSummaryComponent implements OnInit {
     this.averagePosture = Math.round(postureSum / total);
     this.averageSpeed = Math.round(speedSum / total);
 
-    // Calcular promedio por ejercicio
     this.resumen = this.exercises.map((ex) => {
       const avg = Math.round(
         (ex.metrics.precision + ex.metrics.posture + ex.metrics.speed) / 3
@@ -64,7 +65,6 @@ export class ExerciseSummaryComponent implements OnInit {
       return { title: ex.title, avg };
     });
 
-    // Calcular promedio general
     const totalAvgSum = this.resumen.reduce((sum, res) => sum + res.avg, 0);
     this.generalScore = Math.round(totalAvgSum / this.resumen.length);
   }
@@ -74,4 +74,6 @@ export class ExerciseSummaryComponent implements OnInit {
     if (value >= 40) return 'orange';
     return 'red';
   }
+
+  
 }

@@ -1,16 +1,32 @@
-
+<ng-container *ngIf="!loginCodeFinish; else resumen">
 <div class="login-container">
-    <h1 class="title">Unirse a una sesión</h1>
-    <p class="subtitle">Introduzca el código proporcionado por su fisioterapeuta</p>
-    <div class="form-group">
-      <input type="text" placeholder="ej: 123456" class="code-input" />
-      <fbutton class="join-button"
-        [label]="'Unirse'"
-        [color]="'primary'"
-        [type]="'button'"
-        [size]="'lg'"
-        [routeTo]="'/login/camera'"
-        class="center-button"
-      ></fbutton>
-    </div>
+  <h1 class="title">Unirse a una sesión</h1>
+  <p class="subtitle">Introduzca el código proporcionado por su fisioterapeuta</p>
+
+  <div class="form-group">
+    <input
+      type="text"
+      [(ngModel)]="code"
+      (input)="validateInput()"
+      maxlength="6"
+      inputmode="numeric"
+      pattern="[0-9]*"
+      placeholder="ej: 123456"
+      class="code-input"
+    />
+
+    <fbutton
+      class="join-button center-button"
+      [label]="'Unirse'"
+      [color]="'primary'"
+      [type]="'button'"
+      [size]="'lg'"
+      (click)="joinSession()"
+    ></fbutton>
   </div>
+</div>
+
+</ng-container>
+  <ng-template #resumen>
+  <app-login-camera></app-login-camera>
+</ng-template>
