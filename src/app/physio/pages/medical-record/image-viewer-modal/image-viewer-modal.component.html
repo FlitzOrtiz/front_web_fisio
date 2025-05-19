@@ -22,29 +22,15 @@
       />
     </div>
 
-    <div class="image-info" *ngIf="image">
-      <div class="image-time">{{ image.videoTimestamp }}</div>
-      <div class="image-description">{{ image.description }}</div>
-    </div>
-
     <div class="navigation-controls" *ngIf="images.length > 1">
       <button class="nav-button prev-button" (click)="prevImage()">
         <i class="fa-solid fa-chevron-left"></i>
       </button>
-      <div class="image-counter">
-        {{ currentIndex + 1 }} / {{ images.length }}
+      <div class="image-counter" *ngIf="image">
+        {{ image.videoTimestamp }} / {{ image.description }}
       </div>
       <button class="nav-button next-button" (click)="nextImage()">
         <i class="fa-solid fa-chevron-right"></i>
-      </button>
-    </div>
-
-    <div class="viewer-controls">
-      <button class="control-button" (click)="toggleZoom()">
-        <i
-          class="fa-solid"
-          [ngClass]="isZoomed ? 'fa-search-minus' : 'fa-search-plus'"
-        ></i>
       </button>
     </div>
   </div>

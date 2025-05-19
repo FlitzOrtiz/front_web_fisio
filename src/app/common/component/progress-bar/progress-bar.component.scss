@@ -1,21 +1,35 @@
 .progress-container {
-  height: 8px;
-  background-color: #e0e0e0;
+  height: 2rem;
+  background-color: var(--card-background-color);
   border-radius: 4px;
   overflow: hidden;
   position: relative;
+  border: solid 1px var(--border-color);
+  display: flex;
+  align-items: center;
 }
 
 .progress-bar {
   height: 100%;
   transition: width 0.3s ease;
   border-radius: 4px;
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+}
+
+.progress-text,
+.progress-percentage {
+  position: absolute;
+  color: var(--primary-button-text-color);
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .progress-text {
-  position: absolute;
+  left: 8px;
+}
+
+.progress-percentage {
   right: 8px;
-  color: white;
-  font-size: 12px;
-  font-weight: 500;
 }

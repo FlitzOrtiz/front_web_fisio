@@ -30,10 +30,7 @@
       <div class="routines-list">
         <ng-container *ngIf="filteredRoutines.length > 0; else noRoutines">
           <div class="routine-item" *ngFor="let routine of filteredRoutines">
-            <div
-              class="routine-star"
-              (click)="handleToggleFavorite(routine.id)"
-            >
+            <div class="routine-star">
               <i
                 [ngClass]="{
                   'fa-solid': routine.isfavorite,
@@ -50,11 +47,21 @@
 
             <div class="routine-details">
               <div class="routine-duration">
-                {{ routine.estimateduration }} min
+                {{ routine.estimatedDuration }} min
               </div>
               <div class="routine-exercises">
                 {{ routine.exercises?.length }} ejercicios
               </div>
+            </div>
+
+            <div class="routine-date">
+              <label for="sessionStart">Asignar fecha:</label>
+              <input
+                id="sessionStart"
+                class="form-control"
+                type="date"
+                [(ngModel)]="sessionStart"
+              />
             </div>
 
             <fbutton
@@ -73,15 +80,6 @@
           </div>
         </ng-template>
       </div>
-    </div>
-
-    <div class="modal-footer">
-      <fbutton
-        [label]="'Cerrar'"
-        [type]="'secondary'"
-        [size]="'md'"
-        (onClick)="closeModal()"
-      ></fbutton>
     </div>
   </div>
 </div>

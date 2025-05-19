@@ -3,9 +3,11 @@ export interface Routine {
   name: string;
   category: string; // e.g., "rehabilitation", "strength training", etc.
   description: string;
-  dificulty: RoutineDifficulty; // e.g., "easy", "medium", "hard"
-  estimateduration: number;
-  objectivearea: number; // in minutes
+  difficulty: RoutineDifficulty; // e.g., "easy", "medium", "hard"
+  estimatedDuration: number;
+  targetArea: number; // e.g., 1 for "shoulder", 2 for "knee", etc.
+  numWeeks: number; // number of weeks for the routine
+  daysWeek: string[]; // e.g., ["MON", "WED", "FRI"]
   isfavorite: boolean; // true if the routine is marked as favorite
   exercises?: Exercise[]; // details of the routine
 }
@@ -13,12 +15,14 @@ export interface Routine {
 export interface RoutineSession {
   id: number; // ID of the session
   routineId: number; // ID of the routine
+  routine?: Routine; // details of the routine
   isActive?: boolean; // true if the routine is currently active
   routinedetails?: RoutineDetails;
 }
 
 export interface ExerciseMetrics {
   exerciseId: number; // ID of the exercise
+  excercise?: Exercise; // details of the exercise
   valueEvaluated: number; // value evaluated for the exercise
 }
 
@@ -60,7 +64,7 @@ export interface KeyMoment {
 }
 
 export enum RoutineDifficulty {
-  Easy = 'easy',
-  Medium = 'medium',
-  Hard = 'hard',
+  Easy = 0,
+  Medium = 1,
+  Hard = 2,
 }

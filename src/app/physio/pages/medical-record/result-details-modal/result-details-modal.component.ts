@@ -26,7 +26,6 @@ export class ResultDetailsModalComponent {
 
   @Output() close = new EventEmitter<void>();
   @Output() save = new EventEmitter<any>();
-  @Output() viewImage = new EventEmitter<PhotosExercise>();
 
   activeTab: 'metrics' | 'photos' = 'metrics';
 
@@ -42,42 +41,73 @@ export class ResultDetailsModalComponent {
   exerciseMetrics: ExerciseMetrics[] = [
     {
       exerciseId: 1,
+      excercise: {
+        id: 1,
+        name: 'Ejercicio 1',
+        videoUrl: 'https://example.com/video1.mp4',
+        sets: 3,
+        repetitions: 10,
+        withAssistant: false,
+        description: 'Descripción del ejercicio 1',
+        keymoments: [
+          { id: 1, description: 'Momento clave 1', time: 10 },
+          { id: 2, description: 'Momento clave 2', time: 20 },
+        ],
+      },
       valueEvaluated: 10,
     },
     {
       exerciseId: 2,
-      valueEvaluated: 20,
+      excercise: {
+        id: 2,
+        name: 'Ejercicio 2',
+        videoUrl: 'https://example.com/video2.mp4',
+        sets: 2,
+        repetitions: 15,
+        withAssistant: true,
+        description: 'Descripción del ejercicio 2',
+        keymoments: [
+          { id: 1, description: 'Momento clave 1', time: 5 },
+          { id: 2, description: 'Momento clave 2', time: 15 },
+        ],
+      },
+      valueEvaluated: 99,
     },
   ];
 
   exercisePhotos: PhotosExercise[] = [
     {
       id: 1,
-      photoUrl: 'https://example.com/photo1.jpg',
+      photoUrl:
+        'https://www.searchenginejournal.com/wp-content/uploads/2019/04/the-seo-guide-to-angular.png',
       videoTimestamp: 0,
       description: 'Foto 1',
     },
     {
       id: 2,
-      photoUrl: 'https://example.com/photo2.jpg',
+      photoUrl:
+        'https://www.inicionet.com/wp-content/uploads/2024/06/angular.webp',
       videoTimestamp: 0,
       description: 'Foto 2',
     },
     {
       id: 3,
-      photoUrl: 'https://example.com/photo3.jpg',
+      photoUrl:
+        'https://www.searchenginejournal.com/wp-content/uploads/2019/04/the-seo-guide-to-angular.png',
       videoTimestamp: 0,
       description: 'Foto 3',
     },
     {
       id: 4,
-      photoUrl: 'https://example.com/photo4.jpg',
+      photoUrl:
+        'https://www.inicionet.com/wp-content/uploads/2024/06/angular.webp',
       videoTimestamp: 0,
       description: 'Foto 4',
     },
     {
       id: 5,
-      photoUrl: 'https://example.com/photo5.jpg',
+      photoUrl:
+        'https://www.searchenginejournal.com/wp-content/uploads/2019/04/the-seo-guide-to-angular.png',
       videoTimestamp: 0,
       description: 'Foto 5',
     },
@@ -110,7 +140,8 @@ export class ResultDetailsModalComponent {
   }
 
   openImageViewer(photo: PhotosExercise): void {
-    this.viewImage.emit(photo);
+    this.selectedImage = photo;
+    this.showImageViewer = true;
   }
 
   // Métodos para manejar métricas

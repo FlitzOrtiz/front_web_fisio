@@ -53,6 +53,20 @@ export class ExerciseEditorComponent {
     }
   }
 
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.exerciseForm.patchValue({
+          videoUrl: e.target?.result,
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   createForm(): FormGroup {
     return this.fb.group({
       name: ['', Validators.required],

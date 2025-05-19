@@ -12,6 +12,16 @@ export class ProgressBarComponent {
   @Input() maxValue: number = 100;
   @Input() showPercentage: boolean = false;
   @Input() color: string = '';
+  @Input() name: string = '';
+  @Input() rangeColor: { color: string; value: number }[] = [];
+
+  rangeColorIf(percentage: number): string {
+    const sortedRanges = this.rangeColor
+      .slice()
+      .sort((a, b) => a.value - b.value);
+    const color = sortedRanges.find((range) => percentage <= range.value);
+    return color ? color.color : sortedRanges[sortedRanges.length - 1].color;
+  }
 
   get percentage(): number {
     return (this.value / this.maxValue) * 100;

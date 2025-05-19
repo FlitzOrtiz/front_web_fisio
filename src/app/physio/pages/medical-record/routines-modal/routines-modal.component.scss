@@ -17,6 +17,7 @@
   width: 90%;
   max-width: 600px;
   max-height: 90vh;
+  min-height: 80vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -71,6 +72,7 @@
   border: 1px solid var(--border-color);
   border-radius: 4px;
   font-size: 14px;
+  box-sizing: border-box;
 
   &:focus {
     outline: none;
@@ -119,11 +121,7 @@
   border: 1px solid var(--border-color);
   border-radius: 6px;
   transition: box-shadow 0.2s, border-color 0.2s;
-
-  &:hover {
-    border-color: var(--primary-light);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  }
+  gap: 1rem;
 
   @media (max-width: 576px) {
     flex-wrap: wrap;
@@ -131,9 +129,6 @@
 }
 
 .routine-star {
-  margin-right: 15px;
-  cursor: pointer;
-
   .fa-star {
     color: #bdbdbd;
     font-size: 18px;
@@ -217,4 +212,23 @@
   border-top: 1px solid var(--border-color);
   display: flex;
   justify-content: flex-end;
+}
+
+.form-control {
+  padding: 3px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+  }
+}
+
+.routine-date {
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
 }

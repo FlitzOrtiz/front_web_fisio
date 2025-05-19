@@ -73,12 +73,33 @@
         </div>
 
         <div *ngIf="activeTab === 'upload'" class="upload-tab">
-          <div class="upload-area">
+          <div
+            class="upload-area"
+            (click)="fileInput.click()"
+            *ngIf="!exerciseForm.get('videoUrl')?.value"
+          >
             <i class="fa-solid fa-cloud-arrow-up"></i>
             <p>
               Arrastra y suelta un archivo de video o haz clic para seleccionar
             </p>
-            <input type="file" accept="video/*" class="file-input" />
+            <input
+              #fileInput
+              type="file"
+              accept="video/*"
+              class="file-input"
+              (change)="onFileSelected($event)"
+            />
+          </div>
+          <div
+            *ngIf="exerciseForm.get('videoUrl')?.value"
+            class="video-preview"
+          >
+            <video
+              [src]="exerciseForm.get('videoUrl')?.value"
+              controls
+              width="100%"
+              style="margin-top: 1rem"
+            ></video>
           </div>
         </div>
 

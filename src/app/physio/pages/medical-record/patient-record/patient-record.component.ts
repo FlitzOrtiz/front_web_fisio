@@ -1,8 +1,19 @@
-import { Component, NgModule } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener,
+  input,
+  NgModule,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { EnumSex, MedicalRecord } from '../../../domain/medical-record';
 import {
   ExerciseMetrics,
   Routine,
+  RoutineDifficulty,
   RoutineSession,
 } from '../../../domain/routine';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -27,9 +38,12 @@ import { UserHeaderComponent } from '../../../../common/component/user-header/us
   templateUrl: './patient-record.component.html',
   styleUrl: './patient-record.component.scss',
 })
-export class PatientRecordComponent {
+export class PatientRecordComponent implements OnInit {
   // Enums
   Sex = EnumSex;
+
+  otherZone: string = '';
+  otherLesionType: string = '';
 
   // Patient data
   patient: MedicalRecord = {
@@ -43,15 +57,239 @@ export class PatientRecordComponent {
     hasPreviousInjuries: false,
     previousInjuries: '',
     chronicDiseases: [],
-    affectedZone: [],
-    lesionTypes: [],
+    affectedZone: ['Codo', 'Hombro', 'Muñeca'],
+    lesionTypes: ['Tendinitis', 'Tendinopatía', 'Tendinosis'],
     symptomStartDate: new Date(),
-    painLevel: 0,
+    painLevel: 1,
     medicalDiagnosis: '',
-    sessionRoutine: [],
+    sessionRoutine: [
+      {
+        id: 1,
+        routineId: 101,
+        isActive: true,
+        routine: {
+          id: 101,
+          name: 'Rutina de rehabilitación de codo',
+          description: 'Ejercicios para mejorar la movilidad del codo.',
+          daysWeek: ['LUN', 'MIE', 'VIE'],
+          numWeeks: 4,
+          exercises: [
+            {
+              id: 1,
+              name: 'Flexión de codo',
+              videoUrl: '',
+              sets: 3,
+              repetitions: 10,
+              withAssistant: false,
+              description: '',
+              keymoments: [],
+            },
+            {
+              id: 2,
+              name: 'Extensión de codo',
+              videoUrl: '',
+              sets: 3,
+              repetitions: 10,
+              withAssistant: false,
+              description: '',
+              keymoments: [],
+            },
+            {
+              id: 3,
+              name: 'Rotación de muñeca',
+              videoUrl: '',
+              sets: 3,
+              repetitions: 10,
+              withAssistant: false,
+              description: '',
+              keymoments: [],
+            },
+          ],
+          category: 'rehabilitation',
+          difficulty: RoutineDifficulty.Medium,
+          estimatedDuration: 30,
+          targetArea: 30,
+          isfavorite: false,
+        },
+        routinedetails: {
+          id: 201,
+          metrics: {
+            sessionDate: new Date('2024-05-01'),
+            duration: 45,
+            exercisesMetrics: [
+              {
+                exerciseId: 1,
+                excercise: {
+                  id: 1,
+                  name: 'Flexión de codo',
+                  videoUrl: '',
+                  sets: 3,
+                  repetitions: 10,
+                  withAssistant: false,
+                  description: '',
+                  keymoments: [],
+                },
+                valueEvaluated: 5,
+              },
+              {
+                exerciseId: 2,
+                excercise: {
+                  id: 2,
+                  name: 'Extensión de codo',
+                  videoUrl: '',
+                  sets: 3,
+                  repetitions: 10,
+                  withAssistant: false,
+                  description: '',
+                  keymoments: [],
+                },
+                valueEvaluated: 4,
+              },
+              {
+                exerciseId: 3,
+                excercise: {
+                  id: 3,
+                  name: 'Rotación de muñeca',
+                  videoUrl: '',
+                  sets: 3,
+                  repetitions: 10,
+                  withAssistant: false,
+                  description: '',
+                  keymoments: [],
+                },
+                valueEvaluated: 6,
+              },
+            ],
+            patientComments: 'Me sentí bien durante la sesión.',
+          },
+          photos: [],
+        },
+      },
+      {
+        id: 2,
+        routineId: 102,
+        isActive: false,
+        routine: {
+          id: 102,
+          name: 'Rutina de rehabilitación de rodilla',
+          description: 'Ejercicios para mejorar la movilidad de la rodilla.',
+          daysWeek: ['LUN', 'MIE', 'VIE'],
+          numWeeks: 4,
+          exercises: [
+            {
+              id: 4,
+              name: 'Flexión de rodilla',
+              videoUrl: '',
+              sets: 3,
+              repetitions: 10,
+              withAssistant: false,
+              description: '',
+              keymoments: [],
+            },
+            {
+              id: 5,
+              name: 'Extensión de rodilla',
+              videoUrl: '',
+              sets: 3,
+              repetitions: 10,
+              withAssistant: false,
+              description: '',
+              keymoments: [],
+            },
+          ],
+          category: 'rehabilitation',
+          difficulty: RoutineDifficulty.Medium,
+          estimatedDuration: 30,
+          targetArea: 30,
+          isfavorite: false,
+        },
+        routinedetails: {
+          id: 202,
+          metrics: {
+            sessionDate: new Date('2024-05-08'),
+            duration: 30,
+            exercisesMetrics: [
+              {
+                exerciseId: 4,
+                excercise: {
+                  id: 4,
+                  name: 'Flexión de rodilla',
+                  videoUrl: '',
+                  sets: 3,
+                  repetitions: 10,
+                  withAssistant: false,
+                  description: '',
+                  keymoments: [],
+                },
+                valueEvaluated: 7,
+              },
+              {
+                exerciseId: 5,
+                excercise: {
+                  id: 5,
+                  name: 'Extensión de rodilla',
+                  videoUrl: '',
+                  sets: 3,
+                  repetitions: 10,
+                  withAssistant: false,
+                  description: '',
+                  keymoments: [],
+                },
+                valueEvaluated: 8,
+              },
+            ],
+            patientComments: 'Ligero dolor al final.',
+          },
+          photos: [],
+        },
+      },
+    ],
     status: 'En tratamiento',
     lastUpdate: new Date(),
   };
+
+  affectedZones: string[] = [
+    'Codo',
+    'Hombro',
+    'Muñeca',
+    'Rodilla',
+    'Tobillo',
+    'Cadera',
+    'Columna',
+  ];
+
+  lesionTypes: string[] = [
+    'Tendinitis',
+    'Tendinopatía',
+    'Tendinosis',
+    'Desgarro',
+    'Esguince',
+    'Fractura',
+  ];
+
+  @ViewChild('zoneMenu') zoneMenuRef!: ElementRef;
+  @ViewChild('lesionMenu') lesionMenuRef!: ElementRef;
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (
+      this.showingZoneSelector &&
+      this.zoneMenuRef &&
+      !this.zoneMenuRef.nativeElement.contains(event.target)
+    ) {
+      this.hideZoneSelector();
+    }
+
+    if (
+      this.showingLesionSelector &&
+      this.lesionMenuRef &&
+      !this.lesionMenuRef.nativeElement.contains(event.target)
+    ) {
+      this.hideLesionTypeSelector();
+    }
+  }
+
+  today: string = new Date().toISOString().split('T')[0];
 
   // Date handling
   symptomStartDateStr: string = '';
@@ -70,7 +308,8 @@ export class PatientRecordComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router // private patientService: PatientService, // private routineService: RoutineService
+    private router: Router, // private patientService: PatientService, // private routineService: RoutineService
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -132,12 +371,29 @@ export class PatientRecordComponent {
     this.showingZoneSelector = !this.showingZoneSelector;
   }
 
+  hideZoneSelector(): void {
+    // console.log('hideZoneSelector');
+    this.showingZoneSelector = false;
+  }
+
+  hideLesionTypeSelector(): void {
+    // console.log('hideLesionTypeSelector');
+    this.showingLesionSelector = false;
+  }
+
   showLesionTypeSelector(): void {
     this.showingLesionSelector = !this.showingLesionSelector;
   }
 
-  addAffectedZone(zoneName: string): void {
-    this.patient.affectedZone.push(zoneName);
+  addAffectedZone(zoneName: string, addList: boolean = false): void {
+    if (addList) {
+      if (!this.affectedZones.some((zone) => zone === zoneName)) {
+        this.affectedZones.push(zoneName);
+      }
+    }
+    if (!this.patient.affectedZone.some((zone) => zone === zoneName)) {
+      this.patient.affectedZone.push(zoneName);
+    }
     this.showingZoneSelector = false;
   }
 
@@ -162,35 +418,8 @@ export class PatientRecordComponent {
     this.showRoutinesModal = false;
   }
 
-  selectRoutine(event: any): void {
-    const routineId = event.target.value;
-    const routine = this.availableRoutines.find((r) => r.id === routineId);
-
-    if (!routine) {
-      console.error('Routine not found');
-      return;
-    }
-    // Verificar si la rutina ya está asignada
-    const isAssigned = this.assignedRoutines.some((r) => r.id === routine.id);
-    if (!isAssigned) {
-      this.assignedRoutines.push(routine);
-      const sessionRoutine: RoutineSession = {
-        id: 0,
-        routineId: 0,
-        isActive: false,
-        routinedetails: {
-          id: 0,
-          metrics: {
-            sessionDate: new Date(),
-            duration: 0,
-            exercisesMetrics: [],
-            patientComments: '',
-          },
-          photos: [],
-        },
-      };
-      this.patient.sessionRoutine.push();
-    }
+  selectRoutine(routineSession: RoutineSession): void {
+    this.patient.sessionRoutine.push(routineSession);
     this.closeRoutinesModal();
   }
 
@@ -227,8 +456,9 @@ export class PatientRecordComponent {
     this.assignedRoutines.splice(index, 1);
   }
 
-  viewRoutineDetails(routineId: number): void {
-    // Implementar navegación a detalles de rutina
+  editRoutineDetails(routineId: number): void {
+    console.log('Edit routine details for routine ID:', routineId);
+    this.router.navigate([`/routinecreator/${routineId}`]);
   }
 
   closeResultsModal(): void {
@@ -256,11 +486,11 @@ export class PatientRecordComponent {
     // Aquí se guardaría la información del paciente
     console.log('Patient data saved:', this.patient);
     // Navegar a la lista de pacientes o mostrar un mensaje de éxito
-    this.router.navigate(['/patients']);
+    this.router.navigate(['/medicalrecordmanage']);
   }
 
   cancel(): void {
-    this.router.navigate(['/patients']);
+    this.router.navigate(['/medicalrecordmanage']);
   }
 
   onChronicDiseaseChange(injury: string, event: Event): void {
@@ -274,8 +504,20 @@ export class PatientRecordComponent {
     }
   }
 
-  addAffectedLesion(typeName: string): void {
-    this.patient.lesionTypes.push(typeName);
+  addLesionType(
+    event: Event,
+    typeName: string,
+    addList: boolean = false
+  ): void {
+    (event.target as HTMLInputElement).value = '';
+    if (addList) {
+      if (!this.lesionTypes.some((type) => type === typeName)) {
+        this.lesionTypes.push(typeName);
+      }
+    }
+    if (!this.patient.lesionTypes.some((type) => type === typeName)) {
+      this.patient.lesionTypes.push(typeName);
+    }
     this.showingLesionSelector = false;
   }
 

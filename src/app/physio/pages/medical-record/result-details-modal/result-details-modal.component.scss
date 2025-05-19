@@ -9,12 +9,14 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 10px; // Permite espacio en pantallas pequeñas
+  box-sizing: border-box;
 }
 
 .modal-content {
   background-color: white;
   border-radius: 8px;
-  width: 90%;
+  width: 100%;
   max-width: 700px;
   max-height: 90vh;
   overflow: hidden;
@@ -35,6 +37,15 @@
     font-weight: 500;
     margin: 0;
     color: var(--text-color);
+  }
+
+  @media (max-width: 480px) {
+    align-items: flex-start;
+    gap: 10px;
+
+    h2 {
+      font-size: 16px;
+    }
   }
 }
 
@@ -61,6 +72,7 @@
   display: flex;
   border-bottom: 1px solid var(--border-color);
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .tab {
@@ -71,6 +83,8 @@
   align-items: center;
   gap: 8px;
   transition: color 0.2s, border-color 0.2s;
+  flex-grow: 1;
+  justify-content: center;
 
   i {
     font-size: 14px;
@@ -104,6 +118,7 @@
   display: flex;
   gap: 15px;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 
   @media (max-width: 576px) {
     flex-direction: column;
@@ -113,6 +128,7 @@
 
 .form-group {
   margin-bottom: 15px;
+  flex: 1;
 
   label {
     display: block;
@@ -125,7 +141,7 @@
 .col-4 {
   flex: 0 0 calc(33.333% - 10px);
 
-  @media (max-width: 576px) {
+  @media (max-width: 768px) {
     flex: 0 0 100%;
   }
 }
@@ -136,6 +152,7 @@
   border: 1px solid var(--border-color);
   border-radius: 4px;
   font-size: 14px;
+  box-sizing: border-box;
 
   &:focus {
     outline: none;
@@ -163,15 +180,6 @@
   flex-direction: column;
   gap: 15px;
   margin-bottom: 20px;
-}
-
-.metric-item {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  background-color: var(--background-color);
-  padding: 12px;
-  border-radius: 6px;
 }
 
 .metric-header {
@@ -205,6 +213,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .metric-value-input {
@@ -265,7 +274,7 @@
 
 .photos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 15px;
 }
 
@@ -280,6 +289,7 @@
   height: 150px;
   overflow: hidden;
   cursor: pointer;
+  border: 1px solid var(--border-color);
 
   img {
     width: 100%;
@@ -310,6 +320,7 @@
   border: 1px solid var(--border-color);
   border-radius: 4px;
   font-size: 14px;
+  box-sizing: border-box;
 
   &:focus {
     outline: none;
@@ -339,4 +350,9 @@
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  flex-wrap: wrap;
+
+  @media (max-width: 576px) {
+    justify-content: center;
+  }
 }

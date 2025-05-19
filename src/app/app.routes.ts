@@ -34,9 +34,9 @@ export const routes: Routes = [
   { path: 'account/payment', component: AccountPaymentComponent },
   { path: 'routinemanage', component: RoutineManageComponent },
   { path: 'routinecreator', component: RoutineCreatorComponent },
-  { path: 'routinecreator/:id', component: RoutineCreatorComponent },
+  { path: 'routinemanage/:id', component: RoutineCreatorComponent },
   { path: 'medicalrecordmanage', component: MedicalRecordComponent },
   { path: 'patientrecord', component: PatientRecordComponent },
   { path: 'exercise', component: ExerciseComponent },
-  { path : 'exercise/summary', component: ExerciseSummaryComponent },
+  { path: 'exercise/summary', component: ExerciseSummaryComponent },
 ];

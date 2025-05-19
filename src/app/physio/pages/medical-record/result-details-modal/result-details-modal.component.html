@@ -4,6 +4,8 @@
       <h2>Detalles del Resultado - {{ routineName }}</h2>
       <fbutton
         [icon]="'fa-solid fa-times'"
+        color="action"
+        iconColor="black"
         [isSquare]="true"
         [size]="'sm'"
         (onClick)="closeModal()"
@@ -52,33 +54,19 @@
 
         <div class="section-header">
           <h3>Métricas de Ejercicios</h3>
-          <fbutton
-            [icon]="'fa-solid fa-plus'"
-            [size]="'sm'"
-            [isSquare]="true"
-          ></fbutton>
         </div>
 
         <div class="metrics-list">
-          <div
-            class="metric-item"
-            *ngFor="let metric of exerciseMetrics; let i = index"
-          >
-            <div class="metric-header">
-              <input
-                type="text"
-                class="metric-name-input"
-                placeholder="Nombre del ejercicio"
-              />
-              <div class="metric-actions">
-                <input type="number" class="metric-value-input" min="0" />
-                <button class="remove-button" (click)="removeMetric(i)">
-                  <i class="fa-solid fa-times"></i>
-                </button>
-              </div>
-            </div>
+          <div *ngFor="let metric of exerciseMetrics; let i = index">
             <app-progress-bar
+              [name]="metric.excercise ? metric.excercise.name : ''"
               [value]="metric.valueEvaluated"
+              [rangeColor]="[
+                { color: 'var(--success-color)', value: 100 },
+                { color: 'var(--warning-color)', value: 90 },
+                { color: 'var(--danger-color)', value: 70 }
+              ]"
+              [showPercentage]="true"
               [maxValue]="100"
             ></app-progress-bar>
           </div>
@@ -97,13 +85,6 @@
 
       <!-- Pestaña de fotos -->
       <div class="tab-content" *ngIf="activeTab === 'photos'">
-        <div class="upload-section">
-          <label class="upload-button">
-            <i class="fa-solid fa-upload"></i>
-            <span>Subir foto</span>
-          </label>
-        </div>
-
         <div class="photos-grid">
           <div
             class="photo-item"
@@ -114,16 +95,7 @@
             </div>
             <div class="photo-info">
               <div class="photo-time">{{ photo.videoTimestamp }}</div>
-              <input
-                type="text"
-                class="photo-description-input"
-                [value]="photo.description"
-                (input)="updatePhotoDescription(i, $event)"
-                placeholder="Descripción"
-              />
-              <button class="remove-photo" (click)="removePhoto(i)">
-                <i class="fa-solid fa-trash"></i>
-              </button>
+              <span class="photo-description">{{ photo.description }}</span>
             </div>
           </div>
         </div>
@@ -135,21 +107,6 @@
           (close)="closeImageViewer()"
         ></app-image-viewer-modal>
       </div>
-    </div>
-
-    <div class="modal-footer">
-      <fbutton
-        [label]="'Cancelar'"
-        [type]="'secondary'"
-        [size]="'md'"
-        (onClick)="closeModal()"
-      ></fbutton>
-      <fbutton
-        [label]="'Guardar'"
-        [type]="'primary'"
-        [size]="'md'"
-        (onClick)="saveResult()"
-      ></fbutton>
     </div>
   </div>
 </div>
