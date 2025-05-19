@@ -3,13 +3,15 @@
   <div class="form-container">
     <h2 class="subtitle">Crear Cuenta</h2>
     <p class="description">Regístrate para comenzar a usar El Chueco</p>
-    <button class="google-button">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
-        alt="Google logo"
-      />
-      Registrarse con Google
-    </button>
+    
+      <button class="google-button" (click)="redirectToGoogle()">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+          alt="Google"
+        />
+        <span>Continúa con Google</span>
+      </button>
+    
     <p class="divider">O REGISTRARSE CON EMAIL</p>
     <form>
       <label for="nombre">Nombre Completo</label>
@@ -43,6 +45,7 @@
         [color]="'primary'"
         [type]="'button'"
         [size]="'md'"
+        [routeTo]="'/dashboard'"
       ></fbutton>
     </form>
     <p class="login-text">

@@ -1,0 +1,72 @@
+<div class="display_row_div" (click)="showModal = false">
+  <div class="card" id="current_sessions" *ngIf="showCurrentSessions">
+    <card-header
+      [title]="'Sesiones en curso'"
+      (close)="showCurrentSessions = false"
+    ></card-header>
+    <div class="scrollable">
+      <session
+        *ngFor="let s of currentSessions"
+        [pfp]="s.patient_pfp"
+        [name]="s.patient_name"
+        [routine]="s.patient_routine"
+        [routine_id]="s.routine_id"
+        [url]="getUrl(s.routine_id)"
+      ></session>
+    </div>
+  </div>
+  <div
+    class="display_column_div"
+    *ngIf="showRoutineSummary || showPatientSatisfaction"
+  >
+    <div class="card" id="routine_summary" *ngIf="showRoutineSummary">
+      <card-header
+        [title]="'Resumen de Rutinas'"
+        (close)="showRoutineSummary = false"
+      ></card-header>
+      <div class="graphics-content">
+        <graphics></graphics>
+      </div>
+    </div>
+    <div class="card" id="patient_satisfaction" *ngIf="showPatientSatisfaction">
+      <card-header
+        [title]="'Satisfacción de rutinas de los pacientes'"
+        (close)="showPatientSatisfaction = false"
+      ></card-header>
+      <div class="content">
+        <img
+          class="satisfaction-img"
+          *ngIf="barGraphic"
+          [src]="barGraphic.src"
+          alt="grafico de barras"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="card" id="notifications" *ngIf="showNotifications">
+    <card-header
+      [icon]="'fa-solid fa-circle-info'"
+      [title]="''"
+      (close)="showNotifications = false"
+    ></card-header>
+    <div class="scrollable">
+      <notification
+        *ngFor="let n of notifications"
+        [sender]="n.sender_name"
+        [content]="n.content"
+      ></notification>
+    </div>
+  </div>
+</div>
+<fbutton
+  class="edit-cards"
+  [icon]="'fa-solid fa-pen'"
+  [color]="'action-black'"
+  [label]="''"
+  (onClick)="showModal = !showModal"
+></fbutton>
+<app-dashboard-modal
+  *ngIf="showModal"
+  (close)="showModal = false"
+  (optionSelected)="onOptionSelected($event)"
+></app-dashboard-modal>

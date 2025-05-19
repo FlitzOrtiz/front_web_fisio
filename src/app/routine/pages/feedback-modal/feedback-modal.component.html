@@ -1,0 +1,27 @@
+<div class="backdrop" (click)="closeModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h2>Califica el alivio que has sentido<br />después de la rutina</h2>
+
+    <div class="stars">
+      <ng-container *ngFor="let star of [1,2,3,4,5]">
+        <span
+          class="star"
+          [class.filled]="star <= rating"
+          (click)="setRating(star)"
+          >★</span
+        >
+      </ng-container>
+    </div>
+
+    <label for="feedback">¡Deja tus comentarios!</label>
+    <textarea
+      id="feedback"
+      placeholder="Comentarios"
+      [(ngModel)]="feedbackText"
+    ></textarea>
+
+    <div class="button-wrapper">
+      <fbutton label="Volver al inicio" color="primary" size="md"  [routeTo]="'/landing'" class="home-button" (click)="submitFeedback() "></fbutton>
+    </div>
+  </div>
+</div>

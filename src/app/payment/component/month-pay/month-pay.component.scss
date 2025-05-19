@@ -1,21 +1,21 @@
 .pricing-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: 1rem;
+  width: 100%;
   justify-content: center;
-  padding: 5rem;
-  background: var(--background-color);
+  padding: 2rem 0;
+  margin: 0;
 
   .card {
     flex: 1 0 280px;
     background: var(--card-background-color);
     border-radius: 0.75rem;
     padding: 2rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
-    max-width: 300px;
+    max-width: 280px;
     min-width: 260px;
-
 
     h2 {
       font-size: 1.5rem;
@@ -74,14 +74,14 @@
     .buy-button {
       width: 100%;
       min-width: 150px;
-      padding: 0.5rem;
+      padding: 0.5rem -1rem;
       border-radius: 0.5rem;
       display: inline-flex;
       justify-content: center;
     }
 
     &.premium {
-      background-color: var(--primary-color);
+      background: var(--primary-background);
       color: var(--secondary-text-color);
 
       .price .unit {
@@ -103,10 +103,10 @@
   .pricing-container {
     flex-direction: column;
     align-items: center;
+    // width: 80%;
 
     .card {
-      width: 90%;
-      max-width: 350px;
+      max-width: 300px;
     }
   }
 }

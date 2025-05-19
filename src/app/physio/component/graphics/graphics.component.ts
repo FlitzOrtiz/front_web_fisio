@@ -44,13 +44,11 @@ export class GraphicsComponent implements OnInit {
 
   getYears(): void {
     for (let i = 0; i < this.graphics.length; i++) {
-      console.log(this.graphics[i]);
       const year = this.graphics[i].year;
       if (year && !this.years.includes(year)) {
         this.years.push(year);
       }
     }
-    console.log(this.years);
     this.selectedYear = this.years[0];
   }
 
@@ -67,12 +65,9 @@ export class GraphicsComponent implements OnInit {
   }
 
   updateSelectedGraphic(): void {
-    console.log(this.selectedType, this.selectedYear);
     this.selectedGraphic =
       this.graphics.find(
         (g) => g.type === this.selectedType && g.year === this.selectedYear
       ) || this.defaultGraphic;
-
-    console.log(this.selectedGraphic);
   }
 }

@@ -1,25 +1,38 @@
 <div class="pricing-container">
-
   <div class="card">
     <h2>{{ basicPlan.title }}</h2>
     <div class="price">
-      <span class="currency">$</span><span class="amount">{{ basicPlan.price }}</span><span class="unit">{{ basicPlan.unit }}</span>
+      <span class="currency">$</span
+      ><span class="amount">{{ basicPlan.price }}</span
+      ><span class="unit">{{ basicPlan.unit }}</span>
     </div>
     <ul>
-      <li *ngFor="let item of basicPlan.items"> {{ item }}</li>
+      <li *ngFor="let item of basicPlan.items">{{ item }}</li>
     </ul>
-    <fbutton [label]="basicPlan.buttonLabel" [color]="'primary'" [routeTo]="'/account/payment'" class="buy-button"></fbutton>
+    <fbutton
+      [label]="basicPlan.buttonLabel"
+      [color]="'primary'"
+      [routeTo]="'/account/payment'"
+      class="buy-button"
+    ></fbutton>
   </div>
 
   <div class="card premium">
     <h2>{{ premiumPlan.title }}</h2>
     <div class="price">
-      <span class="currency">$</span><span class="amount">{{ premiumPlan.price }}</span><span class="unit">{{ premiumPlan.unit }}</span>
+      <span class="currency">$</span
+      ><span class="amount">{{ premiumPlan.price }}</span
+      ><span class="unit">{{ premiumPlan.unit }}</span>
     </div>
     <ul>
       <li *ngFor="let item of premiumPlan.items">{{ item }}</li>
     </ul>
-    <fbutton [label]="premiumPlan.buttonLabel" [color]="'secondary'" [routeTo]="'/account/payment'" class="buy-button"></fbutton>
+    <fbutton
+      [label]="premiumPlan.buttonLabel"
+      [color]="'tertiary'"
+      [routeTo]="'/account/payment'"
+      class="buy-button"
+    ></fbutton>
   </div>
 
   <div class="card">
@@ -27,8 +40,13 @@
     <p class="subtitle">{{ customPlan.description }}</p>
     <p class="description">{{ customPlan.text }}</p>
     <ul>
-      <li *ngFor="let item of customPlan.items"> {{ item }}</li>
+      <li *ngFor="let item of customPlan.items">{{ item }}</li>
     </ul>
-    <fbutton [label]="customPlan.buttonLabel" [color]="'primary'" [routeTo]="'/account/payment'" class="buy-button"></fbutton>
+    <fbutton
+      [label]="customPlan.buttonLabel"
+      [color]="'primary'"
+      [routeTo]="'/account/payment'"
+      class="buy-button"
+    ></fbutton>
   </div>
 </div>

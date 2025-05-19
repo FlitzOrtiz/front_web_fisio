@@ -12,4 +12,6 @@ export class SessionComponent {
   @Input() pfp: string = 'assets/user-ico.png';
   @Input() name: string = 'user name';
   @Input() routine: string = 'user routine';
+  @Input() routine_id: number = 0;
+  @Input() url: string = '/exercise';
 }

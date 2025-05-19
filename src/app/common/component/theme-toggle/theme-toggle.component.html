@@ -1,0 +1,27 @@
+<div
+  class="theme-toggle-container"
+  [class.expanded]="isExpanded"
+  [class.dark]="isDarkMode"
+>
+  <button class="toggle-expand" (click)="toggleExpand()">
+    <i
+      class="fa-solid"
+      [class.fa-chevron-right]="!isExpanded"
+      [class.fa-chevron-left]="isExpanded"
+    ></i>
+  </button>
+
+  <div class="theme-switch" *ngIf="isExpanded">
+    <div class="theme-icon">
+      <i
+        class="fa-solid"
+        [class.fa-sun]="!isDarkMode"
+        [class.fa-moon]="isDarkMode"
+      ></i>
+    </div>
+    <label class="switch">
+      <input type="checkbox" [checked]="isDarkMode" (change)="toggleTheme()" />
+      <span class="slider round"></span>
+    </label>
+  </div>
+</div>
