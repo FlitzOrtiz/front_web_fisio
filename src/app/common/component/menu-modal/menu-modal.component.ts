@@ -33,13 +33,21 @@ export class MenuModalComponent {
 
   pages: MenuItem[] = [
     { icon: 'fa-solid fa-user', label: 'Cuenta', route: '/account' },
-    { icon: 'fa-solid fa-list-check', label: 'Rutinas', route: '/routines' },
+    {
+      icon: 'fa-solid fa-list-check',
+      label: 'Rutinas',
+      route: '/routinemanage',
+    },
     {
       icon: 'fa-solid fa-credit-card',
       label: 'Cambiar Plan',
       route: '/payment',
     },
-    { icon: 'fa-solid fa-folder', label: 'Fichas', route: '/files' },
+    {
+      icon: 'fa-solid fa-folder',
+      label: 'Fichas',
+      route: '/medicalrecordmanage',
+    },
   ];
 
   @HostListener('document:click', ['$event'])
