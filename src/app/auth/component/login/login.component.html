@@ -4,13 +4,13 @@
     <h2 class="subtitle">Iniciar Sesión</h2>
     <p class="description">Accede a tu cuenta para continuar</p>
 
-    <button class="google-btn">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
-        alt="Google"
-      />
-      <span>Continua con Google</span>
-    </button>
+      <button class="google-btn" (click)="redirectToGoogle()">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+          alt="Google"
+        />
+        <span>Continúa con Google</span>
+      </button>
 
     <p class="or-divider">O CONTINUA CON EMAIL</p>
 
@@ -39,7 +39,7 @@
 
       <div class="options">
         <label id="recordarme"><input type="checkbox" /> Recordarme</label>
-        <a href="#">¿Olvidaste tu contraseña?</a>
+        <a href="/register">¿Olvidaste tu contraseña?</a>
       </div>
       <div style="width: 1200%"></div>
       <fbutton
@@ -48,6 +48,7 @@
         [type]="'button'"
         [size]="'md'"
         class="center-button"
+        [routeTo]="'/dashboard'"
       ></fbutton>
     </form>
 
