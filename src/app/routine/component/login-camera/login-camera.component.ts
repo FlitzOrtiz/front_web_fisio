@@ -2,15 +2,17 @@ import { Component, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.component';
 import { NgIf } from '@angular/common';
+import { GameCounterComponent } from "../game-counter/game-counter.component";
 
 @Component({
   selector: 'app-login-camera',
   standalone: true,
-  imports: [FbuttonComponent, NgIf],
+  imports: [FbuttonComponent, NgIf, GameCounterComponent],
   templateUrl: './login-camera.component.html',
   styleUrls: ['./login-camera.component.scss']
 })
 export class LoginCameraComponent implements AfterViewInit {
+  loginCameraFinish = false;
   cameraReady = false;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
@@ -30,5 +32,9 @@ export class LoginCameraComponent implements AfterViewInit {
           })
       }
     }
+  }
+
+  goCounter() {
+    this.loginCameraFinish = true;
   }
 }
