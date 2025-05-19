@@ -1,4 +1,4 @@
-<div class="display_row_div">
+<div class="display_row_div" (click)="showModal = false">
   <div class="card" id="current_sessions" *ngIf="showCurrentSessions">
     <card-header
       [title]="'Sesiones en curso'"
@@ -58,3 +58,15 @@
     </div>
   </div>
 </div>
+<fbutton
+  class="edit-cards"
+  [icon]="'fa-solid fa-pen'"
+  [color]="'action-black'"
+  [label]="''"
+  (onClick)="showModal = !showModal"
+></fbutton>
+<app-dashboard-modal
+  *ngIf="showModal"
+  (close)="showModal = false"
+  (optionSelected)="onOptionSelected($event)"
+></app-dashboard-modal>

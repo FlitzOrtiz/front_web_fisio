@@ -12,8 +12,6 @@
   height: auto;
   flex: 0 1 auto;
   max-height: 100%;
-  max-width: fit-content; /* Nuevo: que el ancho máximo nunca sobrepase el contenedor padre */
-  width: auto; /* Nuevo: el ancho mínimo es el de su contenido */
 }
 
 .card-header {
@@ -114,12 +112,18 @@
   flex: 1 1 auto;
 }
 
+.edit-cards {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  z-index: 2001; /* Asegura que el botón esté por encima del modal */
+}
+
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
   .display_row_div {
     flex-direction: column; /* Stack items vertically */
     gap: 1rem; /* Add spacing between items */
-    height: auto;
     min-height: 150vh;
   }
 
@@ -131,10 +135,5 @@
     flex: 0 1 auto;
     max-height: 100%;
     max-width: 100%;
-  }
-
-  .card img {
-    width: 100%;
-    height: auto;
   }
 }

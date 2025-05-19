@@ -1,0 +1,14 @@
+.options-container {
+  background: transparent;
+  border-radius: 1rem;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: fit-content;
+  position: fixed;
+  right: 0;
+  bottom: 2rem;
+  z-index: 1000;
+  margin: 1rem;
+}
