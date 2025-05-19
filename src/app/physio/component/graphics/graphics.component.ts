@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.component';
-import { FdropdownComponent } from '../../../common/component/fdropdown/fdropdown.component';
 import { CommonModule } from '@angular/common';
 // models
 import { Graphic } from '../../domain/dashboard/graphic';
@@ -9,7 +8,7 @@ import { DashboardService } from '../../service/dashboard.service';
 
 @Component({
   selector: 'graphics',
-  imports: [CommonModule, FbuttonComponent, FdropdownComponent],
+  imports: [CommonModule, FbuttonComponent],
   standalone: true,
   templateUrl: './graphics.component.html',
   styleUrl: './graphics.component.scss',
@@ -45,11 +44,13 @@ export class GraphicsComponent implements OnInit {
 
   getYears(): void {
     for (let i = 0; i < this.graphics.length; i++) {
+      console.log(this.graphics[i]);
       const year = this.graphics[i].year;
       if (year && !this.years.includes(year)) {
         this.years.push(year);
       }
     }
+    console.log(this.years);
     this.selectedYear = this.years[0];
   }
 
@@ -58,12 +59,15 @@ export class GraphicsComponent implements OnInit {
     this.updateSelectedGraphic();
   }
 
-  selectYear(year: number): void {
-    this.selectedYear = year;
+  selectYear(event: Event): void {
+    this.selectedYear = (event.target as HTMLSelectElement)
+      .value as unknown as number;
+    this.selectedYear = Number(this.selectedYear);
     this.updateSelectedGraphic();
   }
 
   updateSelectedGraphic(): void {
+    console.log(this.selectedType, this.selectedYear);
     this.selectedGraphic =
       this.graphics.find(
         (g) => g.type === this.selectedType && g.year === this.selectedYear

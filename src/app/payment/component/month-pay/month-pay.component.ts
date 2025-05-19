@@ -7,7 +7,7 @@ import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.comp
   standalone: true,
   imports: [CommonModule, FbuttonComponent],
   templateUrl: './month-pay.component.html',
-  styleUrls: ['./month-pay.component.scss']
+  styleUrls: ['./month-pay.component.scss'],
 })
 export class MonthPayComponent {
   basicPlan = {
@@ -16,7 +16,7 @@ export class MonthPayComponent {
     unit: '/mo',
     items: ['$49.99', 'List item', 'List item', 'List item', 'List item'],
     buttonLabel: 'Comprar',
-    highlight: false
+    highlight: false,
   };
 
   premiumPlan = {
@@ -25,20 +25,20 @@ export class MonthPayComponent {
     unit: '/mo',
     items: ['$89.99 anual', 'List item', 'List item', 'List item', 'List item'],
     buttonLabel: 'Comprar',
-    highlight: true
+    highlight: true,
   };
 
   customPlan = {
     title: 'Personalizado',
-    description: 'Facturación anual.',
+    description: 'Facturación anual',
     text: 'Contáctanos para diseñar tu plan y obtener una cotización personalizada.',
     items: [
       'Soluciones a medida',
       'Atención prioritaria',
       'Ajustes flexibles',
-      'Servicio 100% adaptado a ti'
+      'Servicio 100% adaptado a ti',
     ],
     buttonLabel: 'Contáctanos',
-    highlight: false
+    highlight: false,
   };
 }

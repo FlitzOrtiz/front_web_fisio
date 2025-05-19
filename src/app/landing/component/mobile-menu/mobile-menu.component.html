@@ -1,0 +1,36 @@
+<div class="mobile-menu-container" [class.active]="isOpen">
+  <div class="mobile-menu-content">
+    <div class="mobile-menu-header">
+      <div class="mobile-logo">El Chueco</div>
+      <fbutton
+        [color]="'action'"
+        [size]="'none'"
+        [isSquare]="true"
+        icon="fa-solid fa-times"
+        (onClick)="closeMenu()"
+        class="menu-close-button"
+      ></fbutton>
+    </div>
+
+    <ul class="mobile-menu-items">
+      <li>
+        <a (click)="scrollTo('what-is'); closeMenu()">¿Qué es?</a>
+      </li>
+      <li>
+        <a (click)="scrollTo('how-it-works'); closeMenu()">¿Cómo funciona?</a>
+      </li>
+      <li>
+        <a (click)="scrollTo('library'); closeMenu()">Ejercicios</a>
+      </li>
+      <li>
+        <a (click)="scrollTo('atention'); closeMenu()">Telerehabilitación</a>
+      </li>
+      <li><a (click)="scrollTo('faq'); closeMenu()">FAQ</a></li>
+      <li>
+        <a (click)="scrollTo('contact'); closeMenu()">Contáctanos</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="mobile-menu-overlay" (click)="closeMenu()"></div>
+</div>

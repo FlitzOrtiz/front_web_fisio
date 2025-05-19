@@ -2,11 +2,21 @@
   background: var(--primary-background);
   color: var(--secondary-text-color);
   padding: 3rem 2rem;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+  }
 }
 
 .footer-container {
   margin: 0 2rem;
   display: flex;
+
+  @media (max-width: 992px) {
+    flex-direction: column;
+    gap: 2rem;
+    margin: 0 1rem;
+  }
 }
 
 .footer-logo-section {
@@ -14,6 +24,10 @@
   flex-direction: column;
   gap: 1.5rem;
   width: 40%;
+
+  @media (max-width: 992px) {
+    width: 100%;
+  }
 
   .logo {
     margin-bottom: 1rem;
@@ -47,10 +61,25 @@
 .footer-right-section {
   display: flex;
   gap: 2rem;
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    gap: 2rem 1rem;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 2rem;
+  }
 }
 
 .footer-links-section {
   margin-right: 2rem;
+
+  @media (max-width: 768px) {
+    margin-right: 0;
+    min-width: 120px;
+  }
 
   h3 {
     font-weight: 1000;
@@ -93,9 +122,12 @@
     position: relative;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 8px;
-    padding: 0.1rem 0.1rem 0.1rem 1rem;
     width: 100%;
     max-width: 320px;
+
+    @media (max-width: 480px) {
+      max-width: 100%;
+    }
 
     input {
       background: transparent;
@@ -108,6 +140,11 @@
       &::placeholder {
         color: var(--secondary-text-color);
         opacity: 0.9;
+      }
+
+      @media screen and (max-width: 480px) {
+        font-size: 0.85rem;
+        padding: 0 0.8rem;
       }
     }
 

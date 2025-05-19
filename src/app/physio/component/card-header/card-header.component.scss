@@ -4,9 +4,9 @@
   justify-content: flex-start;
   width: 100%;
   position: relative;
-  min-height: 40px;
+  min-height: 2.5rem;
   margin-top: 0.3rem;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0rem;
 }
 
 .card-header h3 {
@@ -22,8 +22,8 @@
 }
 
 .icon-only {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .left-icon {
@@ -33,6 +33,5 @@
 
 .close-btn {
   position: absolute;
-  right: 8px;
-  z-index: 2;
+  right: 0.1rem;
 }
