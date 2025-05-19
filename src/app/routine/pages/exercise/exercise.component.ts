@@ -171,8 +171,7 @@ export class ExerciseComponent implements AfterViewInit, OnDestroy {
     if (this.currentExerciseIndex >= this.exercises.length) {
       this.stopCamera();
       this.ejercicioTerminado = true;
-      //this.router.navigate(['exercise/summary']);
-      return;
+      return; 
     }
 
     this.currentTime = 0;
