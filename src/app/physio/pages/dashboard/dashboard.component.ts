@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { CardComponent } from '../../component/card/card.component';
+import { CardsComponent } from '../../component/cards/cards.component';
 import { UserHeaderComponent } from '../../../common/component/user-header/user-header.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CardComponent, UserHeaderComponent],
+  imports: [CardsComponent, UserHeaderComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
