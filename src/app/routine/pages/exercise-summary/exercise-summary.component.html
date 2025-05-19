@@ -40,7 +40,7 @@
           </div>
         </div>
 
-        <p class="subtitle" style="margin-top: 1rem;">Resumen por ejercicio</p>
+        <p class="subtitle" style="margin-top: 0rem;">Resumen por ejercicio</p>
         <div class="metric-button" *ngFor="let res of resumen">
             {{ res.title }}
             <span [ngStyle]="{ color: getColor(res.avg) }">{{ res.avg }}%</span>
@@ -54,7 +54,7 @@
       <fbutton
         label="Finalizar Sesión"
         icon="custom-home-icon"
-        [routeTo]="'/home'"
+        (click)="modalActivo = true"
         color="primary"
         size="md"
         class="home-button"
@@ -62,3 +62,6 @@
     </div>
   </div>
 </div>
+
+<app-feedback-modal *ngIf="modalActivo" (close)="modalActivo = false"></app-feedback-modal>
+

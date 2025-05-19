@@ -1,3 +1,4 @@
+<ng-container *ngIf="!loginCameraFinish; else resumen">
 <div class="camera-container">
     <div class="video-section">
       <video id="login-camera-video" autoplay muted playsinline></video>
@@ -22,9 +23,13 @@
         [color]="'primary'"
         [type]="'button'"
         [size]="'lg'"
-        [routeTo]="'/game/counter'"
+        (click)="goCounter()"
         class="start-button"
       ></fbutton>
     </div>
   </div>
+  </ng-container>
   
+  <ng-template #resumen>
+  <app-game-counter></app-game-counter>
+</ng-template>
