@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FbuttonComponent } from '../fbutton/fbutton.component';
 import { ThemeService } from '../../service/theme.service';
 
 @Component({
