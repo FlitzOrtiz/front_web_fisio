@@ -1,0 +1,38 @@
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  position: relative;
+  min-height: 40px;
+  margin-top: 0.3rem;
+  margin-bottom: 0rem;
+}
+
+.card-header h3 {
+  margin: 0;
+  padding-left: 1rem;
+  flex: 1 1 auto;
+  text-align: left;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.icon-only {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.left-icon {
+  margin-right: 0.5rem;
+  font-size: 2rem; /* Aumenta el tamaño del icono */
+}
+
+.close-btn {
+  position: absolute;
+  right: 8px;
+  z-index: 2;
+}

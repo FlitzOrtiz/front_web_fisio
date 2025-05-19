@@ -57,6 +57,36 @@
   color: var(--primary-button-text-color);
 }
 
+.action {
+  background: none;
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  display: flex;
+  margin: 0;
+  box-shadow: none;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+}
+
+.action-black {
+  background: none;
+  border: none;
+  color: black;
+  padding: 0.5rem;
+  display: flex;
+  margin: 0;
+  box-shadow: none;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+}
+
 .square-sm {
   width: 32px;
 }
@@ -71,7 +101,8 @@
 
 .sm,
 .md,
-.lg {
+.lg,
+.none {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,6 +124,15 @@
   font-size: 1.25rem;
   padding: 0.75rem 2rem;
   height: 45px;
+}
+
+.none {
+  font-size: 1.25rem;
+  padding: 0.5rem;
+}
+
+.square-none {
+  width: 38px;
 }
 
 .ml-2 {

@@ -1,35 +1,76 @@
-.header {
+.user-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--primary-color);
-  color: var(--secondary-text-color);
+  background: var(--primary-background);
+  color: white;
+  height: 60px;
+  padding: 0 0.8rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-div {
+.header-left {
   display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100%;
   align-items: center;
-  margin-left: 20px;
-  margin-right: 20px;
 }
 
-.menu-icon {
-  justify-content: left;
+.app-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0 10px;
 }
 
-.search-bar {
-  justify-content: center;
+.search-container {
+  flex: 1;
+  max-width: 500px;
+  border-radius: 8px;
+  display: flex;
+}
+
+.search-input {
+  width: 90%;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 8px 0 0 8px;
+  font-size: 0.95rem;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.search-button {
+  border-radius: 0 8px 8px 0;
+  font-size: 1rem;
+  padding: 0.5rem 0.8rem;
+  border: none;
+  background: white;
+  color: var(--primary-color);
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.header-right {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .user-profile {
-  justify-content: right;
+  display: flex;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
 }
 
-app-fbutton {
-  margin-right: 20px;
-  background-color: var(--primary-color);
-  padding: 0px;
+.profile-image {
+  background-color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }

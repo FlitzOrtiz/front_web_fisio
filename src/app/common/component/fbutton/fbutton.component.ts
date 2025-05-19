@@ -20,7 +20,7 @@ export class FbuttonComponent {
   @Input() label: string = '';
   @Input() type: string = 'button';
   @Input() color: string = 'primary';
-  @Input() size: 'sm' | 'md' | 'lg' = 'md';
+  @Input() size: 'sm' | 'md' | 'none' | 'lg' = 'md';
   @Input() disabled: boolean = false;
   @Input() classSelected: boolean = false;
   @Input() icon: string = '';

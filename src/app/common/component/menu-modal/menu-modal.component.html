@@ -1,0 +1,57 @@
+<div class="menu-modal" [class.open]="isOpen" (click)="close.emit()">
+  <div
+    class="menu-container"
+    [class.open]="isOpen"
+    (click)="stopPropagation($event)"
+  >
+    <div class="modal-header">
+      <fbutton
+        [color]="'action'"
+        [size]="'none'"
+        [isSquare]="true"
+        icon="fa-solid fa-times"
+        (onClick)="close.emit()"
+      ></fbutton>
+      <div class="modal-title">El Chueco</div>
+    </div>
+
+    <div class="modal-content">
+      <div class="user-section">
+        <div class="profile-image">
+          <img src="assets/user-ico.png" alt="User profile" />
+        </div>
+        <div class="user-name">{{ userName }}</div>
+      </div>
+
+      <div class="menu-section">
+        <div class="section-title">Dashboards</div>
+        <div class="menu-items">
+          <a
+            *ngFor="let item of dashboards"
+            [routerLink]="item.route"
+            class="menu-item"
+            (click)="close.emit()"
+          >
+            <i [class]="item.icon"></i>
+            <span>{{ item.label }}</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="menu-section">
+        <div class="section-title">Pages</div>
+        <div class="menu-items">
+          <a
+            *ngFor="let item of pages"
+            [routerLink]="item.route"
+            class="menu-item"
+            (click)="close.emit()"
+          >
+            <i [class]="item.icon"></i>
+            <span>{{ item.label }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+.session {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 90%;
+  margin: 1rem;
+}
+
+.user_info {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "pfp name"
+    "pfp routine";
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+#pfp {
+  grid-area: pfp;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  align-self: center;
+}
+
+#name {
+  grid-area: name;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: black;
+  margin: 0rem;
+  overflow: visible;
+  text-overflow: unset;
+  white-space: normal;
+  word-break: break-word;
+}
+
+#routine {
+  grid-area: routine;
+  margin: 0rem;
+  font-size: 1rem;
+  color: gray;
+  overflow: visible;
+  text-overflow: unset;
+  white-space: normal;
+  word-break: break-word;
+}
