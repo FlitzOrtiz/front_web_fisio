@@ -15,7 +15,7 @@
     <input
       type="text"
       [(ngModel)]="searchQuery"
-      placeholder="Search for resources, reports or patients"
+      placeholder="Busca recursos, reportes o pacientes"
       class="search-input"
       (keyup.enter)="search()"
     />
@@ -25,13 +25,13 @@
   </div>
 
   <div class="header-right">
-    <fbutton
+    <!-- <fbutton
       [color]="'action'"
       [size]="'none'"
       [isSquare]="true"
       icon="fa-solid fa-ellipsis-vertical"
       (onClick)="openSettings()"
-    ></fbutton>
+    ></fbutton> -->
     <button class="user-profile" (click)="openUserMenu()">
       <img src="assets/user-ico.png" alt="User" class="profile-image" />
     </button>

@@ -48,6 +48,11 @@ export class MenuModalComponent {
       label: 'Fichas',
       route: '/medicalrecordmanage',
     },
+    {
+      icon: 'fa-solid fa-right-from-bracket',
+      label: 'Cerrar Sesión',
+      route: '/landing',
+    },
   ];
 
   @HostListener('document:click', ['$event'])
