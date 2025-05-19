@@ -1,15 +1,44 @@
 <header class="header white-text">
   <div class="header-container">
     <nav class="navigation">
+      <!-- Mobile menu toggle button -->
+      <div class="mobile-menu-button">
+        <fbutton
+          [color]="'action'"
+          [size]="'none'"
+          [isSquare]="true"
+          icon="fa-solid fa-bars"
+          (onClick)="toggleMobileMenu()"
+          class="menu-toggle-button"
+        ></fbutton>
+      </div>
+
+      <!-- Desktop navigation -->
       <ul class="menu-items">
-        <li><a (click)="scrollTo('what-is')">¿Qué es?</a></li>
-        <li><a (click)="scrollTo('how-it-works')">¿Cómo funciona?</a></li>
-        <li><a (click)="scrollTo('library')">Ejercicios</a></li>
-        <li><a (click)="scrollTo('atention')">Telerehabilitación</a></li>
+        <li>
+          <a (click)="scrollTo('what-is')">¿Qué es?</a>
+        </li>
+        <li>
+          <a (click)="scrollTo('how-it-works')">¿Cómo funciona?</a>
+        </li>
+        <li>
+          <a (click)="scrollTo('library')">Ejercicios</a>
+        </li>
+        <li>
+          <a (click)="scrollTo('atention')">Telerehabilitación</a>
+        </li>
         <li><a (click)="scrollTo('faq')">FAQ</a></li>
-        <li><a (click)="scrollTo('contact')">Contáctanos</a></li>
+        <li>
+          <a (click)="scrollTo('contact')">Contáctanos</a>
+        </li>
       </ul>
     </nav>
+
+    <app-mobile-menu
+      [isOpen]="isMobileMenuOpen"
+      (close)="closeMobileMenu()"
+      (menuItemClick)="handleMenuItemClick($event)"
+    ></app-mobile-menu>
 
     <div class="auth-buttons">
       <fbutton
@@ -19,7 +48,6 @@
         [routeTo]="'/login'"
       ></fbutton>
       <fbutton
-        routerLink="/register"
         [label]="'Registrarse'"
         [color]="'primary'"
         [size]="'sm'"
