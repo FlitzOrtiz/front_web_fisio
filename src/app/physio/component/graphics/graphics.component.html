@@ -1,16 +1,16 @@
-<div class="graphic_container">
+<div class="graphic-container">
   <div class="filter">
     <fbutton
       label="Rutinas Completadas"
       icon="''"
       (onClick)="selectType('completed')"
-      color="tertiary"
+      color="action-black"
     ></fbutton>
     <fbutton
       label="Rutinas Planeadas"
       icon="''"
       (onClick)="selectType('planned')"
-      color="tertiary"
+      color="action-black"
     ></fbutton>
     <label for="years" class="visually-hidden" *ngIf="false">Año</label>
     <select id="years" class="year-selector" (change)="selectYear($event)">

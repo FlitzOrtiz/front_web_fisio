@@ -72,6 +72,21 @@
   }
 }
 
+.action-black {
+  background: none;
+  border: none;
+  color: black;
+  padding: 0.5rem;
+  display: flex;
+  margin: 0;
+  box-shadow: none;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+}
+
 .square-sm {
   width: 32px;
 }

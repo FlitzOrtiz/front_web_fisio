@@ -1,4 +1,8 @@
-.header {
+* {
+  // border: 1px solid black;
+}
+
+.user-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -11,31 +15,49 @@
 .header-left {
   display: flex;
   align-items: center;
-  margin-left: 20px;
-  margin-right: 20px;
 }
 
-.menu-icon,
-.search-bar,
-.user-profile {
+.app-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0 10px;
+}
+
+.search-container {
+  flex: 1;
+  max-width: 600px;
+  border-radius: 8px;
+  display: flex;
+}
+
+.search-input {
+  width: 90%;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 8px 0 0 8px;
+  font-size: 0.95rem;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.search-button {
+  border-radius: 0 8px 8px 0;
+  font-size: 1rem;
+  padding: 0.5rem 0.8rem;
+  border: none;
+  background: white;
+  color: var(--primary-color);
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.header-right {
   display: flex;
   gap: 0.5rem;
-}
-
-.menu-icon {
-  justify-content: flex-start;
-}
-
-.search-bar {
-  justify-content: center;
-  flex: 1; /* Permite que el campo de búsqueda ocupe espacio flexible */
-}
-
-.search-bar input {
-  width: 200px;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
 }
 
 .user-profile {
