@@ -1,38 +1,81 @@
-<button
-  (click)="handleClick()"
-  [type]="type"
-  [class]="color + ' ' + size"
-  [disabled]="disabled || loadingDisabled"
-  class="btn"
-  [ngClass]="[
-    isSquare ? 'square-' + size : '',
-    classSelected ? 'selected-' + color : '',
-    isTransparent ? 'transparent' : '',
-    iconColor
-  ]"
->
-  <i
-    *ngIf="icon && !loading"
-    [class]="
-      (label ? (iconPosition === 'right' ? 'ml-2' : 'mr-2') : '') + ' ' + icon
-    "
-  ></i>
+<ng-container *ngIf="!externalLink; else externalBtn">
+  <button
+    (click)="handleClick()"
+    [type]="type"
+    [class]="color + ' ' + size"
+    [disabled]="disabled || loadingDisabled"
+    class="btn"
+    [ngClass]="[
+      isSquare ? 'square-' + size : '',
+      classSelected ? 'selected-' + color : '',
+      isTransparent ? 'transparent' : '',
+      iconColor
+    ]"
+  >
+    <i
+      *ngIf="icon && !loading"
+      [class]="
+        (label ? (iconPosition === 'right' ? 'ml-2' : 'mr-2') : '') + ' ' + icon
+      "
+    ></i>
 
-  <span *ngIf="loading && !(loadingIconPosition === 'left')">
-    {{ loadingText }}
-  </span>
+    <span *ngIf="loading && !(loadingIconPosition === 'left')">
+      {{ loadingText }}
+    </span>
 
-  <i
-    *ngIf="loading"
-    [class]="
-      (loadingIcon || 'fa-solid fa-spinner') +
-      (loadingText ? (loadingIconPosition === 'right' ? ' ml-2' : ' mr-2') : '')
-    "
-  ></i>
+    <i
+      *ngIf="loading"
+      [class]="
+        (loadingIcon || 'fa-solid fa-spinner') +
+        (loadingText ? (loadingIconPosition === 'right' ? ' ml-2' : ' mr-2') : '')
+      "
+    ></i>
 
-  <span *ngIf="loading && loadingIconPosition === 'left'">
-    {{ loadingText }}
-  </span>
+    <span *ngIf="loading && loadingIconPosition === 'left'">
+      {{ loadingText }}
+    </span>
 
-  <span *ngIf="!loading">{{ label }}</span>
-</button>
+    <span *ngIf="!loading">{{ label }}</span>
+  </button>
+</ng-container>
+
+<ng-template #externalBtn>
+  <a
+    [href]="externalLink"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="btn"
+    [class]="color + ' ' + size"
+    [ngClass]="[
+      isSquare ? 'square-' + size : '',
+      classSelected ? 'selected-' + color : '',
+      isTransparent ? 'transparent' : '',
+      iconColor
+    ]"
+  >
+    <i
+      *ngIf="icon && !loading"
+      [class]="
+        (label ? (iconPosition === 'right' ? 'ml-2' : 'mr-2') : '') + ' ' + icon
+      "
+    ></i>
+
+    <span *ngIf="loading && !(loadingIconPosition === 'left')">
+      {{ loadingText }}
+    </span>
+
+    <i
+      *ngIf="loading"
+      [class]="
+        (loadingIcon || 'fa-solid fa-spinner') +
+        (loadingText ? (loadingIconPosition === 'right' ? ' ml-2' : ' mr-2') : '')
+      "
+    ></i>
+
+    <span *ngIf="loading && loadingIconPosition === 'left'">
+      {{ loadingText }}
+    </span>
+
+    <span *ngIf="!loading">{{ label }}</span>
+  </a>
+</ng-template>

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.component';
+import { SubscriptionService } from '../../service/subscription.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-year-pay',
@@ -10,11 +12,18 @@ import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.comp
   styleUrls: ['./year-pay.component.scss'],
 })
 export class YearPayComponent {
+  userId = 1; // Cambia esto por el ID real del usuario logueado si es necesario
+
+  constructor(
+    private subscriptionService: SubscriptionService,
+    private router: Router
+  ) {}
+
   basicPlan = {
     title: 'Básico',
     price: '49.99',
     unit: '/ye',
-    items: ['$4.99', 'List item', 'List item', 'List item', 'List item'],
+    items: ['$4.99 mensual', 'List item', 'List item', 'List item', 'List item'],
     buttonLabel: 'Comprar',
     highlight: false,
   };
@@ -23,7 +32,7 @@ export class YearPayComponent {
     title: 'Premium',
     price: '89.99',
     unit: '/ye',
-    items: ['$9.99 anual', 'List item', 'List item', 'List item', 'List item'],
+    items: ['$9.99 mensual', 'List item', 'List item', 'List item', 'List item'],
     buttonLabel: 'Comprar',
     highlight: true,
   };
@@ -41,4 +50,30 @@ export class YearPayComponent {
     buttonLabel: 'Contáctanos',
     highlight: false,
   };
+
+  subscribeToPlan(planTypeId: number) {
+  this.subscriptionService.createSubscription(this.userId, planTypeId).subscribe({
+    next: (res: any) => {
+      console.log('Respuesta de subscripción:', res);
+
+      if (typeof res === 'string') {
+        // Caso: el backend devuelve directamente la URL del checkout de PayPal como string
+        if (res.startsWith('https://') || res.startsWith('http://')) {
+          window.open(res, '_blank');
+        } else {
+          alert('Error: ' + res);
+        }
+      } else if (res?.redirectUrl) {
+        // Caso: después del pago, el backend devuelve un JSON con redirectUrl
+        this.router.navigate([res.redirectUrl]);
+      } else {
+        alert('Subscripción creada pero no se pudo redirigir automáticamente.');
+      }
+    },
+    error: (err) => {
+      console.error('Error creando subscripción', err);
+      alert('Ya cuentas con una subscripción activa o ha ocurrido un error al procesar tu solicitud.');
+    },
+  });
+}
 }

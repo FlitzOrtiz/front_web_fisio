@@ -12,7 +12,7 @@ import { PaymentSuccessComponent } from "../../component/payment-success/payment
   styleUrls: ['./account-payment.component.scss']
 })
 export class AccountPaymentComponent {
-  step = 1;
+  step = 3;
   email = 'john.smith@ejemplo.com';
   selectedCard = 'MASTERCARD •••• 8951';
   receiveEmails = false;
