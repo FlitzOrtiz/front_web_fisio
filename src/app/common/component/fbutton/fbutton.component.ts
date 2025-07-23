@@ -36,7 +36,7 @@ export class FbuttonComponent {
   @Input() loadingColor: string = 'primary';
   @Input() loadingDisabled: boolean = false;
   @Input() routeTo: string | null = null;
-
+  @Input() externalLink: string | null = null;
   @Output() onClick = new EventEmitter<any>();
 
   constructor(private el: ElementRef, private router: Router) {}
@@ -48,6 +48,8 @@ export class FbuttonComponent {
 
     if (this.routeTo) {
       this.router.navigate([this.routeTo]);
+    } else if (this.externalLink) {
+      window.open(this.externalLink, '_blank');
     }
   }
 }
