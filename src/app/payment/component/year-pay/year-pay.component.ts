@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.component';
 import { SubscriptionService } from '../../service/subscription.service';
@@ -11,13 +11,25 @@ import { Router } from '@angular/router';
   templateUrl: './year-pay.component.html',
   styleUrls: ['./year-pay.component.scss'],
 })
-export class YearPayComponent {
-  userId = 1; // Cambia esto por el ID real del usuario logueado si es necesario
+export class YearPayComponent implements OnInit {
+  userId!: number;
+  errorMessage: string = '';
 
   constructor(
     private subscriptionService: SubscriptionService,
     private router: Router
   ) {}
+
+  ngOnInit(): void {
+    const storedUserId = localStorage.getItem('userId');
+    if (storedUserId) {
+      this.userId = Number(storedUserId);
+      console.log('User ID:', this.userId);
+      console.log('Access Token:', localStorage.getItem('accessToken'));
+    } else {
+      this.errorMessage = 'Por favor inicia sesión.';
+    }
+  }
 
   basicPlan = {
     title: 'Básico',
@@ -52,28 +64,27 @@ export class YearPayComponent {
   };
 
   subscribeToPlan(planTypeId: number) {
-  this.subscriptionService.createSubscription(this.userId, planTypeId).subscribe({
-    next: (res: any) => {
-      console.log('Respuesta de subscripción:', res);
+    this.errorMessage = '';
+    this.subscriptionService.createSubscription(this.userId, planTypeId).subscribe({
+      next: (res: any) => {
+        console.log('Respuesta de subscripción:', res);
 
-      if (typeof res === 'string') {
-        // Caso: el backend devuelve directamente la URL del checkout de PayPal como string
-        if (res.startsWith('https://') || res.startsWith('http://')) {
-          window.open(res, '_blank');
+        if (typeof res === 'string') {
+          if (res.startsWith('https://') || res.startsWith('http://')) {
+            window.open(res, '_blank');
+          } else {
+            this.errorMessage = 'Error: ' + res;
+          }
+        } else if (res?.redirectUrl) {
+          this.router.navigate([res.redirectUrl]);
         } else {
-          alert('Error: ' + res);
+          this.errorMessage = 'Subscripción creada pero no se pudo redirigir automáticamente.';
         }
-      } else if (res?.redirectUrl) {
-        // Caso: después del pago, el backend devuelve un JSON con redirectUrl
-        this.router.navigate([res.redirectUrl]);
-      } else {
-        alert('Subscripción creada pero no se pudo redirigir automáticamente.');
-      }
-    },
-    error: (err) => {
-      console.error('Error creando subscripción', err);
-      alert('Ya cuentas con una subscripción activa o ha ocurrido un error al procesar tu solicitud.');
-    },
-  });
-}
+      },
+      error: (err) => {
+        console.error('Error creando subscripción', err);
+        this.errorMessage = 'Ya cuentas con una subscripción activa o ha ocurrido un error al procesar tu solicitud.';
+      },
+    });
+  }
 }

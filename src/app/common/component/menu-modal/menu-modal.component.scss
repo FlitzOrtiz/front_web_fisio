@@ -19,6 +19,17 @@
 .modal-content {
   height: calc(100% - 60px);
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+  }
 }
 
 .menu-container {
@@ -81,29 +92,45 @@
 .menu-items {
   display: flex;
   flex-direction: column;
-}
 
-.menu-item {
-  display: flex;
-  align-items: center;
-  padding: 12px 20px;
-  color: white;
-  text-decoration: none;
-  transition: background-color 0.2s ease;
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
 
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+
+    i {
+      margin-right: 12px;
+      font-size: 18px;
+      width: 24px;
+      text-align: center;
+    }
+
+    span {
+      font-size: 15px;
+    }
   }
 
-  i {
-    margin-right: 12px;
-    font-size: 18px;
-    width: 24px;
-    text-align: center;
-  }
-
-  span {
-    font-size: 15px;
+  button.menu-item {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: left;
+    width: 100%;
+    margin: 0;
   }
 }
 
@@ -127,4 +154,4 @@
   font-size: 1.1rem;
   font-weight: 500;
   margin: 0 10px;
-}
+ }

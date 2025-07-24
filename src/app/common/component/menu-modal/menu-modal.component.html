@@ -30,7 +30,7 @@
             *ngFor="let item of dashboards"
             [routerLink]="item.route"
             class="menu-item"
-            (click)="close.emit()"
+            (click)="onMenuItemClick(item)"
           >
             <i [class]="item.icon"></i>
             <span>{{ item.label }}</span>
@@ -41,15 +41,23 @@
       <div class="menu-section">
         <div class="section-title">Pages</div>
         <div class="menu-items">
-          <a
-            *ngFor="let item of pages"
-            [routerLink]="item.route"
-            class="menu-item"
-            (click)="close.emit()"
-          >
-            <i [class]="item.icon"></i>
-            <span>{{ item.label }}</span>
-          </a>
+          <ng-container *ngFor="let item of pages">
+            <a
+              *ngIf="item.route; else logoutButton"
+              [routerLink]="item.route"
+              class="menu-item"
+              (click)="onMenuItemClick(item)"
+            >
+              <i [class]="item.icon"></i>
+              <span>{{ item.label }}</span>
+            </a>
+            <ng-template #logoutButton>
+              <button class="menu-item" (click)="item.action?.()">
+                <i [class]="item.icon"></i>
+                <span>{{ item.label }}</span>
+              </button>
+            </ng-template>
+          </ng-container>
         </div>
       </div>
     </div>

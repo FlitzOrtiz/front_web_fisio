@@ -1,3 +1,9 @@
+  .error-message {
+    color: var(primary-text-color);
+    font-weight: bold;
+    margin-top: 12px;
+    text-align: center;
+  }
 .pricing-container {
   display: flex;
   flex-wrap: wrap;
