@@ -6,13 +6,15 @@ import {
   HostListener,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { FbuttonComponent } from '../fbutton/fbutton.component';
+import { AuthService } from '../../../auth/service/auth.service';
 
 interface MenuItem {
   icon: string;
   label: string;
-  route: string;
+  route?: string;
+  action?: () => void;
 }
 
 @Component({
@@ -26,6 +28,8 @@ export class MenuModalComponent {
   @Input() isOpen: boolean = false;
   @Input() userName: string = 'Jessie Pinkman';
   @Output() close = new EventEmitter<void>();
+
+  constructor(private authService: AuthService, private router: Router) {}
 
   dashboards: MenuItem[] = [
     { icon: 'fa-solid fa-chart-pie', label: 'Principal', route: '/dashboard' },
@@ -51,9 +55,34 @@ export class MenuModalComponent {
     {
       icon: 'fa-solid fa-right-from-bracket',
       label: 'Cerrar Sesión',
-      route: '/landing',
+      action: () => this.handleLogout()
     },
   ];
+
+  handleLogout(): void {
+    this.authService.logout().subscribe({
+      next: () => {
+        this.closeModalAndRedirect();
+      },
+      error: (err) => {
+        console.error('Error al cerrar sesión:', err);
+        // Forzar cierre de sesión local si falla el servidor
+        this.closeModalAndRedirect();
+      }
+    });
+  }
+
+  closeModalAndRedirect(): void {
+    this.close.emit();
+    this.router.navigate(['/landing']);
+  }
+
+  onMenuItemClick(item: MenuItem): void {
+    if (item.action) {
+      item.action();
+    }
+    this.close.emit();
+  }
 
   @HostListener('document:click', ['$event'])
   onClickOutside(event: MouseEvent) {

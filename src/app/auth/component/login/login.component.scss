@@ -145,6 +145,13 @@
   color: #66aaff;
 }
 
+.error-message {
+  color: red;
+  font-weight: 500;
+  margin-top: 12px;
+  text-align: center;
+}
+
 @media screen and (max-width: 768px) {
   .login-container {
     padding: 1.5rem;
