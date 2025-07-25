@@ -77,6 +77,7 @@ export class AuthService {
     localStorage.removeItem(this.USER_KEY);
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('userId');
+    localStorage.removeItem('clave');
   }
 
   private getAccessToken(): string | null {
