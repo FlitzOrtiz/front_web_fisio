@@ -10,13 +10,13 @@
     <div class="account-form">
       <div class="form-section">
         <label>Nombre Completo</label>
-        <input type="text" placeholder="ej: nombre apellido" />
+        <input type="text" [(ngModel)]="fullName" placeholder="ej: nombre apellido" />
 
         <label>Nombre de usuario</label>
-        <input type="text" placeholder="ej: nombre" />
+        <input type="text" [(ngModel)]="username" placeholder="ej: nombre" />
 
         <label>Dirección de correo electrónico</label>
-        <input type="email" placeholder="ej: ejemplo@hotmail.com" />
+        <input type="email" [(ngModel)]="email" placeholder="ej: ejemplo@hotmail.com" />
       </div>
 
       <div class="profile-section">
@@ -27,12 +27,17 @@
         </div>
       </div>
     </div>
+
+    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
     <fbutton
-        [label]="'Actualizar la cuenta'"
-        [color]="'primary'"
-        [type]="'button'"
-        [size]="'lg'"
-        class="start-button"
-      ></fbutton>
+      [label]="'Actualizar la cuenta'"
+      [color]="'primary'"
+      [type]="'button'"
+      [size]="'lg'"
+      class="start-button"
+      (click)="actualizarCuenta()"
+    ></fbutton>
   </div>
 </div>

@@ -24,7 +24,6 @@ export class AuthService {
   }
 
   loginWithGoogle(): Observable<any> {
-    // Reemplazar por la lógica real de autenticación con Google
     return this.login('test@example.com', 'password123');
   }
 

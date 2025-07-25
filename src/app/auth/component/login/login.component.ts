@@ -48,8 +48,7 @@ export class LoginComponent {
       next: (res) => {
         localStorage.setItem('accessToken', res.accessToken);
         localStorage.setItem('userId', res.user.userId);
-        console.log('accessToken:', res.accessToken);
-        console.log('userId:', res.user.userId);
+        localStorage.setItem('user', JSON.stringify(res.user));
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
@@ -85,6 +84,7 @@ export class LoginComponent {
       next: (res) => {
         localStorage.setItem('accessToken', res.accessToken);
         localStorage.setItem('userId', res.user.userId);
+        localStorage.setItem('user', JSON.stringify(res.user));
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
