@@ -1,0 +1,16 @@
+<div class="pose-container">
+  <video #video playsinline muted class="video-canvas"></video>
+  <canvas #canvas></canvas>
+
+  <div
+    class="pose-feedback"
+    [ngClass]="{ correct: feedback.isCorrect, incorrect: !feedback.isCorrect }"
+  >
+    <div class="feedback-message">
+      {{ feedback.isCorrect ? "✅" : "⚠️" }} {{ feedback.message }}
+    </div>
+    <div class="feedback-confidence" *ngIf="!isLoading">
+      Precisión: {{ feedback.confidence * 100 | number : "1.0-0" }}%
+    </div>
+  </div>
+</div>

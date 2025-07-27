@@ -31,6 +31,15 @@ export class MenuModalComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
+   ngOnInit(): void {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      const user = JSON.parse(userData);
+      this.userName = user.fullName || '';
+      this.userName = user.username || '';
+    }
+  }
+
   dashboards: MenuItem[] = [
     { icon: 'fa-solid fa-chart-pie', label: 'Principal', route: '/dashboard' },
   ];

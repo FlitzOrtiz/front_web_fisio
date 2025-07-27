@@ -23,19 +23,26 @@
       </div>
 
       <div class="social-icons">
-        <a href="#" class="social-icon">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="#" class="social-icon">
-          <i class="fab fa-dribbble"></i>
-        </a>
-        <a href="#" class="social-icon">
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a href="#" class="social-icon">
-          <i class="fab fa-youtube"></i>
-        </a>
-      </div>
+  <!-- Instagram real -->
+  <a href="https://www.instagram.com/fisio_ucuenca/?utm_source=ig_web_button_share_sheet" class="social-icon" target="_blank" title="Control Fisio en Instagram">
+    <i class="fab fa-instagram"></i>
+  </a>
+
+  <!-- Dribbble reemplazado con Facebook real (Dribbble no es usado en fisioterapia) -->
+  <a href="https://www.facebook.com/FisiCareFisioterapiayRehabilitacion" class="social-icon" target="_blank" title="Control Fisio en Facebook">
+    <i class="fab fa-facebook-f"></i>
+  </a>
+
+  <!-- Twitter real -->
+  <a href="https://x.com/_efisioterapia" class="social-icon" target="_blank" title="Fisio Center en Twitter">
+    <i class="fab fa-twitter"></i>
+  </a>
+
+  <!-- YouTube real -->
+  <a href="https://www.youtube.com/@FisioActivo" class="social-icon" target="_blank" title="Fisio Activo en YouTube">
+    <i class="fab fa-youtube"></i>
+  </a>
+</div>
     </div>
 
     <div class="footer-right-section">
@@ -43,34 +50,44 @@
         <h3>Sobre<br />El Chueco</h3>
         <ul>
           <li><a href="#">Acerca de nosotros</a></li>
-          <li><a href="#">Precios</a></li>
-          <li><a href="#">Testimonios</a></li>
+          <li><a href="landing/subscription" target="_blank">Precios</a></li>
         </ul>
       </div>
 
       <div class="footer-links-section">
         <h3>Ayuda<br /><br /></h3>
         <ul>
-          <li><a href="#">Centro de ayuda</a></li>
-          <li><a href="#">Términos del servicio</a></li>
-          <li><a href="#">Legal</a></li>
-          <li><a href="#">Política de privacidad</a></li>
-          <li><a href="#">Status</a></li>
+          <li><a href="https://forms.gle/GXiq1zue1UyabPew8" target="_blank">Centro de ayuda</a></li>
+          <li><a href="legal" target="_blank">Términos del servicio</a></li>
+          <li><a href="legal" target="_blank">Legal</a></li>
+          <li><a href="legal" target="_blank">Política de privacidad</a></li>
         </ul>
       </div>
 
       <div class="footer-newsletter">
         <h3>Mantente al día<br />con El Chueco</h3>
         <div class="newsletter-form">
-          <input type="email" placeholder="Tu dirección de correo" />
-          <button type="submit" aria-label="Enviar">
+          <input
+            type="email"
+            [(ngModel)]="userEmail"
+            placeholder="Tu dirección de correo"
+          />
+
+          <a
+            [href]="getFormUrl()"
+            target="_blank"
+            rel="noopener noreferrer"
+            [class.disabled]="!userEmail"
+            aria-label="Enviar"
+            class="newsletter-button"
+          >
             <svg width="24" height="24" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
                 d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"
               />
             </svg>
-          </button>
+          </a>
         </div>
       </div>
     </div>
