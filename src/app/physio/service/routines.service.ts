@@ -1,179 +1,176 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Exercise, Routine, RoutineDifficulty } from '../domain/routine';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoutinesService {
-  public routines: Routine[] = [
-    {
-      id: 1001,
-      name: 'Rehabilitación Lumbar Básica',
-      category: 'Lumbar',
-      description: 'Rutina para fortalecer la zona lumbar y reducir dolor.',
-      difficulty: RoutineDifficulty.Easy,
-      estimatedDuration: 900, // 15 minutos
-      targetArea: 1,
-      numWeeks: 4,
-      daysWeek: ['LUN', 'MIE', 'VIE'],
-      isfavorite: false,
-      exercises: [
-        {
-          id: 1,
-          name: 'Puente de glúteos',
-          videoUrl: 'https://example.com/videos/puente.mp4',
-          sets: 30,
-          repetitions: 12,
-          withAssistant: false,
-          description: 'Eleva pelvis manteniendo la contracción.',
-          keymoments: [],
-        },
-        {
-          id: 2,
-          name: 'Plancha frontal',
-          videoUrl: 'https://example.com/videos/plancha.mp4',
-          sets: 45,
-          repetitions: 1,
-          withAssistant: false,
-          description: 'Mantener posición de tabla.',
-          keymoments: [],
-        },
-      ],
-    },
-    {
-      id: 1002,
-      name: 'Fortalecimiento de Hombro',
-      category: 'Hombro',
-      description: 'Ejercicios para mejorar la estabilidad del hombro.',
-      difficulty: RoutineDifficulty.Medium,
-      estimatedDuration: 1200, // 20 minutos
-      targetArea: 1,
-      numWeeks: 6,
-      daysWeek: ['MAR', 'JUE'],
-      isfavorite: false,
-      exercises: [
-        {
-          id: 3,
-          name: 'Elevación lateral',
-          videoUrl: 'https://example.com/videos/lateral.mp4',
-          sets: 30,
-          repetitions: 15,
-          withAssistant: false,
-          description: 'Eleva brazos lateralmente.',
-          keymoments: [],
-        },
-      ],
-    },
-  ];
+  private videosCache: any[] = [];
+  private targetAreasCatalog: any[] = [];
 
-  // → Simulación de “tabla” de ejercicios independiente
-  private exercises: Exercise[] = [
-    {
-      id: 1,
-      name: 'Puente de glúteos',
-      videoUrl: '',
-      sets: 30,
-      repetitions: 12,
-      withAssistant: false,
-      description: '',
-      keymoments: [],
-    },
-    {
-      id: 2,
-      name: 'Plancha frontal',
-      videoUrl: '',
-      sets: 45,
-      repetitions: 1,
-      withAssistant: false,
-      description: '',
-      keymoments: [],
-    },
-    {
-      id: 3,
-      name: 'Elevación lateral',
-      videoUrl: '',
-      sets: 30,
-      repetitions: 15,
-      withAssistant: false,
-      description: '',
-      keymoments: [],
-    },
-  ];
+  constructor(private http: HttpClient) {}
 
-  constructor() {} // private http: HttpClient
-
-  // === RUTINAS CRUD SOBRE EL ARRAY SIMULADO ===
-
-  getAllRoutines(): Observable<Routine[]> {
-    // → HTTP real: this.http.get<Routine[]>(this.routinesUrl)
-    return of(this.routines);
+  // 1. Get Catalog of Target Areas
+  getTargetAreas(): Observable<any> {
+    return this.http.get(`${environment.BASE_URL}/catalog/target-areas`);
   }
 
-  getRoutineById(id: number): Observable<Routine | undefined> {
-    // → HTTP real: this.http.get<Routine>(`${this.routinesUrl}/${id}`)
-    const found = this.routines.find((r) => r.id === id);
-    return of(found);
+  getRoutineById(id: number | string): Observable<any> {
+    return this.http.get(`${environment.BASE_URL}/routines/${id}`);
   }
 
-  createRoutine(routine: Routine): Observable<Routine> {
-    // → HTTP real: this.http.post<Routine>(this.routinesUrl, routine)
-    const newRoutine = { ...routine, id: Date.now() };
-    this.routines.push(newRoutine);
-    return of(newRoutine);
+  // 2. Get All Routines
+  getAllRoutines(): Observable<any> {
+    return this.http.get(`${environment.BASE_URL}/routines`);
   }
 
-  updateRoutine(id: number, routine: Routine): Observable<Routine | undefined> {
-    // → HTTP real: this.http.put<Routine>(`${this.routinesUrl}/${id}`, routine)
-    const idx = this.routines.findIndex((r) => r.id === id);
-    if (idx > -1) {
-      this.routines[idx] = { ...routine, id };
-      return of(this.routines[idx]);
+  // 3. Create a New Routine
+  createRoutine(routine: any): Observable<any> {
+    return this.http.post(`${environment.BASE_URL}/routines`, routine);
+  }
+
+  /**
+   * Maps a frontend routine object to the backend format for create/update
+   */
+  private mapRoutineToBackend(routine: any): any {
+    return {
+      name: routine.name,
+      category: routine.category,
+      description: routine.description,
+      difficulty:
+        typeof routine.difficulty === 'number'
+          ? routine.difficulty
+          : this.mapDifficulty(routine.difficulty),
+      duration: routine.estimatedDuration || routine.duration,
+      target_area_id:
+        typeof routine.targetArea === 'number'
+          ? routine.targetArea
+          : this.mapTargetArea(routine.targetArea),
+      weeks: routine.weeks,
+      days: (routine.days || []).map((d: any) => this.mapDay(d)),
+      exercises: (routine.exercises || []).map((ex: any) => ({
+        name: ex.name,
+        video_url: ex.videoUrl || ex.video_url,
+        sets: ex.sets,
+        repetitions: ex.repetitions,
+        assisted: ex.withAssistant ?? ex.assisted,
+        description: ex.description,
+        key_moments: (ex.keymoments || ex.key_moments || []).map((km: any) => ({
+          description: km.description,
+          timestamp: km.timestamp,
+        })),
+      })),
+    };
+  }
+
+  /**
+   * Example mapping functions. You should replace these with your actual logic/catalogs.
+   */
+  private mapDifficulty(diff: any): number {
+    // Example: 'Avanzada' => 2, 'Intermedia' => 1, 'Básica' => 0
+    if (typeof diff === 'number') return diff;
+    switch (diff) {
+      case 'Avanzada':
+        return 2;
+      case 'Intermedia':
+        return 1;
+      case 'Básica':
+        return 0;
+      default:
+        return 0;
     }
-    return of(undefined);
   }
 
-  deleteRoutine(id: number): Observable<boolean> {
-    // → HTTP real: this.http.delete<void>(`${this.routinesUrl}/${id}`)
-    const initialLength = this.routines.length;
-    this.routines = this.routines.filter((r) => r.id !== id);
-    return of(this.routines.length < initialLength);
+  /**
+   * Load and cache target areas from backend
+   */
+  loadTargetAreas(): Observable<any[]> {
+    return new Observable((observer) => {
+      this.getTargetAreas().subscribe((data) => {
+        console.log('Loaded target areas:', data.target_areas);
+        this.targetAreasCatalog = data.target_areas;
+        observer.next(data.target_areas);
+        observer.complete();
+      });
+    });
   }
 
-  // === EJERCICIOS CRUD SOBRE EL ARRAY SIMULADO ===
-
-  getAllExercises(): Observable<Exercise[]> {
-    // → HTTP real: this.http.get<Exercise[]>(this.exercisesUrl)
-    return of(this.exercises);
+  /**
+   * Map frontend area (name or id) to backend id using loaded catalog
+   */
+  private mapTargetArea(area: any): number {
+    if (typeof area === 'number') return area;
+    const found = this.targetAreasCatalog.find((a: any) => a.name === area);
+    return found ? found.id : 0;
   }
 
-  getExerciseById(id: number): Observable<Exercise | undefined> {
-    // → HTTP real: this.http.get<Exercise>(`${this.exercisesUrl}/${id}`)
-    const ex = this.exercises.find((e) => e.id === id);
-    return of(ex);
-  }
-
-  createExercise(ex: Exercise): Observable<Exercise> {
-    // → HTTP real: this.http.post<Exercise>(this.exercisesUrl, ex)
-    const newEx = { ...ex, id: Date.now() };
-    this.exercises.push(newEx);
-    return of(newEx);
-  }
-
-  updateExercise(id: number, ex: Exercise): Observable<Exercise | undefined> {
-    // → HTTP real: this.http.put<Exercise>(`${this.exercisesUrl}/${id}`, ex)
-    const idx = this.exercises.findIndex((e) => e.id === id);
-    if (idx > -1) {
-      this.exercises[idx] = { ...ex, id };
-      return of(this.exercises[idx]);
+  private mapDay(day: any): string {
+    // Example: 'LUN' => 'Lunes', 'MIÉ' => 'Miércoles', etc.
+    switch (day) {
+      case 'LUN':
+        return 'Lunes';
+      case 'MAR':
+        return 'Martes';
+      case 'MIÉ':
+        return 'Miércoles';
+      case 'JUE':
+        return 'Jueves';
+      case 'VIE':
+        return 'Viernes';
+      case 'SÁB':
+        return 'Sábado';
+      case 'DOM':
+        return 'Domingo';
+      default:
+        return day;
     }
-    return of(undefined);
   }
 
-  deleteExercise(id: number): Observable<boolean> {
-    // → HTTP real: this.http.delete<void>(`${this.exercisesUrl}/${id}`)
-    const initialLength = this.exercises.length;
-    this.exercises = this.exercises.filter((e) => e.id !== id);
-    return of(this.exercises.length < initialLength);
+  // 4. Update a Routine
+  updateRoutine(id: number | string, routine: any): Observable<any> {
+    const mappedRoutine = this.mapRoutineToBackend(routine);
+    return this.http.put(
+      `${environment.BASE_URL}/routines/${id}`,
+      mappedRoutine
+    );
+  }
+
+  // 5. Delete a Routine
+  deleteRoutine(id: number | string): Observable<any> {
+    return this.http.delete(`${environment.BASE_URL}/routines/${id}`);
+  }
+
+  // 6. Get All Videos
+  getAllVideos(): Observable<any> {
+    return this.http.get(`${environment.BASE_URL}/videos`);
+  }
+
+  getAllVideosCached(): Observable<any[]> {
+    if (this.videosCache.length > 0) {
+      return new Observable((observer) => {
+        observer.next(this.videosCache);
+        observer.complete();
+      });
+    } else {
+      return new Observable((observer) => {
+        this.getAllVideos().subscribe((data) => {
+          this.videosCache = data.videos || [];
+          observer.next(this.videosCache);
+          observer.complete();
+        });
+      });
+    }
+  }
+
+  refreshVideosCache(): Observable<any[]> {
+    return new Observable((observer) => {
+      this.getAllVideos().subscribe((videos) => {
+        this.videosCache = videos || [];
+        observer.next(this.videosCache);
+        observer.complete();
+      });
+    });
   }
 }

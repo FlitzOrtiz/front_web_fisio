@@ -107,8 +107,8 @@
             formControlName="targetArea"
             class="form-control"
           >
-            <option *ngFor="let area of targetAreas" [value]="area">
-              {{ area }}
+            <option *ngFor="let area of targetAreas" [value]="area.id">
+              {{ area.name }}
             </option>
           </select>
         </div>
@@ -172,7 +172,7 @@
           <div class="exercise-info">
             <h3>{{ exercise.name }}</h3>
             <div class="exercise-details">
-              <span>{{ exercise.id }}</span>
+              <span>{{ exercise.id || "Sin ID" }}</span>
               <span>•</span>
               <span>{{ exercise.repetitions }} series</span>
             </div>
@@ -184,6 +184,13 @@
               [isSquare]="true"
               icon="fa-solid fa-pen"
               (onClick)="openEditExerciseModal(i)"
+            ></fbutton>
+            <fbutton
+              size="sm"
+              [isSquare]="true"
+              icon="fa-solid fa-trash"
+              (onClick)="removeExercise(i)"
+              style="margin-top: 6px"
             ></fbutton>
           </div>
         </div>

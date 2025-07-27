@@ -13,6 +13,7 @@ import { FbuttonComponent } from '../../../../common/component/fbutton/fbutton.c
 import { UserHeaderComponent } from '../../../../common/component/user-header/user-header.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoutinesService } from '../../../service/routines.service';
+import { ExercisesService } from '../../../service/exercises.service';
 
 type Mode = 'new' | 'edit' | 'view';
 
@@ -40,15 +41,7 @@ export class RoutineCreatorComponent {
   routineId?: number;
 
   difficulties = ['Básica', 'Intermedia', 'Avanzada'];
-  targetAreas = [
-    'Espalda',
-    'Lumbar',
-    'Cervical',
-    'Hombro',
-    'Rodilla',
-    'Cadera',
-    'Tobillo',
-  ];
+  targetAreas: any[] = [];
   weekdays = [
     { code: 'LUN', name: 'Lunes', selected: false },
     { code: 'MAR', name: 'Martes', selected: false },
@@ -65,7 +58,8 @@ export class RoutineCreatorComponent {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private routineService: RoutinesService
+    private routineService: RoutinesService,
+    private exerciseService: ExercisesService
   ) {
     this.routineForm = this.fb.group({
       name: ['', Validators.required],
@@ -80,6 +74,24 @@ export class RoutineCreatorComponent {
   }
 
   ngOnInit(): void {
+    // Cargar áreas objetivo desde el backend
+    this.routineService.loadTargetAreas().subscribe((areas) => {
+      this.targetAreas = areas;
+      if (!this.routineForm.get('targetArea')?.value && areas.length > 0) {
+        this.routineForm.get('targetArea')?.setValue(areas[0].id);
+      }
+      // Si hay rutinaId, cargar la rutina después de tener el catálogo
+      if (this.routineId) {
+        this.routineService
+          .getRoutineById(this.routineId!)
+          .subscribe((response) => {
+            if (response && response.routine) {
+              this.populateForm(response.routine);
+            }
+          });
+      }
+    });
+
     // Inicializar el FormArray para los días
     this.weekdays.forEach(() =>
       (this.routineForm.get('days') as FormArray).push(this.fb.control(false))
@@ -94,41 +106,65 @@ export class RoutineCreatorComponent {
           this.route.snapshot.queryParamMap.get('mode') === 'view'
             ? 'view'
             : 'edit';
-
-        // cargar datos de la rutina
-        this.routineService.getRoutineById(this.routineId!).subscribe((r) => {
-          if (r) this.populateForm(r);
-        });
+        // Ya no cargar rutina aquí, se hace después de cargar áreas objetivo
       } else {
         this.mode = 'new';
       }
     });
-
-    // cargar ejercicios disponibles
-    this.routineService.getAllExercises().subscribe((list) => {
-      this.exercises = list;
-    });
   }
 
   /** Rellena el formulario con los datos de la rutina a editar/ver */
-  private populateForm(r: Routine) {
-    console.log('populateForm', r);
+  private populateForm(r: any) {
+    // Mapear días de la API a los códigos cortos
+    const dayMap: { [key: string]: string } = {
+      MONDAY: 'LUN',
+      TUESDAY: 'MAR',
+      WEDNESDAY: 'MIÉ',
+      THURSDAY: 'JUE',
+      FRIDAY: 'VIE',
+      SATURDAY: 'SÁB',
+      SUNDAY: 'DOM',
+    };
+    const mappedDays = r.days.map((d: string) => dayMap[d] || d);
+
+    // Mapear ejercicios para que tengan la estructura esperada
+    const mappedExercises = (r.exercises || []).map((ex: any) => ({
+      id: ex.exerciseId,
+      name: ex.name,
+      description: ex.description,
+      videoUrl: ex.videoUrl,
+      sets: ex.sets,
+      repetitions: ex.repetitions,
+      withAssistant: ex.assisted,
+      keymoments: (ex.keyMoments || []).map((km: any) => ({
+        id: km.id,
+        description: km.description,
+        timestamp: typeof km.timestamp === 'number' ? km.timestamp : 0,
+      })),
+    }));
+
     this.routineForm.patchValue({
       name: r.name,
       category: r.category,
       description: r.description,
-      difficulty: this.difficulties[r.difficulty as unknown as number],
-      estimatedDuration: r.estimatedDuration,
-      targetArea: this.targetAreas[r.targetArea as unknown as number],
-      weeks: r.numWeeks,
+      difficulty:
+        this.difficulties.indexOf(r.difficulty) !== -1
+          ? this.difficulties.indexOf(r.difficulty)
+          : 1, // default to Intermedia if not found
+      estimatedDuration: r.duration,
+      targetArea: r.objectiveArea?.id || '',
+      weeks: r.weeks,
     });
 
-    // marcar días
+    // Marcar días
     (this.routineForm.get('days') as FormArray).controls.forEach((ctrl, i) => {
-      ctrl.setValue(r.daysWeek.includes(this.weekdays[i].code));
+      ctrl.setValue(mappedDays.includes(this.weekdays[i].code));
     });
 
-    // si estamos en view, deshabilitamos todo
+    // Cargar ejercicios
+    this.exercises = mappedExercises;
+
+    // Si estamos en view, deshabilitamos todo
     if (this.mode === 'view') {
       this.routineForm.disable();
     }
@@ -185,13 +221,38 @@ export class RoutineCreatorComponent {
       return;
     }
 
+    // Preprocesar ejercicios antes de enviar al backend
+    const processedExercises = this.exercises.map((ex) => {
+      return {
+        name: (ex.name || '').toUpperCase().trim(),
+        video_url: ex.videoUrl,
+        sets: ex.sets,
+        repetitions: ex.repetitions,
+        assisted: !!ex.withAssistant,
+        description: (ex.description || '').trim(),
+        key_moments: (ex.keymoments || []).map((km: any) => ({
+          description: (km.description || '').trim(),
+          timestamp: km.timestamp ?? km.time ?? 0,
+        })),
+      };
+    });
+
     const fv = this.routineForm.value;
-    const days = this.weekdays.filter((_, i) => fv.days[i]).map((d) => d.code);
-    const payload: Routine = {
+    const days = this.weekdays.filter((_, i) => fv.days[i]).map((d) => d.name);
+    const payload = {
       id: this.routineId || 0,
-      ...fv,
+      name: (fv.name || '').trim(),
+      category: (fv.category || '').trim(),
+      description: (fv.description || '').trim(),
+      difficulty:
+        typeof fv.difficulty === 'number'
+          ? fv.difficulty
+          : this.difficulties.indexOf(fv.difficulty),
+      duration: fv.estimatedDuration,
+      target_area_id: fv.targetArea,
+      weeks: fv.weeks,
       days,
-      exercises: this.exercises,
+      exercises: processedExercises,
     };
 
     const obs =

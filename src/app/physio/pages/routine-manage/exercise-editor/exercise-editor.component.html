@@ -45,14 +45,6 @@
         <button
           type="button"
           class="tab-btn"
-          [class.active]="activeTab === 'upload'"
-          (click)="setActiveTab('upload')"
-        >
-          Subir
-        </button>
-        <button
-          type="button"
-          class="tab-btn"
           [class.active]="activeTab === 'library'"
           (click)="setActiveTab('library')"
         >
@@ -68,45 +60,124 @@
               formControlName="videoUrl"
               class="form-control"
               placeholder="Ej: https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              (input)="onVideoUrlChange()"
             />
           </div>
-        </div>
 
-        <div *ngIf="activeTab === 'upload'" class="upload-tab">
-          <div
-            class="upload-area"
-            (click)="fileInput.click()"
-            *ngIf="!exerciseForm.get('videoUrl')?.value"
-          >
-            <i class="fa-solid fa-cloud-arrow-up"></i>
-            <p>
-              Arrastra y suelta un archivo de video o haz clic para seleccionar
-            </p>
-            <input
-              #fileInput
-              type="file"
-              accept="video/*"
-              class="file-input"
-              (change)="onFileSelected($event)"
-            />
-          </div>
-          <div
-            *ngIf="exerciseForm.get('videoUrl')?.value"
-            class="video-preview"
-          >
-            <video
-              [src]="exerciseForm.get('videoUrl')?.value"
-              controls
-              width="100%"
-              style="margin-top: 1rem"
-            ></video>
+          <div class="selected-video-preview">
+            <label>Video seleccionado:</label>
+            <div
+              class="youtube-embed-container"
+              style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+              "
+            >
+              <ng-container *ngIf="videoId; else noVideo">
+                <div
+                  id="youtube-player"
+                  style="
+                    border-radius: 12px;
+                    overflow: hidden;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+                  "
+                ></div>
+                <fbutton
+                  label="Añadir momento clave"
+                  size="md"
+                  icon="fa-solid fa-clock"
+                  (onClick)="addKeyMomentFromVideo()"
+                  class="add-keymoment-btn"
+                  style="margin-top: 1rem"
+                ></fbutton>
+                <div class="key-moments-list" formArrayName="keyMoments">
+                  <div
+                    *ngFor="
+                      let moment of keyMomentsArray.controls;
+                      let i = index
+                    "
+                    [formGroupName]="i"
+                    class="key-moment-item-row"
+                  >
+                    <div class="key-moment-item">
+                      <div class="time-input">
+                        <i class="fa-regular fa-clock"></i>
+                        <span>{{ formatSeconds(moment.value.time) }}</span>
+                      </div>
+                      <input
+                        type="text"
+                        formControlName="description"
+                        class="form-control description-input"
+                        placeholder="Descripción del momento clave"
+                      />
+                      <fbutton
+                        label=""
+                        size="sm"
+                        icon="fa-solid fa-trash"
+                        (onClick)="removeKeyMoment(i)"
+                        class="remove-btn"
+                      ></fbutton>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #noVideo>
+                <div
+                  class="video-placeholder"
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    height: 200px;
+                  "
+                >
+                  <i class="fa-solid fa-video fa-4x" style="color: #bbb"></i>
+                  <div
+                    class="video-message"
+                    style="margin-top: 1rem; color: #888"
+                  >
+                    <span *ngIf="exerciseForm.value.videoUrl && !videoId">
+                      No se pudo encontrar el video de YouTube. Verifica la URL.
+                    </span>
+                    <span *ngIf="!exerciseForm.value.videoUrl">
+                      Coloca una URL de YouTube para mostrar el video aquí.
+                    </span>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
           </div>
         </div>
 
         <div *ngIf="activeTab === 'library'" class="library-tab">
-          <div class="library-grid">
-            <p>No hay videos en la biblioteca</p>
+          <div class="refresh-btn-container">
+            <fbutton
+              label=""
+              size="sm"
+              icon="fa-solid fa-rotate"
+              (onClick)="refreshVideos()"
+              [isTransparent]="true"
+              class="refresh-btn"
+            ></fbutton>
           </div>
+          <ul class="video-list">
+            <li *ngFor="let video of allVideos" class="video-list-item">
+              <div class="video-thumb">
+                <video [src]="video.url" controls width="120"></video>
+              </div>
+              <div class="video-meta">
+                <span class="video-name">{{
+                  video.name || video.title || "Sin nombre"
+                }}</span>
+                <span class="video-duration">{{
+                  video.duration ? video.duration + " min" : ""
+                }}</span>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -167,50 +238,6 @@
         rows="3"
         placeholder="Describe el propósito y beneficios de este ejercicio"
       ></textarea>
-    </div>
-
-    <div class="key-moments-section">
-      <div class="section-header">
-        <h3>Momento Clave</h3>
-        <fbutton
-          label="Añadir"
-          size="sm"
-          icon="fa-solid fa-plus"
-          (onClick)="addKeyMoment()"
-          class="add-btn"
-        ></fbutton>
-      </div>
-
-      <div class="key-moments-list" formArrayName="keyMoments">
-        <div
-          *ngFor="let moment of keyMomentsArray.controls; let i = index"
-          [formGroupName]="i"
-          class="key-moment-item"
-        >
-          <div class="time-input">
-            <i class="fa-regular fa-clock"></i>
-            <input
-              type="number"
-              formControlName="time"
-              class="form-control"
-              placeholder="12"
-            />
-          </div>
-          <input
-            type="text"
-            formControlName="description"
-            class="form-control description-input"
-            placeholder="Value"
-          />
-          <fbutton
-            label=""
-            size="sm"
-            icon="fa-solid fa-trash"
-            (onClick)="removeKeyMoment(i)"
-            class="remove-btn"
-          ></fbutton>
-        </div>
-      </div>
     </div>
 
     <div class="form-actions">

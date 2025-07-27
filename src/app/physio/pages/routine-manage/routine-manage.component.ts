@@ -27,8 +27,9 @@ export class RoutineManageComponent {
     private routineService: RoutinesService, // Inyectar el servicio de rutinas
     private router: Router // Inyectar el enrutador para la navegación
   ) {
-    this.routineService.getAllRoutines().subscribe((routines) => {
-      this.routineList = routines;
+    this.routineService.getAllRoutines().subscribe((data) => {
+      console.log('Fetched routines:', data.routines);
+      this.routineList = data.routines;
     });
   }
 
