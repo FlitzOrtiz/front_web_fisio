@@ -79,6 +79,13 @@ export class ExerciseComponent implements AfterViewInit, OnDestroy {
     feedback: '',
   };
 
+  // Store results for each exercise
+  exerciseResults: Array<{
+    title: string;
+    metrics: { precision: number; posture: number; speed: number };
+    duration: number;
+  }> = [];
+
   get currentExercise() {
     return this.exercises[this.currentExerciseIndex];
   }
@@ -173,6 +180,9 @@ export class ExerciseComponent implements AfterViewInit, OnDestroy {
       clearInterval(this.trackingInterval);
     }
 
+    // Save current exercise results
+    this.saveExerciseResult();
+
     this.currentExerciseIndex++;
 
     if (this.currentExerciseIndex >= this.exercises.length) {
@@ -191,6 +201,21 @@ export class ExerciseComponent implements AfterViewInit, OnDestroy {
   }
 
   // Camera handled inside pose detection component
+
+  saveExerciseResult() {
+    const currentExercise = this.exercises[this.currentExerciseIndex];
+    if (currentExercise) {
+      this.exerciseResults.push({
+        title: currentExercise.title,
+        metrics: {
+          precision: this.metrics.accuracy,
+          posture: this.metrics.posture,
+          speed: this.metrics.speed
+        },
+        duration: this.duration
+      });
+    }
+  }
 
   getColor(value: number): string {
     if (value >= 80) return 'green';
