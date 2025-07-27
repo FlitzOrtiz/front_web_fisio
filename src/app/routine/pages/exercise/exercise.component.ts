@@ -14,7 +14,7 @@ import {
 import { Router } from '@angular/router';
 import { ExerciseSummaryComponent } from '../exercise-summary/exercise-summary.component';
 
-declare var YT: any;
+declare const YT: any;
 
 @Component({
   selector: 'app-exercise',
@@ -84,8 +84,8 @@ export class ExerciseComponent implements AfterViewInit, OnDestroy {
   }
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private router: Router
+    @Inject(PLATFORM_ID) private readonly platformId: Object,
+    private readonly router: Router
   ) {}
 
   ngAfterViewInit(): void {
@@ -152,7 +152,7 @@ export class ExerciseComponent implements AfterViewInit, OnDestroy {
     if (this.trackingInterval) clearInterval(this.trackingInterval);
 
     this.trackingInterval = setInterval(() => {
-      if (this.player && this.player.getCurrentTime) {
+      if (this.player?.getCurrentTime) {
         this.currentTime = this.player.getCurrentTime();
         this.duration = this.player.getDuration();
         if (this.currentTime >= this.duration - 0.5) {
