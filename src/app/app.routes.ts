@@ -15,6 +15,8 @@ import { MedicalRecordComponent } from './physio/pages/medical-record/medical-re
 import { PatientRecordComponent } from './physio/pages/medical-record/patient-record/patient-record.component';
 import { ExerciseComponent } from './routine/pages/exercise/exercise.component';
 import { ExerciseSummaryComponent } from './routine/pages/exercise-summary/exercise-summary.component';
+import { LandingSubscriptionSelectorComponent } from './landing/pages/landing-subscription-selector/landing-subscription-selector.component'; 
+import { LegalScreenComponent } from './landing/component/legal-screen/legal-screen.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -35,4 +37,6 @@ export const routes: Routes = [
   { path: 'patientrecord', component: PatientRecordComponent },
   { path: 'exercise', component: ExerciseComponent },
   { path: 'exercise/summary', component: ExerciseSummaryComponent },
+  { path: 'landing/subscription', component: LandingSubscriptionSelectorComponent },
+  { path: 'legal', component: LegalScreenComponent }
 ];

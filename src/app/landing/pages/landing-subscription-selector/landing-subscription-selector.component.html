@@ -1,0 +1,20 @@
+
+<div class="page-container">
+  <div class="pricing-title">
+    <!-- <h1>Planes de suscripción</h1> -->
+  </div>
+
+  <div class="toggle-container">
+    <button [class.active]="selected === 'month'" (click)="selected = 'month'">
+      Mensual
+    </button>
+    <button [class.active]="selected === 'year'" (click)="selected = 'year'">
+      Anual
+    </button>
+  </div>
+
+  <div class="content-container">
+    <app-landing-month-plans *ngIf="selected === 'month'"></app-landing-month-plans>
+    <app-landing-year-plans *ngIf="selected === 'year'"></app-landing-year-plans>
+  </div>
+</div>
