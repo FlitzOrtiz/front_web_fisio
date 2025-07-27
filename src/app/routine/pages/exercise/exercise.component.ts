@@ -1,29 +1,35 @@
 import {
   Component,
-  ViewChild,
-  ElementRef,
   AfterViewInit,
   Inject,
   PLATFORM_ID,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.component';
+import {
+  PoseDetectionComponent,
+  ExerciseMetrics,
+} from '../../../game/component/pose-detection/pose-detection.component';
 import { Router } from '@angular/router';
-import { ExerciseSummaryComponent } from "../exercise-summary/exercise-summary.component";
+import { ExerciseSummaryComponent } from '../exercise-summary/exercise-summary.component';
 
 declare var YT: any;
 
 @Component({
   selector: 'app-exercise',
   standalone: true,
-  imports: [CommonModule, FbuttonComponent, ExerciseSummaryComponent],
+  imports: [
+    CommonModule,
+    FbuttonComponent,
+    ExerciseSummaryComponent,
+    PoseDetectionComponent,
+  ],
   templateUrl: './exercise.component.html',
   styleUrls: ['./exercise.component.scss'],
 })
 export class ExerciseComponent implements AfterViewInit, OnDestroy {
   ejercicioTerminado = false;
-  @ViewChild('cameraVideo') cameraVideo!: ElementRef<HTMLVideoElement>;
 
   exercises = [
     {
@@ -66,7 +72,12 @@ export class ExerciseComponent implements AfterViewInit, OnDestroy {
   duration = 0;
   currentTime = 0;
   trackingInterval: any;
-  stream: MediaStream | null = null;
+  metrics: ExerciseMetrics = {
+    accuracy: 0,
+    posture: 0,
+    speed: 0,
+    feedback: '',
+  };
 
   get currentExercise() {
     return this.exercises[this.currentExerciseIndex];
@@ -79,14 +90,11 @@ export class ExerciseComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.initPlayer();
       this.loadYouTubeAPI();
-      this.startCamera();
     }
   }
 
   ngOnDestroy(): void {
-    this.stopCamera();
     if (this.trackingInterval) clearInterval(this.trackingInterval);
     if (this.player) this.player.destroy();
   }
@@ -110,36 +118,35 @@ export class ExerciseComponent implements AfterViewInit, OnDestroy {
     };
   }
 
-    initPlayer() {
+  initPlayer() {
     const videoId = this.extractVideoId(this.currentExercise.videoUrl);
     setTimeout(() => {
-        if (this.player) {
+      if (this.player) {
         this.player.loadVideoById(videoId);
         this.resetTimer();
         this.startTracking();
         return;
-        }
+      }
 
-        this.player = new YT.Player('exercise-video', {
+      this.player = new YT.Player('exercise-video', {
         videoId,
         width: '100%',
         height: '100%',
         events: {
-            onReady: (event: any) => {
+          onReady: (event: any) => {
             event.target.playVideo();
             this.resetTimer();
             this.startTracking();
-            }
-        }
-        });
+          },
+        },
+      });
     }, 300);
-    }
-    
-    resetTimer() {
+  }
+
+  resetTimer() {
     this.duration = 0;
     this.currentTime = 0;
-    }
-
+  }
 
   startTracking() {
     if (this.trackingInterval) clearInterval(this.trackingInterval);
@@ -169,9 +176,8 @@ export class ExerciseComponent implements AfterViewInit, OnDestroy {
     this.currentExerciseIndex++;
 
     if (this.currentExerciseIndex >= this.exercises.length) {
-      this.stopCamera();
       this.ejercicioTerminado = true;
-      return; 
+      return;
     }
 
     this.currentTime = 0;
@@ -180,29 +186,15 @@ export class ExerciseComponent implements AfterViewInit, OnDestroy {
     this.initPlayer();
   }
 
-  startCamera() {
-    navigator.mediaDevices?.getUserMedia({ video: true })
-      .then((stream) => {
-        this.stream = stream;
-        if (this.cameraVideo?.nativeElement) {
-          this.cameraVideo.nativeElement.srcObject = stream;
-        }
-      })
-      .catch((err) => {
-        console.error('No se pudo acceder a la cámara:', err);
-      });
+  updateMetrics(m: ExerciseMetrics) {
+    this.metrics = m;
   }
 
-  stopCamera() {
-    if (this.stream) {
-      this.stream.getTracks().forEach(track => track.stop());
-      this.stream = null;
-    }
-  }
+  // Camera handled inside pose detection component
 
   getColor(value: number): string {
     if (value >= 80) return 'green';
     if (value >= 40) return 'orange';
     return 'red';
   }
-}   
+}

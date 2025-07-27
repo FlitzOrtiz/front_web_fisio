@@ -6,10 +6,26 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import * as poseDetection from '@tensorflow-models/pose-detection';
 import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgl';
+
+export interface ExerciseMetrics {
+  accuracy: number;
+  posture: number;
+  speed: number;
+  feedback: string;
+}
+
+interface PoseKeypoint {
+  x: number;
+  y: number;
+  score: number;
+  name: string;
+}
 
 @Component({
   selector: 'app-pose-detection',
@@ -19,11 +35,7 @@ import '@tensorflow/tfjs-backend-webgl';
 })
 export class PoseDetectionComponent implements OnInit, OnDestroy {
   @Input() exerciseName?: string;
-  @Input() onValidation?: (
-    isCorrect: boolean,
-    confidence: number,
-    feedback: string
-  ) => void;
+  @Output() metrics = new EventEmitter<ExerciseMetrics>();
 
   @ViewChild('video') videoRef!: ElementRef<HTMLVideoElement>;
   @ViewChild('canvas') canvasRef!: ElementRef<HTMLCanvasElement>;
@@ -31,11 +43,13 @@ export class PoseDetectionComponent implements OnInit, OnDestroy {
   feedback = { isCorrect: false, confidence: 0, message: 'Inicializando...' };
   isLoading = true;
 
+  private lastPoseTime = performance.now();
+
   private isMounted = true;
   private animationId: number | undefined;
 
-  async ngOnInit() {
-    await this.init();
+  ngOnInit(): void {
+    this.init();
   }
 
   ngOnDestroy() {
@@ -145,15 +159,13 @@ export class PoseDetectionComponent implements OnInit, OnDestroy {
         this.draw(poses);
 
         if (this.exerciseName && poses.length > 0) {
-          const validation = this.validateExercise(this.exerciseName, poses[0]);
-          this.feedback = validation;
-          if (this.onValidation) {
-            this.onValidation(
-              validation.isCorrect,
-              validation.confidence,
-              validation.message
-            );
-          }
+          const metrics = this.validateExercise(this.exerciseName, poses[0]);
+          this.feedback = {
+            isCorrect: metrics.posture > 50,
+            confidence: metrics.accuracy / 100,
+            message: metrics.feedback,
+          };
+          this.metrics.emit(metrics);
         }
       } catch (err) {
         console.error('Detection error', err);
@@ -165,12 +177,28 @@ export class PoseDetectionComponent implements OnInit, OnDestroy {
     detect();
   }
 
-  private validateExercise(exercise: string, pose: any) {
-    return {
-      isCorrect: true,
-      confidence: 0.8,
-      message: 'Ejercicio detectado correctamente',
-    };
+  private validateExercise(exercise: string, pose: any): ExerciseMetrics {
+    // Simple heuristic calculations for demo purposes
+    const keypointScores = pose.keypoints?.map((k: PoseKeypoint) => k.score) || [];
+    const avgScore = keypointScores.length
+      ? keypointScores.reduce((a: number, b: number) => a + b, 0) / keypointScores.length
+      : 0;
+
+    // Posture correctness: use avgScore as proxy
+    const posture = Math.round(avgScore * 100);
+
+    // Speed: measure time between valid detections
+    const now = performance.now();
+    const delta = now - this.lastPoseTime; // ms between frames
+    this.lastPoseTime = now;
+    const speed = Math.min(100, Math.round((1000 / delta) * 10)); // arbitrary scaling
+
+    const isCorrect = avgScore > 0.5;
+    const accuracy = Math.round(avgScore * 100);
+
+    const feedback = isCorrect ? 'Buen movimiento' : 'Intenta ajustar la postura';
+
+    return { accuracy, posture, speed, feedback };
   }
 
   private draw(poses: any[]) {
