@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, FbuttonComponent],
   templateUrl: './landing-month-plans.component.html',
-  styleUrls: ['./landing-month-plans.component.scss']
+  styleUrls: ['./landing-month-plans.component.scss'],
 })
 export class LandingMonthPlansComponent {
   constructor(private router: Router) {}
@@ -17,10 +17,12 @@ export class LandingMonthPlansComponent {
     title: 'Básico',
     price: '4.99',
     unit: '/mo',
-    items: ['$49.99', 'Acceso a ejercicios de fisioterapia',
+    items: [
+      'Acceso a ejercicios de fisioterapia',
       'Seguimiento de progreso semanal',
       '10 perfil de paciente',
-      'Historial clínico limitado'],
+      'Historial clínico limitado',
+    ],
     buttonLabel: 'Comprar',
     highlight: false,
   };
@@ -29,10 +31,12 @@ export class LandingMonthPlansComponent {
     title: 'Premium',
     price: '9.99',
     unit: '/mo',
-    items: ['$89.99 anual', 'Beneficios del plan Básico',
+    items: [
+      'Beneficios del plan Básico',
       'Ejercicios por patología',
       'Seguimientode progreso diario',
-      'Hasta 50 perfiles de pacientes'],
+      'Hasta 50 perfiles de pacientes',
+    ],
     buttonLabel: 'Comprar',
     highlight: true,
   };

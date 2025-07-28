@@ -33,10 +33,12 @@ export class YearPayComponent implements OnInit {
     title: 'Básico',
     price: '49.99',
     unit: '/ye',
-    items: ['$4.99 mensual', 'Acceso a ejercicios de fisioterapia',
+    items: [
+      'Acceso a ejercicios de fisioterapia',
       'Seguimiento de progreso semanal',
       '10 perfil de paciente',
-      'Historial clínico limitado'],
+      'Historial clínico limitado',
+    ],
     buttonLabel: 'Comprar',
     highlight: false,
   };
@@ -45,10 +47,12 @@ export class YearPayComponent implements OnInit {
     title: 'Premium',
     price: '89.99',
     unit: '/ye',
-    items: ['$9.99 mensual', 'Beneficios del plan Básico',
+    items: [
+      'Beneficios del plan Básico',
       'Ejercicios por patología',
       'Seguimientode progreso diario',
-      'Hasta 50 perfiles de pacientes'],
+      'Hasta 50 perfiles de pacientes',
+    ],
     buttonLabel: 'Comprar',
     highlight: true,
   };
@@ -69,25 +73,28 @@ export class YearPayComponent implements OnInit {
 
   subscribeToPlan(planTypeId: number) {
     this.errorMessage = '';
-    this.subscriptionService.createSubscription(this.userId, planTypeId).subscribe({
-      next: (res: any) => {
-
-        if (typeof res === 'string') {
-          if (res.startsWith('https://') || res.startsWith('http://')) {
-            window.open(res, '_blank');
+    this.subscriptionService
+      .createSubscription(this.userId, planTypeId)
+      .subscribe({
+        next: (res: any) => {
+          if (typeof res === 'string') {
+            if (res.startsWith('https://') || res.startsWith('http://')) {
+              window.open(res, '_blank');
+            } else {
+              this.errorMessage = 'Error: ' + res;
+            }
+          } else if (res?.redirectUrl) {
+            this.router.navigate([res.redirectUrl]);
           } else {
-            this.errorMessage = 'Error: ' + res;
+            this.errorMessage =
+              'Subscripción creada pero no se pudo redirigir automáticamente.';
           }
-        } else if (res?.redirectUrl) {
-          this.router.navigate([res.redirectUrl]);
-        } else {
-          this.errorMessage = 'Subscripción creada pero no se pudo redirigir automáticamente.';
-        }
-      },
-      error: (err) => {
-        console.error('Error creando subscripción', err);
-        this.errorMessage = 'Ya cuentas con una subscripción activa o ha ocurrido un error al procesar tu solicitud.';
-      },
-    });
+        },
+        error: (err) => {
+          console.error('Error creando subscripción', err);
+          this.errorMessage =
+            'Ya cuentas con una subscripción activa o ha ocurrido un error al procesar tu solicitud.';
+        },
+      });
   }
 }
