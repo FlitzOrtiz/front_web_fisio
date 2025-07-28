@@ -24,8 +24,6 @@ export class MonthPayComponent implements OnInit {
     const storedUserId = localStorage.getItem('userId');
     if (storedUserId) {
       this.userId = Number(storedUserId);
-      console.log('User ID:', this.userId);
-      console.log('Access Token:', localStorage.getItem('accessToken'));
     } else {
       this.errorMessage = 'Por favor inicia sesión.';
     }
@@ -35,7 +33,10 @@ export class MonthPayComponent implements OnInit {
     title: 'Básico',
     price: '4.99',
     unit: '/mo',
-    items: ['$49.99', 'List item', 'List item', 'List item', 'List item'],
+    items: ['$49.99', 'Acceso a ejercicios de fisioterapia',
+      'Seguimiento de progreso semanal',
+      '10 perfil de paciente',
+      'Historial clínico limitado'],
     buttonLabel: 'Comprar',
     highlight: false,
   };
@@ -44,7 +45,10 @@ export class MonthPayComponent implements OnInit {
     title: 'Premium',
     price: '9.99',
     unit: '/mo',
-    items: ['$89.99 anual', 'List item', 'List item', 'List item', 'List item'],
+    items: ['$89.99 anual', 'Beneficios del plan Básico',
+      'Ejercicios por patología',
+      'Seguimientode progreso diario',
+      'Hasta 50 perfiles de pacientes'],
     buttonLabel: 'Comprar',
     highlight: true,
   };
@@ -68,7 +72,6 @@ export class MonthPayComponent implements OnInit {
 
     this.subscriptionService.createSubscription(this.userId, planTypeId).subscribe({
       next: (res: any) => {
-        console.log('Respuesta de subscripción:', res);
 
         if (typeof res === 'string') {
           if (res.startsWith('https://') || res.startsWith('http://')) {
