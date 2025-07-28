@@ -6,6 +6,7 @@
   width: 100%;
   height: 100%;
   padding-bottom: 2.5rem;
+  background-color: #ffffff; // Fondo Blanco
 }
 
 .filter {
@@ -63,22 +64,36 @@
   }
 }
 
-/* --- CAMBIOS AQUÍ: ESTILOS PARA HACER VISIBLE EL TEXTO DEL EJE X --- */
-/* Estilos para el texto de las etiquetas del eje X */
-:host ::ng-deep .ngx-charts-x-axis .tick text {
-  fill: #ffffff !important; /* Cambia a blanco o un color que contraste con tu fondo */
-  font-size: 12px; /* Ajusta el tamaño si es necesario */
+/* --- ESTILOS CLAVE AQUÍ --- */
+/* Estilo para la línea del gráfico */
+:host ::ng-deep .ngx-charts-line-chart .line {
+  stroke-width: 2px !important; /* Grosor de la línea */
 }
 
-/* Estilos para el label del eje X (si showXAxisLabel es true) */
+/* Estilos para los puntos (círculos) de la línea */
+:host ::ng-deep .ngx-charts-line-chart .point-series .dots circle {
+  fill: white !important; /* <-- CAMBIO AQUÍ: Relleno blanco */
+  stroke: black !important; /* Borde negro */
+  stroke-width: 1px !important; /* Grosor del borde */
+  r: 5px !important; /* Radio del punto (ajusta si es necesario) */
+}
+
+/* Estilos para el texto de las etiquetas del eje X (Meses) */
+:host ::ng-deep .ngx-charts-x-axis .tick text {
+  fill: #333333 !important; /* Un gris oscuro o casi negro para que se vea en fondo blanco */
+  font-size: 12px;
+}
+
+/* Estilos para el label del eje X (si showXAxisLabel es true y quieres un color diferente) */
 :host ::ng-deep .ngx-charts-x-axis .axis-label {
-  fill: #ffffff !important; /* Cambia a blanco o un color que contraste */
-  font-size: 14px; /* Ajusta el tamaño si es necesario */
+  fill: #333333 !important; /* Color del texto "Mes" */
+  font-size: 14px;
   font-weight: bold;
 }
 
-/* Si por alguna razón el texto del eje Y (los números) tampoco se ve, puedes añadir esto: */
+/* Estilos para el texto de las etiquetas del eje Y (números) */
 :host ::ng-deep .ngx-charts-y-axis .tick text {
-  fill: #ffffff !important; /* Cambia a blanco o un color que contraste con tu fondo */
-  font-size: 12px; /* Ajusta el tamaño si es necesario */
+  fill: #333333 !important; /* Un gris oscuro o casi negro para que se vea en fondo blanco */
+  font-size: 12px;
 }
+/* --- FIN ESTILOS CLAVE --- */

@@ -20,28 +20,25 @@ export class GraphicsComponent implements OnInit {
     name: string;
     series: { name: string; value: number }[];
   }[] = [];
-  // currentGraphicTitle ya no se usará para el título principal del gráfico
   currentGraphicTitle: string = '';
 
   years: number[] = [];
   selectedYear: number | null = null;
   selectedType: 'completed' | 'planned' = 'completed';
 
-  // --- CAMBIOS AQUÍ ---
-  // Eliminar el título del eje Y
-  lineChartXAxisLabel: string = 'Mes'; // Mantener el del eje X
-  lineChartYAxisLabel: string = ''; // <-- VACÍO para eliminar el título del eje Y
-
+  lineChartXAxisLabel: string = 'Mes';
+  lineChartYAxisLabel: string = '';
+  // --- CAMBIO CLAVE AQUÍ: Color para la línea Morado Claro ---
   colorScheme: any = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA', '#7aa3e5'],
+    domain: ['#C7B4FF'], // Un tono de morado claro. Puedes ajustarlo a tu gusto.
   };
+  // --- FIN CAMBIO CLAVE ---
   showXAxis = true;
   showYAxis = true;
   gradient = false;
   showLegend = false;
   showXAxisLabel = true;
-  // showYAxisLabel en false para ocultar su título (ya lo vaciamos, pero esto es explícito)
-  showYAxisLabel = false; // <-- DESACTIVAR ETIQUETA DEL EJE Y
+  showYAxisLabel = false;
   autoScale = true;
 
   constructor(private _dashboardService: DashboardService) {}
@@ -52,7 +49,7 @@ export class GraphicsComponent implements OnInit {
         this.allGraphics = graphics;
         this.extractAndSetYears();
         if (!this.selectedYear && this.years.length > 0) {
-          this.selectedYear = this.years[0];
+          this.selectedYear = this.years[0]; // Corrección aquí: era this.years()
         }
         this.displaySelectedGraphic();
       },
@@ -98,8 +95,6 @@ export class GraphicsComponent implements OnInit {
 
     if (foundGraphic) {
       this.selectedGraphicData = foundGraphic.chartData;
-      // Puedes seguir usando currentGraphicTitle para mostrarlo fuera del gráfico
-      // o si lo quieres solo en el título del ngx-chart, déjalo sin asignar aquí
       this.currentGraphicTitle = foundGraphic.title;
     } else {
       this.selectedGraphicData = [];
