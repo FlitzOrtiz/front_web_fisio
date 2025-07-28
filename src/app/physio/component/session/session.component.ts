@@ -4,7 +4,7 @@ import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.comp
 @Component({
   selector: 'session',
   standalone: true,
-  imports: [FbuttonComponent],
+  // imports: [FbuttonComponent],
   templateUrl: './session.component.html',
   styleUrl: './session.component.scss',
 })

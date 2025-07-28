@@ -74,33 +74,117 @@ export class DashboardService {
     );
   }
 
-  getGraphics(): Graphic[] {
-    return [
-      {
-        id: 1,
-        type: 'completed',
-        year: 2024,
-        src: 'assets/gr-linea-completadas-2024.png',
-      },
-      {
-        id: 2,
-        type: 'planned',
-        year: 2024,
-        src: 'assets/gr-linea-planeadas-2024.png',
-      },
-      {
-        id: 3,
-        type: 'completed',
-        year: 2025,
-        src: 'assets/gr-linea-completadas.png',
-      },
-      {
-        id: 4,
-        type: 'planned',
-        year: 2025,
-        src: 'assets/gr-linea-planeadas.png',
-      },
+  // --- ¡MÉTODO getGraphics() REFACTORIZADO CON LA ÚNICA INTERFAZ GRAPHIC! ---
+  getGraphics(): Observable<Graphic[]> {
+    const token = localStorage.getItem('accessToken');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http
+      .post<any>(
+        `${this.baseUrl}/charts`,
+        { chartType: 'lineas' }, // Pide al backend solo los gráficos de líneas
+        { headers }
+      )
+      .pipe(
+        map((response: any) => {
+          const allTransformedGraphics: Graphic[] = [];
+
+          if (!response || !response.charts || response.charts.length === 0) {
+            console.warn(
+              'No se encontraron gráficos de líneas en la respuesta del backend.'
+            );
+            return [];
+          }
+
+          response.charts.forEach((rawChart: any, index: number) => {
+            if (rawChart.type === 'lineas' && rawChart.data) {
+              Object.keys(rawChart.data).forEach((yearStr: string) => {
+                const year = parseInt(yearStr, 10);
+                const monthsData = rawChart.data[yearStr];
+
+                const seriesData: { name: string; value: number }[] = []; // Tipo de array directamente aquí
+                Object.keys(monthsData).forEach((monthNum: string) => {
+                  const monthName = this.getMonthName(parseInt(monthNum, 10));
+                  seriesData.push({
+                    name: monthName,
+                    value: monthsData[monthNum],
+                  });
+                });
+                seriesData.sort(
+                  (a, b) =>
+                    this.getMonthNumber(a.name) - this.getMonthNumber(b.name)
+                );
+
+                // La serie se construye directamente aquí
+                const chartSeries = {
+                  name: rawChart.title,
+                  series: seriesData,
+                };
+
+                let graphicType: 'completed' | 'planned';
+                if (rawChart.title === 'Sesiones Completadas') {
+                  graphicType = 'completed';
+                } else if (rawChart.title === 'Sesiones Creadas') {
+                  graphicType = 'planned';
+                } else {
+                  console.warn(
+                    `Título de gráfico desconocido para mapeo: ${rawChart.title}`
+                  );
+                  return;
+                }
+
+                allTransformedGraphics.push({
+                  id: index + 1,
+                  type: graphicType,
+                  year: year,
+                  title: rawChart.title,
+                  chartData: [chartSeries], // chartData es un array con un objeto de serie
+                });
+              });
+            }
+          });
+          return allTransformedGraphics;
+        })
+      );
+  }
+
+  private getMonthName(monthNum: number): string {
+    const months = [
+      'Ene',
+      'Feb',
+      'Mar',
+      'Abr',
+      'May',
+      'Jun',
+      'Jul',
+      'Ago',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dic',
     ];
+    return months[monthNum - 1] || 'Desconocido';
+  }
+
+  private getMonthNumber(monthName: string): number {
+    const monthsMap: { [key: string]: number } = {
+      Ene: 1,
+      Feb: 2,
+      Mar: 3,
+      Abr: 4,
+      May: 5,
+      Jun: 6,
+      Jul: 7,
+      Ago: 8,
+      Sep: 9,
+      Oct: 10,
+      Nov: 11,
+      Dic: 12,
+    };
+    return monthsMap[monthName] || 0;
   }
 
   getBarGraphic(): Observable<BarGraphicData> {
@@ -112,7 +196,7 @@ export class DashboardService {
     });
 
     return this.http
-      .post<BarGraphicData>(
+      .post<any>(
         `${this.baseUrl}/charts`,
         {
           chartType: 'barras',
@@ -121,14 +205,44 @@ export class DashboardService {
       )
       .pipe(
         map((response) => {
-          console.log('Bar Graphic Response:', (response as any).charts);
+          const rawChartData = response.charts[0];
+
+          if (!rawChartData || !rawChartData.data) {
+            console.error(
+              'La respuesta del backend no contiene los datos esperados para el gráfico de barras.'
+            );
+            throw new Error('Datos de gráfico no válidos o incompletos.');
+          }
+
+          const innerData = rawChartData.data['0'];
+
+          const transformedValues = Object.keys(innerData).map((key) => {
+            return {
+              label: this.getCategoryLabel(key), // Aquí 'key' será "1", "2", "3" directamente como etiqueta
+              value: innerData[key],
+            };
+          });
+
           return {
-            id: (response as any).charts[0].id || Math.random(),
+            id: rawChartData.id || Math.random(),
             type: 'barplot',
-            title: (response as any).charts[0].title,
-            values: (response as any).charts[0].data,
+            title: rawChartData.title,
+            values: transformedValues,
           };
         })
       );
+  }
+
+  private getCategoryLabel(key: string): string {
+    switch (key) {
+      case '1':
+        return 'Negativo';
+      case '2':
+        return 'Neutral';
+      case '3':
+        return 'Positivo';
+      default:
+        return `Categoría ${key}`;
+    }
   }
 }

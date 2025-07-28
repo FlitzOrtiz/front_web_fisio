@@ -30,16 +30,11 @@
     </div>
     <div class="card" id="patient_satisfaction" *ngIf="showPatientSatisfaction">
       <card-header
-        [title]="'Satisfacción de rutinas de los pacientes'"
+        [title]="''"
         (close)="showPatientSatisfaction = false"
       ></card-header>
       <div class="content">
-        <img
-          class="satisfaction-img"
-          *ngIf="barGraphic"
-          [src]="barGraphic.src"
-          alt="grafico de barras"
-        />
+        <app-bar-graphic></app-bar-graphic>
       </div>
     </div>
   </div>

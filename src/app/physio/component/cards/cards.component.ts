@@ -12,6 +12,8 @@ import { Notificacion } from '../../domain/dashboard/notificacion';
 import { Graphic } from '../../domain/dashboard/graphic';
 // services
 import { DashboardService } from '../../service/dashboard.service';
+import { BarGraphicComponent } from '../bar-graphic/bar-graphic.component';
+import { BarGraphicData } from '../../domain/dashboard/bar-graphic';
 
 @Component({
   selector: 'cards',
@@ -24,6 +26,7 @@ import { DashboardService } from '../../service/dashboard.service';
     GraphicsComponent,
     FbuttonComponent,
     DashboardModalComponent,
+    BarGraphicComponent,
   ],
   templateUrl: './cards.component.html',
   styleUrl: './cards.component.scss',
@@ -42,7 +45,7 @@ export class CardsComponent implements OnInit {
 
   currentSessions: Session[] = [];
   notifications: Notificacion[] = [];
-  barGraphic: Graphic | null = null;
+  barGraphic: BarGraphicData | null = null;
 
   constructor(private _dashboardService: DashboardService) {}
 
@@ -57,6 +60,7 @@ export class CardsComponent implements OnInit {
 
     this._dashboardService.getBarGraphic().subscribe((graphic) => {
       this.barGraphic = graphic;
+      console.log('Bar Graphic:', this.barGraphic);
     });
   }
 
