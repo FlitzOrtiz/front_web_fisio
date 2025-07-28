@@ -33,7 +33,7 @@
       (onClick)="openSettings()"
     ></fbutton> -->
     <button class="user-profile" (click)="openUserMenu()">
-      <img src="assets/user-ico.png" alt="User" class="profile-image" />
+      <img [src]="profilePhoto" alt="User" class="profile-image" />
     </button>
   </div>
 </header>

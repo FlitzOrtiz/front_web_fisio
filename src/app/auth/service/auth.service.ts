@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
@@ -15,7 +19,7 @@ export class AuthService {
 
   login(email: string, password: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, { email, password }).pipe(
-      tap(response => {
+      tap((response) => {
         this.saveAuthData(response);
         this.router.navigate(['/dashboard']);
       }),
@@ -29,7 +33,7 @@ export class AuthService {
 
   logout(): Observable<any> {
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.getAccessToken()}`
+      Authorization: `Bearer ${this.getAccessToken()}`,
     });
 
     return this.http.post(`${this.baseUrl}/logout`, {}, { headers }).pipe(
@@ -37,14 +41,24 @@ export class AuthService {
         this.clearAuthData();
         this.router.navigate(['/landing']);
       }),
-      catchError(error => {
+      catchError((error) => {
         this.clearAuthData();
         return throwError(() => ({
           message: 'Error al cerrar sesión',
-          originalError: error.error
+          originalError: error.error,
         }));
       })
     );
+  }
+
+  register(payload: {
+    username: string;
+    fullName: string;
+    email: string;
+    password: string;
+    profilePhoto?: string;
+  }): Observable<any> {
+    return this.http.post('http://localhost:8080/api/account', payload);
   }
 
   isAuthenticated(): boolean {
@@ -63,6 +77,7 @@ export class AuthService {
   }
 
   private saveAuthData(authData: any): void {
+    console.log('Saving auth data:', authData);
     localStorage.setItem(this.TOKEN_KEY, authData.accessToken);
     if (authData.user) {
       localStorage.setItem(this.USER_KEY, JSON.stringify(authData.user));
@@ -92,7 +107,9 @@ export class AuthService {
         errorMessage = 'Formato de email inválido';
       } else if (error.error?.error === 'Password is required') {
         errorMessage = 'La contraseña es requerida';
-      } else if (error.error?.error === 'Password must be at least 6 characters') {
+      } else if (
+        error.error?.error === 'Password must be at least 6 characters'
+      ) {
         errorMessage = 'La contraseña debe tener al menos 6 caracteres';
       }
     } else if (error.status === 401) {
@@ -101,7 +118,7 @@ export class AuthService {
 
     return throwError(() => ({
       message: errorMessage,
-      originalError: error.error
+      originalError: error.error,
     }));
   }
 }

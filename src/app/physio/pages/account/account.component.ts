@@ -3,8 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../../service/user.service';
 import { ConfigurationMenuComponent } from '../../component/configuration-menu/configuration-menu.component';
 import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.component';
-import { UserHeaderComponent } from '../../../common/component/user-header/user-header.component';
 import { CommonModule } from '@angular/common';
+import { UserHeaderComponent } from '../../../common/component/user-header/user-header.component';
 
 @Component({
   selector: 'app-account',
@@ -17,7 +17,7 @@ import { CommonModule } from '@angular/common';
     ConfigurationMenuComponent,
     FbuttonComponent,
     UserHeaderComponent,
-  ]
+  ],
 })
 export class AccountComponent implements OnInit {
   fullName: string = '';
@@ -31,15 +31,24 @@ export class AccountComponent implements OnInit {
   successMessage: string = '';
   errorMessage: string = '';
 
+  profilePhoto: string | null = null;
+  originalProfilePhoto: string | null = null;
+  isPhotoUploading: boolean = false;
+
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     const userData = localStorage.getItem('user');
     if (userData) {
+      console.log('User data found in localStorage:', userData);
       const user = JSON.parse(userData);
       this.fullName = this.originalFullName = user.fullName;
       this.username = this.originalUsername = user.username;
       this.email = this.originalEmail = user.email;
+      this.userService.getCachedAccount().subscribe((account: any) => {
+        this.profilePhoto = account.profilePhoto || null;
+        this.originalProfilePhoto = account.profilePhoto || null;
+      });
     }
   }
 
@@ -59,7 +68,8 @@ export class AccountComponent implements OnInit {
 
     if (this.username.trim() !== this.originalUsername) {
       if (this.username.trim().length < 3) {
-        this.errorMessage = 'El nombre de usuario debe tener al menos 3 caracteres.';
+        this.errorMessage =
+          'El nombre de usuario debe tener al menos 3 caracteres.';
         return;
       }
       data.username = this.username.trim();
@@ -100,8 +110,53 @@ export class AccountComponent implements OnInit {
         } else {
           this.errorMessage = 'Ocurrió un error al actualizar la cuenta.';
         }
-      }
+      },
     });
+  }
+
+  onProfilePhotoSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.profilePhoto = reader.result as string;
+        // Guardar automáticamente al seleccionar
+        if (
+          this.profilePhoto &&
+          this.profilePhoto !== this.originalProfilePhoto
+        ) {
+          this.isPhotoUploading = true;
+          this.successMessage = '';
+          this.errorMessage = '';
+          this.userService.updateProfilePhoto(this.profilePhoto).subscribe({
+            next: () => {
+              // Obtener datos actualizados del usuario
+              this.userService.getAccount().subscribe({
+                next: (user) => {
+                  localStorage.setItem('user', JSON.stringify(user));
+                  this.profilePhoto = this.originalProfilePhoto =
+                    user.profilePhoto || null;
+                  this.successMessage =
+                    'Foto de perfil actualizada correctamente.';
+                  this.isPhotoUploading = false;
+                },
+                error: () => {
+                  this.successMessage =
+                    'Foto de perfil actualizada, pero no se pudo refrescar los datos.';
+                  this.isPhotoUploading = false;
+                },
+              });
+            },
+            error: (err) => {
+              this.errorMessage =
+                'Ocurrió un error al actualizar la foto de perfil.';
+              this.isPhotoUploading = false;
+            },
+          });
+        }
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   validEmail(email: string): boolean {

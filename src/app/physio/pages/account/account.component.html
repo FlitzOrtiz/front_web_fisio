@@ -10,20 +10,42 @@
     <div class="account-form">
       <div class="form-section">
         <label>Nombre Completo</label>
-        <input type="text" [(ngModel)]="fullName" placeholder="ej: nombre apellido" />
+        <input
+          type="text"
+          [(ngModel)]="fullName"
+          placeholder="ej: nombre apellido"
+        />
 
         <label>Nombre de usuario</label>
         <input type="text" [(ngModel)]="username" placeholder="ej: nombre" />
 
         <label>Dirección de correo electrónico</label>
-        <input type="email" [(ngModel)]="email" placeholder="ej: ejemplo@hotmail.com" />
+        <input
+          type="email"
+          [(ngModel)]="email"
+          placeholder="ej: ejemplo@hotmail.com"
+        />
       </div>
 
       <div class="profile-section">
         <h3>Foto de perfil</h3>
         <div class="profile-image-container">
-          <img src="https://i.pinimg.com/736x/e9/ea/ba/e9eabad5f189d26b31f77a03570ffea7.jpg" alt="Foto de perfil" />
-          <button class="edit-button">✎ Edit</button>
+          <img
+            [src]="
+              profilePhoto ||
+              'https://i.pinimg.com/736x/e9/ea/ba/e9eabad5f189d26b31f77a03570ffea7.jpg'
+            "
+            alt="Foto de perfil"
+          />
+          <label class="edit-button">
+            ✎ Edit
+            <input
+              type="file"
+              accept="image/*"
+              (change)="onProfilePhotoSelected($event)"
+              style="display: none"
+            />
+          </label>
         </div>
       </div>
     </div>
