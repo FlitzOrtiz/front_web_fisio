@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { FbuttonComponent } from "../../../common/component/fbutton/fbutton.component";
 import { OnInit } from '@angular/core';
@@ -14,6 +14,14 @@ import { FeedbackModalComponent } from "../feedback-modal/feedback-modal.compone
 })
 export class ExerciseSummaryComponent implements OnInit {
   modalActivo = false;
+  
+  @Input() exerciseResults: Array<{
+    title: string;
+    metrics: { precision: number; posture: number; speed: number };
+    duration: number;
+  }> = [];
+
+  // Fallback data if no results provided
   exercises = [
     {
       title: 'Movilidad de hombro',
@@ -48,17 +56,19 @@ export class ExerciseSummaryComponent implements OnInit {
   }
 
   calculateAverages() {
-    const total = this.exercises.length;
+    // Use real exercise results if available, otherwise fallback to static data
+    const dataToUse = this.exerciseResults.length > 0 ? this.exerciseResults : this.exercises;
+    const total = dataToUse.length;
 
-    const precisionSum = this.exercises.reduce((sum, ex) => sum + ex.metrics.precision, 0);
-    const postureSum = this.exercises.reduce((sum, ex) => sum + ex.metrics.posture, 0);
-    const speedSum = this.exercises.reduce((sum, ex) => sum + ex.metrics.speed, 0);
+    const precisionSum = dataToUse.reduce((sum, ex) => sum + ex.metrics.precision, 0);
+    const postureSum = dataToUse.reduce((sum, ex) => sum + ex.metrics.posture, 0);
+    const speedSum = dataToUse.reduce((sum, ex) => sum + ex.metrics.speed, 0);
 
     this.averagePrecision = Math.round(precisionSum / total);
     this.averagePosture = Math.round(postureSum / total);
     this.averageSpeed = Math.round(speedSum / total);
 
-    this.resumen = this.exercises.map((ex) => {
+    this.resumen = dataToUse.map((ex) => {
       const avg = Math.round(
         (ex.metrics.precision + ex.metrics.posture + ex.metrics.speed) / 3
       );

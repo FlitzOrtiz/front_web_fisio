@@ -20,7 +20,7 @@
           <div class="progress" [style.width.%]="(currentTime / duration) * 100"></div>
         </div>
       </div>
-      <fbutton 
+      <fbutton onKeyDown="return true;" 
         [label]="'Saltar Ejercicio'"
         [color]="'primary'"
         [type]="'button'"
@@ -33,26 +33,29 @@
     <div class="exercise-right">
       <h3>Tu Movimiento</h3>
       <div class="video-container camera-placeholder">
-        <video #cameraVideo autoplay muted playsinline></video>
+        <app-pose-detection
+          [exerciseName]="currentExercise.title"
+          (metrics)="updateMetrics($event)"
+        ></app-pose-detection>
       </div>
 
       <div class="metrics">
         <p>
           Precisión de movimiento:
-          <span [style.color]="getColor(currentExercise.metrics.precision)">
-            {{ currentExercise.metrics.precision }}%
+          <span [style.color]="getColor(metrics.accuracy)">
+            {{ metrics.accuracy }}%
           </span>
         </p>
         <p>
           Postura correcta:
-          <span [style.color]="getColor(currentExercise.metrics.posture)">
-            {{ currentExercise.metrics.posture }}%
+          <span [style.color]="getColor(metrics.posture)">
+            {{ metrics.posture }}%
           </span>
         </p>
         <p>
           Velocidad de ejecución:
-          <span [style.color]="getColor(currentExercise.metrics.speed)">
-            {{ currentExercise.metrics.speed }}%
+          <span [style.color]="getColor(metrics.speed)">
+            {{ metrics.speed }}%
           </span>
         </p>
       </div>
@@ -69,5 +72,5 @@
 </ng-container>
 
 <ng-template #resumen>
-  <app-exercise-summary></app-exercise-summary>
+  <app-exercise-summary [exerciseResults]="exerciseResults"></app-exercise-summary>
 </ng-template>
