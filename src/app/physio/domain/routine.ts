@@ -13,11 +13,12 @@ export interface Routine {
 }
 
 export interface RoutineSession {
-  id: number; // ID of the session
-  routineId: number; // ID of the routine
+  routineSessionId: number; // ID of the session (from backend)
+  accessCode: string; // Access code for the session
+  startDatetime?: string; // ISO string
+  endDatetime?: string; // ISO string
+  isActive?: boolean;
   routine?: Routine; // details of the routine
-  isActive?: boolean; // true if the routine is currently active
-  routinedetails?: RoutineDetails;
 }
 
 export interface ExerciseMetrics {

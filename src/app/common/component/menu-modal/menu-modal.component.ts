@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { FbuttonComponent } from '../fbutton/fbutton.component';
 import { AuthService } from '../../../auth/service/auth.service';
+import { getFromLocalStorage } from '../../utils/localstorage.util';
 
 interface MenuItem {
   icon: string;
@@ -32,11 +33,10 @@ export class MenuModalComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
    ngOnInit(): void {
-    const userData = localStorage.getItem('user');
+    const userData = getFromLocalStorage('user');
     if (userData) {
       const user = JSON.parse(userData);
-      this.userName = user.fullName || '';
-      this.userName = user.username || '';
+      this.userName = user.fullName || user.username || '';
     }
   }
 

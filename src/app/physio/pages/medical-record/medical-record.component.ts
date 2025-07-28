@@ -3,6 +3,7 @@ import { FbuttonComponent } from '../../../common/component/fbutton/fbutton.comp
 import { CommonModule } from '@angular/common';
 import { MedicalRecord, EnumSex } from '../../domain/medical-record';
 import { UserHeaderComponent } from '../../../common/component/user-header/user-header.component';
+import { FormsModule } from '@angular/forms';
 
 interface PatientRecord {
   id: number;
@@ -17,57 +18,19 @@ interface PatientRecord {
 
 @Component({
   selector: 'app-medical-record',
-  imports: [FbuttonComponent, CommonModule, UserHeaderComponent],
+  imports: [FbuttonComponent, CommonModule, UserHeaderComponent, FormsModule],
   templateUrl: './medical-record.component.html',
   styleUrl: './medical-record.component.scss',
 })
 export class MedicalRecordComponent {
-  public patientRecords: PatientRecord[] = [
-    {
-      id: 1,
-      namePatient: 'Walter White',
-      recordId: '#P-2023-001',
-      diagnosis: 'Rehabilitación post-quirúrgica de rodilla',
-      status: 'En tratamiento',
-      assignedRoutines: 3,
-      lastUpdate: new Date('2023-04-12'),
-      isFavorite: true,
-    },
-    {
-      id: 2,
-      namePatient: 'Walter White',
-      recordId: '#P-2023-001',
-      diagnosis: 'Rehabilitación post-quirúrgica de rodilla',
-      status: 'En tratamiento',
-      assignedRoutines: 3,
-      lastUpdate: new Date('2023-04-12'),
-      isFavorite: true,
-    },
-    {
-      id: 3,
-      namePatient: 'Walter White',
-      recordId: '#P-2023-001',
-      diagnosis: 'Rehabilitación post-quirúrgica de rodilla',
-      status: 'En tratamiento',
-      assignedRoutines: 3,
-      lastUpdate: new Date('2023-04-12'),
-      isFavorite: true,
-    },
-    {
-      id: 4,
-      namePatient: 'Walter White',
-      recordId: '#P-2023-001',
-      diagnosis: 'Rehabilitación post-quirúrgica de rodilla',
-      status: 'En espera',
-      assignedRoutines: 3,
-      lastUpdate: new Date('2023-04-12'),
-      isFavorite: false,
-    },
-  ];
+  // TODO: Cargar los registros reales desde el backend en vez de usar datos de prueba
+  public patientRecords: PatientRecord[] = [];
 
   @ViewChild('filterpanel') filterPanel?: ElementRef;
 
   public showFilterMenu: boolean = false;
+
+  public searchTerm: string = '';
 
   public editRecord(id: number): void {
     console.log('Edit record with ID:', id);
@@ -100,5 +63,33 @@ export class MedicalRecordComponent {
           ? 'none'
           : 'flex';
     }
+  }
+
+  get filteredPatientRecords(): PatientRecord[] {
+    if (!this.searchTerm.trim()) return this.patientRecords;
+    const term = this.searchTerm.toLowerCase().trim();
+    return this.patientRecords.filter(
+      (record) =>
+        record.namePatient.toLowerCase().includes(term) ||
+        record.diagnosis.toLowerCase().includes(term) ||
+        record.recordId.toLowerCase().includes(term)
+    );
+  }
+
+  ngOnInit() {
+    // Aquí deberías llamar a un servicio para cargar los registros reales
+    // Ejemplo:
+    // this.patientService.getAllPatientProfiles().subscribe(records => {
+    //   this.patientRecords = records.map(r => ({
+    //     id: r.patientProfileId,
+    //     namePatient: r.fullName,
+    //     recordId: r.patientProfileId ? `#P-${r.patientProfileId}` : '',
+    //     diagnosis: r.medicalDiagnosis || '',
+    //     status: r.status || '',
+    //     assignedRoutines: r.sessions ? r.sessions.length : 0,
+    //     lastUpdate: r.lastUpdate ? new Date(r.lastUpdate) : new Date(),
+    //     isFavorite: false // o el campo que corresponda
+    //   }));
+    // });
   }
 }

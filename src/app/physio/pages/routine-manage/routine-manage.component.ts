@@ -5,10 +5,11 @@ import { Routine, RoutineDifficulty } from '../../domain/routine';
 import { UserHeaderComponent } from '../../../common/component/user-header/user-header.component';
 import { RoutinesService } from '../../service/routines.service';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-routine-manage',
-  imports: [FbuttonComponent, CommonModule, UserHeaderComponent],
+  imports: [FbuttonComponent, CommonModule, UserHeaderComponent, FormsModule],
   templateUrl: './routine-manage.component.html',
   styleUrl: './routine-manage.component.scss',
 })
@@ -22,6 +23,8 @@ export class RoutineManageComponent {
     'Core',
     'Full Body',
   ];
+
+  public filterText: string = '';
 
   constructor(
     private routineService: RoutinesService, // Inyectar el servicio de rutinas
@@ -68,5 +71,12 @@ export class RoutineManageComponent {
           ? 'none'
           : 'flex';
     }
+  }
+
+  get filteredRoutines(): Routine[] {
+    if (!this.filterText.trim()) return this.routineList;
+    return this.routineList.filter((routine) =>
+      routine.name?.toLowerCase().includes(this.filterText.toLowerCase())
+    );
   }
 }

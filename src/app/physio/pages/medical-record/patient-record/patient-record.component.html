@@ -359,16 +359,36 @@
           ></i>
         </div>
         <div class="routine-info">
-          <h3 class="routine-title">{{ session.routine?.name }}</h3>
+          <h3 class="routine-title">
+            {{ session.routine?.name || session.accessCode }}
+          </h3>
           <p class="routine-description">{{ session.routine?.description }}</p>
+          <div *ngIf="session.accessCode" class="routine-accesscode">
+            <span class="badge badge-secondary"
+              >Código: {{ session.accessCode }}</span
+            >
+          </div>
         </div>
         <div class="routine-details">
-          <div class="routine-duration">
-            {{ session.routine?.estimatedDuration }} min
-          </div>
-          <div class="routine-exercises">
+          <!-- <div class="routine-duration">
+            {{
+              session.routine?.estimatedDuration || session.routine?.duration
+            }}
+            min
+          </div> -->
+          <!-- <div class="routine-exercises">
             {{ session.routine?.exercises?.length }} ejercicios
+          </div> -->
+          <!-- <div *ngIf="session.startDatetime">
+            <span class="badge badge-info"
+              >Inicio: {{ session.startDatetime | date : "short" }}</span
+            >
           </div>
+          <div *ngIf="session.endDatetime">
+            <span class="badge badge-info"
+              >Fin: {{ session.endDatetime | date : "short" }}</span
+            >
+          </div> -->
         </div>
         <div class="routine-actions">
           <fbutton
@@ -376,14 +396,14 @@
             size="sm"
             [isSquare]="true"
             icon="fa-solid fa-pen-to-square"
-            (onClick)="openResultsModal(session.id)"
+            (onClick)="openResultsModal(session.routineSessionId)"
           ></fbutton>
           <fbutton
             size="sm"
             *ngIf="!session.isActive"
             [isSquare]="true"
             icon="fa-solid fa-circle-info"
-            (onClick)="openResultsModal(session.id)"
+            (onClick)="openResultsModal(session.routineSessionId)"
           ></fbutton>
           <fbutton
             size="sm"

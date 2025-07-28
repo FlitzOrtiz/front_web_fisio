@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { getFromLocalStorage } from '../../common/utils/localstorage.util';
 
 @Injectable({
   providedIn: 'root',
@@ -12,23 +13,41 @@ export class RoutinesService {
 
   constructor(private http: HttpClient) {}
 
+  private getAuthHeaders(): HttpHeaders {
+    const token = getFromLocalStorage('accessToken');
+    console.log('Using token:', token);
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+    return headers;
+  }
+
   // 1. Get Catalog of Target Areas
   getTargetAreas(): Observable<any> {
-    return this.http.get(`${environment.BASE_URL}/catalog/target-areas`);
+    return this.http.get(`${environment.BASE_URL}/catalog/target-areas`, {
+      headers: this.getAuthHeaders(),
+    });
   }
 
   getRoutineById(id: number | string): Observable<any> {
-    return this.http.get(`${environment.BASE_URL}/routines/${id}`);
+    return this.http.get(`${environment.BASE_URL}/routines/${id}`, {
+      headers: this.getAuthHeaders(),
+    });
   }
 
   // 2. Get All Routines
   getAllRoutines(): Observable<any> {
-    return this.http.get(`${environment.BASE_URL}/routines`);
+    return this.http.get(`${environment.BASE_URL}/routines`, {
+      headers: this.getAuthHeaders(),
+    });
   }
 
   // 3. Create a New Routine
   createRoutine(routine: any): Observable<any> {
-    return this.http.post(`${environment.BASE_URL}/routines`, routine);
+    return this.http.post(`${environment.BASE_URL}/routines`, routine, {
+      headers: this.getAuthHeaders(),
+    });
   }
 
   /**
@@ -133,18 +152,23 @@ export class RoutinesService {
     const mappedRoutine = this.mapRoutineToBackend(routine);
     return this.http.put(
       `${environment.BASE_URL}/routines/${id}`,
-      mappedRoutine
+      mappedRoutine,
+      { headers: this.getAuthHeaders() }
     );
   }
 
   // 5. Delete a Routine
   deleteRoutine(id: number | string): Observable<any> {
-    return this.http.delete(`${environment.BASE_URL}/routines/${id}`);
+    return this.http.delete(`${environment.BASE_URL}/routines/${id}`, {
+      headers: this.getAuthHeaders(),
+    });
   }
 
   // 6. Get All Videos
   getAllVideos(): Observable<any> {
-    return this.http.get(`${environment.BASE_URL}/videos`);
+    return this.http.get(`${environment.BASE_URL}/videos`, {
+      headers: this.getAuthHeaders(),
+    });
   }
 
   getAllVideosCached(): Observable<any[]> {

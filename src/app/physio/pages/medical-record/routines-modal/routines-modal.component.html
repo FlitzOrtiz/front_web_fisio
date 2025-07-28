@@ -18,67 +18,68 @@
           <i class="fa-solid fa-search search-icon"></i>
         </div>
 
-        <div class="filter-options">
+        <!-- <div class="filter-options">
           <label class="filter-option">
             <input type="checkbox" [(ngModel)]="filterFavorites" />
             <span>Solo favoritos</span>
           </label>
         </div>
-      </div>
+      </div> -->
 
-      <!-- Lista de rutinas -->
-      <div class="routines-list">
-        <ng-container *ngIf="filteredRoutines.length > 0; else noRoutines">
-          <div class="routine-item" *ngFor="let routine of filteredRoutines">
-            <div class="routine-star">
-              <i
-                [ngClass]="{
-                  'fa-solid': routine.isfavorite,
-                  'fa-regular': !routine.isfavorite
-                }"
-                class="fa-star"
-              ></i>
-            </div>
+        <!-- Lista de rutinas -->
+        <div class="routines-list">
+          <ng-container *ngIf="filteredRoutines.length > 0; else noRoutines">
+            <div class="routine-item" *ngFor="let routine of filteredRoutines">
+              <!-- <div class="routine-star">
+                <i
+                  [ngClass]="{
+                    'fa-solid': routine.isfavorite,
+                    'fa-regular': !routine.isfavorite
+                  }"
+                  class="fa-star"
+                ></i>
+              </div> -->
 
-            <div class="routine-info">
-              <h4>{{ routine.name }}</h4>
-              <p>{{ routine.description }}</p>
-            </div>
-
-            <div class="routine-details">
-              <div class="routine-duration">
-                {{ routine.estimatedDuration }} min
+              <div class="routine-info">
+                <h4>{{ routine.name }}</h4>
+                <p>{{ routine.description }}</p>
               </div>
-              <div class="routine-exercises">
-                {{ routine.exercises?.length }} ejercicios
+
+              <!-- <div class="routine-details">
+                <div class="routine-duration">
+                  {{ routine.estimatedDuration }} min
+                </div>
+                <div class="routine-exercises">
+                  {{ routine.exercises?.length }} ejercicios
+                </div>
+              </div> -->
+
+              <div class="routine-date">
+                <label for="sessionStart">Asignar fecha:</label>
+                <input
+                  id="sessionStart"
+                  class="form-control"
+                  type="date"
+                  [(ngModel)]="sessionStart"
+                />
               </div>
+
+              <fbutton
+                [icon]="'fa-solid fa-plus'"
+                [size]="'sm'"
+                [isSquare]="true"
+                (onClick)="handleSelectRoutine(routine.id)"
+              ></fbutton>
             </div>
+          </ng-container>
 
-            <div class="routine-date">
-              <label for="sessionStart">Asignar fecha:</label>
-              <input
-                id="sessionStart"
-                class="form-control"
-                type="date"
-                [(ngModel)]="sessionStart"
-              />
+          <ng-template #noRoutines>
+            <div class="no-routines">
+              <i class="fa-solid fa-folder-open no-data-icon"></i>
+              <p>No se encontraron rutinas</p>
             </div>
-
-            <fbutton
-              [icon]="'fa-solid fa-plus'"
-              [size]="'sm'"
-              [isSquare]="true"
-              (onClick)="handleSelectRoutine(routine.id)"
-            ></fbutton>
-          </div>
-        </ng-container>
-
-        <ng-template #noRoutines>
-          <div class="no-routines">
-            <i class="fa-solid fa-folder-open no-data-icon"></i>
-            <p>No se encontraron rutinas</p>
-          </div>
-        </ng-template>
+          </ng-template>
+        </div>
       </div>
     </div>
   </div>

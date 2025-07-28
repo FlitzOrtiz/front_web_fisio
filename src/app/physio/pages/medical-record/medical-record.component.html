@@ -7,7 +7,12 @@
   <div class="search-filter-container">
     <div class="search-filter-box">
       <div class="search-box">
-        <input type="text" placeholder="Value" class="filter-input" />
+        <input
+          type="text"
+          placeholder="Buscar..."
+          class="filter-input"
+          [(ngModel)]="searchTerm"
+        />
         <button class="search-button">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
@@ -49,7 +54,7 @@
     <hr class="hr-record" />
 
     <div class="records-list">
-      <div class="record-card" *ngFor="let record of patientRecords">
+      <div class="record-card" *ngFor="let record of filteredPatientRecords">
         <div class="record-info">
           <div class="record-id-tile">
             <h3 class="record-title">{{ record.namePatient }}</h3>

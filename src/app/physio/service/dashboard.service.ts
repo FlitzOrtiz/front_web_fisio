@@ -8,6 +8,7 @@ import { BarGraphicData } from '../domain/dashboard/bar-graphic';
 import { Notificacion } from '../domain/dashboard/notificacion';
 import { Session } from '../domain/dashboard/session';
 import { environment } from '../../environment';
+import { getFromLocalStorage } from '../../common/utils/localstorage.util';
 
 @Injectable({
   providedIn: 'root',
@@ -18,8 +19,7 @@ export class DashboardService {
   constructor(private readonly http: HttpClient) {}
 
   getSessions(): Observable<Session[]> {
-    const token = localStorage.getItem('accessToken');
-
+    const token = getFromLocalStorage('accessToken');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -51,8 +51,7 @@ export class DashboardService {
   }
 
   getNotifications(): Observable<Notificacion[]> {
-    const token = localStorage.getItem('accessToken');
-
+    const token = getFromLocalStorage('accessToken');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -76,7 +75,7 @@ export class DashboardService {
 
   // --- ¡MÉTODO getGraphics() REFACTORIZADO CON LA ÚNICA INTERFAZ GRAPHIC! ---
   getGraphics(): Observable<Graphic[]> {
-    const token = localStorage.getItem('accessToken');
+    const token = getFromLocalStorage('accessToken');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -188,8 +187,7 @@ export class DashboardService {
   }
 
   getBarGraphic(): Observable<BarGraphicData> {
-    const token = localStorage.getItem('accessToken');
-
+    const token = getFromLocalStorage('accessToken');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,

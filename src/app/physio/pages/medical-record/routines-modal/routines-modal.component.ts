@@ -7,6 +7,7 @@ import {
   RoutineSession,
 } from '../../../domain/routine';
 import { FbuttonComponent } from '../../../../common/component/fbutton/fbutton.component';
+import { RoutinesService } from '../../../service/routines.service';
 
 @Component({
   selector: 'app-routines-modal',
@@ -14,46 +15,10 @@ import { FbuttonComponent } from '../../../../common/component/fbutton/fbutton.c
   templateUrl: './routines-modal.component.html',
   styleUrl: './routines-modal.component.scss',
 })
-export class RoutinesModalComponent {
+export class RoutinesModalComponent implements OnInit {
   @Input() show: boolean = false;
-  routines: Routine[] = [
-    {
-      id: 1,
-      name: 'Rutina de Ejemplo 1',
-      description: 'Descripción de la rutina 1',
-      isfavorite: false,
-      category: 'General',
-      difficulty: RoutineDifficulty.Easy,
-      estimatedDuration: 30,
-      targetArea: 1,
-      numWeeks: 2,
-      daysWeek: ['LUN', 'MAR', 'JUE'],
-    },
-    {
-      id: 2,
-      name: 'Rutina de Ejemplo 2',
-      description: 'Descripción de la rutina 2',
-      isfavorite: true,
-      category: 'Rehabilitación',
-      difficulty: RoutineDifficulty.Medium,
-      estimatedDuration: 45,
-      targetArea: 2,
-      numWeeks: 4,
-      daysWeek: ['LUN', 'MIÉ', 'VIE'],
-    },
-    {
-      id: 3,
-      name: 'Rutina de Ejemplo 3',
-      description: 'Descripción de la rutina 3',
-      isfavorite: false,
-      category: 'Deportivo',
-      difficulty: RoutineDifficulty.Hard,
-      estimatedDuration: 60,
-      targetArea: 3,
-      numWeeks: 6,
-      daysWeek: ['MAR', 'JUE', 'SÁB'],
-    },
-  ];
+  routines: Routine[] = [];
+  routinesLoaded: boolean = false;
 
   @Output() close = new EventEmitter<void>();
   @Output() selectRoutine = new EventEmitter<RoutineSession>();
@@ -61,28 +26,50 @@ export class RoutinesModalComponent {
   // Filtros
   searchTerm: string = '';
   filterFavorites: boolean = false;
-  sessionStart: Date;
+  sessionStart: string;
 
-  constructor() {
-    this.sessionStart = new Date();
+  constructor(private routinesService: RoutinesService) {
+    // Inicializa como string ISO de la fecha actual (para input type="date")
+    this.sessionStart = new Date().toISOString().split('T')[0];
+  }
+
+  ngOnInit(): void {
+    this.routinesService.getAllRoutines().subscribe({
+      next: (routines) => {
+        // Asegura que siempre sea un array
+        if (Array.isArray(routines)) {
+          this.routines = routines ?? [];
+        } else if (routines && Array.isArray(routines.routines)) {
+          this.routines = routines.routines ?? [];
+        } else {
+          this.routines = [];
+        }
+        this.routinesLoaded = true;
+      },
+      error: (err) => {
+        this.routines = [];
+        this.routinesLoaded = true;
+        console.error('Error loading routines', err);
+      },
+    });
   }
 
   get filteredRoutines(): Routine[] {
+    if (!this.routinesLoaded) return [];
+    // Si routines no es array, retorna vacío
+    if (!Array.isArray(this.routines)) return [];
     let filtered = [...this.routines];
-
     if (this.filterFavorites) {
       filtered = filtered.filter((routine) => routine.isfavorite);
     }
-
     if (this.searchTerm.trim()) {
       const term = this.searchTerm.toLowerCase().trim();
       filtered = filtered.filter(
         (routine) =>
-          routine.name.toLowerCase().includes(term) ||
-          routine.description.toLowerCase().includes(term)
+          routine.name?.toLowerCase().includes(term) ||
+          routine.description?.toLowerCase().includes(term)
       );
     }
-
     return filtered;
   }
 
@@ -91,29 +78,33 @@ export class RoutinesModalComponent {
   }
 
   handleSelectRoutine(routineId: number): void {
+    if (!Array.isArray(this.routines)) {
+      this.routines = this.routines ? [this.routines] : [];
+    }
     const selectedRoutine = this.routines.find(
       (routine) => routine.id === routineId
     );
-    console.log('sessionStart', this.sessionStart);
     if (!selectedRoutine || !this.sessionStart) {
       return;
     }
 
+    // sessionStart es string (YYYY-MM-DD), conviértelo a Date ISO completo
+    let sessionDate: string;
+    if (typeof this.sessionStart === 'string') {
+      const date = new Date(this.sessionStart);
+      sessionDate = isNaN(date.getTime())
+        ? new Date().toISOString()
+        : date.toISOString();
+    } else {
+      sessionDate = new Date().toISOString();
+    }
+
     const routineSession: RoutineSession = {
-      id: 0,
-      routineId: selectedRoutine.id,
-      routine: selectedRoutine,
+      routineSessionId: 0, // Se actualizará cuando el back cree la sesión real
+      accessCode: '', // Se actualizará cuando el back cree la sesión real
       isActive: true,
-      routinedetails: {
-        id: 0,
-        metrics: {
-          sessionDate: this.sessionStart,
-          duration: selectedRoutine.estimatedDuration,
-          exercisesMetrics: [],
-          patientComments: '',
-        },
-        photos: [],
-      },
+      routine: selectedRoutine,
+      startDatetime: sessionDate,
     };
 
     this.selectRoutine.emit(routineSession);

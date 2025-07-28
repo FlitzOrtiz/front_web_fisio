@@ -6,32 +6,15 @@
   <div class="search-filter-container">
     <div class="search-filter-box">
       <div class="search-box">
-        <input type="text" placeholder="Value" class="filter-input" />
+        <input
+          type="text"
+          placeholder="Nombre Rutina"
+          class="filter-input"
+          [(ngModel)]="filterText"
+        />
         <button class="search-button">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
-      </div>
-      <div class="filter-box">
-        <fbutton
-          size="md"
-          [isSquare]="true"
-          icon="fa-solid fa-filter"
-          (onClick)="openFilter()"
-        ></fbutton>
-        <div #filterpanel class="filter-checkboxes">
-          <label>
-            <input type="checkbox" />
-            Favoritos
-          </label>
-          <label>
-            <input type="checkbox" />
-            Asignados
-          </label>
-          <label>
-            <input type="checkbox" />
-            Activos
-          </label>
-        </div>
       </div>
     </div>
     <div class="create-button">
@@ -52,31 +35,20 @@
     <hr class="hr-routine" />
 
     <div class="routines-list">
-      <div class="routine-card" *ngFor="let routine of routineList">
-        <div class="routine-star">
-          <i
-            [ngClass]="{
-              'fa-solid': routine.isfavorite,
-              'fa-star': true,
-              'fa-regular': !routine.isfavorite
-            }"
-            (click)="toggleFavorite(routine.id)"
-          ></i>
-        </div>
-
+      <div class="routine-card" *ngFor="let routine of filteredRoutines">
         <div class="routine-info">
           <h3 class="routine-title">{{ routine.name }}</h3>
           <p class="routine-description">{{ routine.description }}</p>
         </div>
 
-        <div class="routine-details">
+        <!-- <div class="routine-details">
           <div class="routine-duration">
             {{ routine.estimatedDuration }} min
           </div>
           <div class="routine-exercises">
             {{ routine.exercises?.length || 0 }} ejercicios
           </div>
-        </div>
+        </div> -->
 
         <div class="routine-actions">
           <fbutton
@@ -85,12 +57,12 @@
             icon="fa-solid fa-pen-to-square"
             (onClick)="editRoutine(routine.id)"
           ></fbutton>
-          <fbutton
+          <!-- <fbutton
             size="sm"
             [isSquare]="true"
             icon="fa-solid fa-user-plus"
             (onClick)="assignRoutine(routine.id)"
-          ></fbutton>
+          ></fbutton> -->
           <fbutton
             size="sm"
             [isSquare]="true"

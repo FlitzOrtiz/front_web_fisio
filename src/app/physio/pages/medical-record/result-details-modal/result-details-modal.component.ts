@@ -24,6 +24,9 @@ export class ResultDetailsModalComponent {
   @Input() routineId: number = 0;
   @Input() routineName: string = '';
 
+  @Input() routineSessionId?: number; // Para identificar la sesión real
+  @Input() accessCode?: string; // Para mostrar el código de acceso si aplica
+
   @Output() close = new EventEmitter<void>();
   @Output() save = new EventEmitter<any>();
 
@@ -127,6 +130,8 @@ export class ResultDetailsModalComponent {
 
   saveResult(): void {
     const result = {
+      routineSessionId: this.routineSessionId,
+      accessCode: this.accessCode,
       routineId: this.routineId,
       date: this.resultDate,
       time: this.resultTime,
@@ -135,7 +140,6 @@ export class ResultDetailsModalComponent {
       comments: this.patientComments,
       photos: this.exercisePhotos,
     };
-
     this.save.emit(result);
   }
 
