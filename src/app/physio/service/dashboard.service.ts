@@ -4,6 +4,7 @@ import { Observable, map } from 'rxjs';
 
 // models
 import { Graphic } from '../domain/dashboard/graphic';
+import { BarGraphicData } from '../domain/dashboard/bar-graphic';
 import { Notificacion } from '../domain/dashboard/notificacion';
 import { Session } from '../domain/dashboard/session';
 import { environment } from '../../environment';
@@ -102,11 +103,32 @@ export class DashboardService {
     ];
   }
 
-  getBarGraphic(): Graphic {
-    return {
-      id: 1,
-      type: 'bar',
-      src: 'assets/gr-barras-satisfaccion.png',
-    };
+  getBarGraphic(): Observable<BarGraphicData> {
+    const token = localStorage.getItem('accessToken');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http
+      .post<BarGraphicData>(
+        `${this.baseUrl}/charts`,
+        {
+          chartType: 'barras',
+        },
+        { headers }
+      )
+      .pipe(
+        map((response) => {
+          console.log('Bar Graphic Response:', (response as any).charts);
+          return {
+            id: (response as any).charts[0].id || Math.random(),
+            type: 'barplot',
+            title: (response as any).charts[0].title,
+            values: (response as any).charts[0].data,
+          };
+        })
+      );
   }
 }

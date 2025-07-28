@@ -55,7 +55,9 @@ export class CardsComponent implements OnInit {
       this.notifications = notifs;
     });
 
-    this.barGraphic = this._dashboardService.getBarGraphic();
+    this._dashboardService.getBarGraphic().subscribe((graphic) => {
+      this.barGraphic = graphic;
+    });
   }
 
   getUrl(routine_id: number): string {
