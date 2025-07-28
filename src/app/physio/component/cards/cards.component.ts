@@ -12,6 +12,8 @@ import { Notificacion } from '../../domain/dashboard/notificacion';
 import { Graphic } from '../../domain/dashboard/graphic';
 // services
 import { DashboardService } from '../../service/dashboard.service';
+import { BarGraphicComponent } from '../bar-graphic/bar-graphic.component';
+import { BarGraphicData } from '../../domain/dashboard/bar-graphic';
 
 @Component({
   selector: 'cards',
@@ -24,6 +26,7 @@ import { DashboardService } from '../../service/dashboard.service';
     GraphicsComponent,
     FbuttonComponent,
     DashboardModalComponent,
+    BarGraphicComponent,
   ],
   templateUrl: './cards.component.html',
   styleUrl: './cards.component.scss',
@@ -42,18 +45,23 @@ export class CardsComponent implements OnInit {
 
   currentSessions: Session[] = [];
   notifications: Notificacion[] = [];
-  barGraphic: Graphic | null = null;
+  barGraphic: BarGraphicData | null = null;
 
-  _dashboardService: DashboardService = new DashboardService();
-
-  constructor() {
-    this.ngOnInit();
-  }
+  constructor(private _dashboardService: DashboardService) {}
 
   ngOnInit(): void {
-    this.currentSessions = this._dashboardService.getSessions();
-    this.notifications = this._dashboardService.getNotifications();
-    this.barGraphic = this._dashboardService.getBarGraphic();
+    this._dashboardService.getSessions().subscribe((sessions) => {
+      this.currentSessions = sessions;
+    });
+
+    this._dashboardService.getNotifications().subscribe((notifs) => {
+      this.notifications = notifs;
+    });
+
+    this._dashboardService.getBarGraphic().subscribe((graphic) => {
+      this.barGraphic = graphic;
+      console.log('Bar Graphic:', this.barGraphic);
+    });
   }
 
   getUrl(routine_id: number): string {

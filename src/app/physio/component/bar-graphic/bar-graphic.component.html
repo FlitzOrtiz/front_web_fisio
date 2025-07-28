@@ -1,0 +1,28 @@
+<div class="graphic-component-container">
+  <h2 *ngIf="showChartTitle" class="graphic-title">{{ chartTitle }}</h2>
+  <div
+    *ngIf="dataLoaded && barChartData.length > 0; else loadingOrNoData"
+    class="ngx-chart-wrapper"
+  >
+    <ngx-charts-bar-vertical
+      [scheme]="scheme"
+      [results]="barChartData"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [animations]="animations"
+    >
+    </ngx-charts-bar-vertical>
+  </div>
+
+  <ng-template #loadingOrNoData>
+    <p *ngIf="!dataLoaded">Cargando datos del gráfico...</p>
+    <p *ngIf="dataLoaded && barChartData.length === 0">
+      No hay datos disponibles para este gráfico.
+    </p>
+  </ng-template>
+</div>

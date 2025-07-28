@@ -6,16 +6,20 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:8080/api/auth';
+  private readonly baseUrl = `${environment.apiUrl}/api/auth`;
   private readonly TOKEN_KEY = 'accessToken';
   private readonly USER_KEY = 'user';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly router: Router
+  ) {}
 
   login(email: string, password: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, { email, password }).pipe(

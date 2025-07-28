@@ -17,7 +17,12 @@ export class LandingYearPlansComponent {
     title: 'Básico',
     price: '49.99',
     unit: '/ye',
-    items: ['$4.99 mensual', 'List item', 'List item', 'List item', 'List item'],
+    items: [
+      'Acceso a ejercicios de fisioterapia',
+      'Seguimiento de progreso semanal',
+      '10 perfil de paciente',
+      'Historial clínico limitado',
+    ],
     buttonLabel: 'Comprar',
     highlight: false,
   };
@@ -26,7 +31,12 @@ export class LandingYearPlansComponent {
     title: 'Premium',
     price: '89.99',
     unit: '/ye',
-    items: ['$9.99 mensual', 'List item', 'List item', 'List item', 'List item'],
+    items: [
+      'Beneficios del plan Básico',
+      'Ejercicios por patología',
+      'Seguimientode progreso diario',
+      'Hasta 50 perfiles de pacientes',
+    ],
     buttonLabel: 'Comprar',
     highlight: true,
   };

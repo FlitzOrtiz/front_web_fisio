@@ -24,8 +24,6 @@ export class MonthPayComponent implements OnInit {
     const storedUserId = localStorage.getItem('userId');
     if (storedUserId) {
       this.userId = Number(storedUserId);
-      console.log('User ID:', this.userId);
-      console.log('Access Token:', localStorage.getItem('accessToken'));
     } else {
       this.errorMessage = 'Por favor inicia sesión.';
     }
@@ -35,7 +33,12 @@ export class MonthPayComponent implements OnInit {
     title: 'Básico',
     price: '4.99',
     unit: '/mo',
-    items: ['$49.99', 'List item', 'List item', 'List item', 'List item'],
+    items: [
+      'Acceso a ejercicios de fisioterapia',
+      'Seguimiento de progreso semanal',
+      '10 perfil de paciente',
+      'Historial clínico limitado',
+    ],
     buttonLabel: 'Comprar',
     highlight: false,
   };
@@ -44,7 +47,12 @@ export class MonthPayComponent implements OnInit {
     title: 'Premium',
     price: '9.99',
     unit: '/mo',
-    items: ['$89.99 anual', 'List item', 'List item', 'List item', 'List item'],
+    items: [
+      'Beneficios del plan Básico',
+      'Ejercicios por patología',
+      'Seguimientode progreso diario',
+      'Hasta 50 perfiles de pacientes',
+    ],
     buttonLabel: 'Comprar',
     highlight: true,
   };
@@ -66,27 +74,28 @@ export class MonthPayComponent implements OnInit {
   subscribeToPlan(planTypeId: number) {
     this.errorMessage = ''; // Limpia mensaje previo
 
-    this.subscriptionService.createSubscription(this.userId, planTypeId).subscribe({
-      next: (res: any) => {
-        console.log('Respuesta de subscripción:', res);
-
-        if (typeof res === 'string') {
-          if (res.startsWith('https://') || res.startsWith('http://')) {
-            window.open(res, '_blank');
+    this.subscriptionService
+      .createSubscription(this.userId, planTypeId)
+      .subscribe({
+        next: (res: any) => {
+          if (typeof res === 'string') {
+            if (res.startsWith('https://') || res.startsWith('http://')) {
+              window.open(res, '_blank');
+            } else {
+              this.errorMessage = 'Error: ' + res;
+            }
+          } else if (res?.redirectUrl) {
+            this.router.navigate([res.redirectUrl]);
           } else {
-            this.errorMessage = 'Error: ' + res;
+            this.errorMessage =
+              'Subscripción creada pero no se pudo redirigir automáticamente.';
           }
-        } else if (res?.redirectUrl) {
-          this.router.navigate([res.redirectUrl]);
-        } else {
-          this.errorMessage = 'Subscripción creada pero no se pudo redirigir automáticamente.';
-        }
-      },
-      error: (err) => {
-        console.error('Error creando subscripción', err);
-        this.errorMessage =
-          'Ya cuentas con una subscripción activa o ha ocurrido un error al procesar tu solicitud.';
-      },
-    });
+        },
+        error: (err) => {
+          console.error('Error creando subscripción', err);
+          this.errorMessage =
+            'Ya cuentas con una subscripción activa o ha ocurrido un error al procesar tu solicitud.';
+        },
+      });
   }
 }

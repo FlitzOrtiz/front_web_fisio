@@ -1,28 +1,51 @@
 <div class="graphic-container">
   <div class="filter">
     <fbutton
-      label="Rutinas Completadas"
+      label="Sesiones Completadas"
       icon="''"
       (onClick)="selectType('completed')"
       color="action-black"
     ></fbutton>
     <fbutton
-      label="Rutinas Planeadas"
+      label="Sesiones Planeadas"
       icon="''"
       (onClick)="selectType('planned')"
       color="action-black"
     ></fbutton>
-    <label for="years" class="visually-hidden" *ngIf="false">Año</label>
-    <select id="years" class="year-selector" (change)="selectYear($event)">
+    <label for="years" class="visually-hidden">Año</label>
+    <select
+      id="years"
+      class="year-selector"
+      (change)="selectYear($event)"
+      [ngModel]="selectedYear"
+    >
       <option *ngFor="let year of years" [value]="year">{{ year }}</option>
     </select>
   </div>
+
   <div class="content">
-    <img
-      class="graphic"
-      *ngIf="selectedGraphic"
-      [src]="selectedGraphic.src"
-      alt="'imagen no cargada'"
-    />
+    <div
+      *ngIf="selectedGraphicData.length > 0; else noLineChartData"
+      class="graphic ngx-line-chart-wrapper"
+    >
+      <ngx-charts-line-chart
+        [scheme]="colorScheme"
+        [results]="selectedGraphicData"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="lineChartXAxisLabel"
+        [yAxisLabel]="lineChartYAxisLabel"
+        [autoScale]="autoScale"
+        [gradient]="gradient"
+        [animations]="true"
+      >
+      </ngx-charts-line-chart>
+    </div>
+    <ng-template #noLineChartData>
+      <p>No hay datos disponibles para el gráfico seleccionado.</p>
+    </ng-template>
   </div>
 </div>

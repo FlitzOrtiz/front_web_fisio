@@ -2,17 +2,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SubscriptionService {
-  private baseUrl = 'http://localhost:8080/api/subscription';
-
-  constructor(private http: HttpClient) {}
+  private readonly baseUrl = `${environment.apiUrl}/api/subscription`;
+  constructor(private readonly http: HttpClient) {}
 
   // Cambié responseType a 'text' para recibir la URL o el mensaje de error como texto
   createSubscription(userId: number, planTypeId: number): Observable<string> {
-    return this.http.post(`${this.baseUrl}/create`, { userId, planTypeId }, { responseType: 'text' });
+    return this.http.post(
+      `${this.baseUrl}/create`,
+      { userId, planTypeId },
+      { responseType: 'text' }
+    );
   }
 }

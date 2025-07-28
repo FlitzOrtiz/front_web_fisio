@@ -1,13 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environment';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private baseUrl = 'http://localhost:8080/api/account';
   private userCache: any = null;
+  private readonly baseUrl = `${environment.apiUrl}/api/account`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   updateAccount(data: any): Observable<any> {
     const token = localStorage.getItem('accessToken');
