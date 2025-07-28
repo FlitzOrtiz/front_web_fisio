@@ -1,21 +1,29 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:8080/api/auth';
+  private readonly baseUrl = `${environment.apiUrl}/api/auth`;
   private readonly TOKEN_KEY = 'accessToken';
   private readonly USER_KEY = 'user';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly router: Router
+  ) {}
 
   login(email: string, password: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, { email, password }).pipe(
-      tap(response => {
+      tap((response) => {
         this.saveAuthData(response);
         this.router.navigate(['/dashboard']);
       }),
@@ -29,7 +37,7 @@ export class AuthService {
 
   logout(): Observable<any> {
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.getAccessToken()}`
+      Authorization: `Bearer ${this.getAccessToken()}`,
     });
 
     return this.http.post(`${this.baseUrl}/logout`, {}, { headers }).pipe(
@@ -37,11 +45,11 @@ export class AuthService {
         this.clearAuthData();
         this.router.navigate(['/landing']);
       }),
-      catchError(error => {
+      catchError((error) => {
         this.clearAuthData();
         return throwError(() => ({
           message: 'Error al cerrar sesión',
-          originalError: error.error
+          originalError: error.error,
         }));
       })
     );
@@ -92,7 +100,9 @@ export class AuthService {
         errorMessage = 'Formato de email inválido';
       } else if (error.error?.error === 'Password is required') {
         errorMessage = 'La contraseña es requerida';
-      } else if (error.error?.error === 'Password must be at least 6 characters') {
+      } else if (
+        error.error?.error === 'Password must be at least 6 characters'
+      ) {
         errorMessage = 'La contraseña debe tener al menos 6 caracteres';
       }
     } else if (error.status === 401) {
@@ -101,7 +111,7 @@ export class AuthService {
 
     return throwError(() => ({
       message: errorMessage,
-      originalError: error.error
+      originalError: error.error,
     }));
   }
 }
