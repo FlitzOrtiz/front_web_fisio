@@ -29,11 +29,7 @@ export class GraphicsComponent implements OnInit {
 
   selectedType: string | null = null;
 
-  _dashboardService: DashboardService;
-
-  constructor() {
-    this._dashboardService = new DashboardService();
-  }
+  constructor(private _dashboardService: DashboardService) {}
 
   ngOnInit(): void {
     this.graphics = this._dashboardService.getGraphics();

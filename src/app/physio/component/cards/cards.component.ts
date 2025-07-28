@@ -44,15 +44,17 @@ export class CardsComponent implements OnInit {
   notifications: Notificacion[] = [];
   barGraphic: Graphic | null = null;
 
-  _dashboardService: DashboardService = new DashboardService();
-
-  constructor() {
-    this.ngOnInit();
-  }
+  constructor(private _dashboardService: DashboardService) {}
 
   ngOnInit(): void {
-    this.currentSessions = this._dashboardService.getSessions();
-    this.notifications = this._dashboardService.getNotifications();
+    this._dashboardService.getSessions().subscribe((sessions) => {
+      this.currentSessions = sessions;
+    });
+
+    this._dashboardService.getNotifications().subscribe((notifs) => {
+      this.notifications = notifs;
+    });
+
     this.barGraphic = this._dashboardService.getBarGraphic();
   }
 

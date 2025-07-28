@@ -1,54 +1,76 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
+
 // models
 import { Graphic } from '../domain/dashboard/graphic';
 import { Notificacion } from '../domain/dashboard/notificacion';
 import { Session } from '../domain/dashboard/session';
+import { environment } from '../../environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DashboardService {
-  constructor() {}
+  private readonly baseUrl = `${environment.apiUrl}/api/dashboard`;
 
-  getSessions(): Session[] {
-    let sessions: Session[] = [];
-    for (let i = 0; i < 5; i++) {
-      sessions.push({
-        id: i,
-        patient_pfp: 'assets/user-ico.png',
-        patient_name: 'Walter White',
-        patient_routine: 'Rutina de pierna avanzada',
-        routine_id: Math.floor(Math.random() * 100),
-      });
-    }
-    return sessions;
+  constructor(private readonly http: HttpClient) {}
+
+  getSessions(): Observable<Session[]> {
+    const token = localStorage.getItem('accessToken');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.get<any>(`${this.baseUrl}/info`, { headers }).pipe(
+      map((response) => {
+        if (
+          response.ongoingSessions &&
+          Array.isArray(response.ongoingSessions)
+        ) {
+          return response.ongoingSessions.map((session: any) => ({
+            id: session.id || Math.random(),
+            patient_name: session.patientName,
+            patient_pfp:
+              session.patientPfpUrl ||
+              'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png',
+            patient_routine: session.routineName,
+            routine_id: session.routineId,
+          }));
+        }
+        return [];
+      })
+    );
   }
 
   getSessionUrl(routine_id: number): string {
     return '/exercise';
   }
 
-  getNotifications(): Notificacion[] {
-    let notifications: Notificacion[] = [];
-    for (let i = 0; i < 5; i++) {
-      notifications.push({
-        id: i,
-        date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
-        sender_name: 'John Doe',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      });
-      notifications[i].content =
-        notifications[i].date?.toLocaleDateString() +
-        ' - ' +
-        notifications[i].content;
-    }
-    notifications.sort((b, a) => {
-      if (a.date && b.date) return a.date.getTime() - b.date.getTime();
-      if (!a.date && b.date) return 1;
-      if (a.date && !b.date) return -1;
-      return 0;
+  getNotifications(): Observable<Notificacion[]> {
+    const token = localStorage.getItem('accessToken');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
     });
-    return notifications;
+
+    return this.http.get<any>(`${this.baseUrl}/info`, { headers }).pipe(
+      map((response) => {
+        if (response.notifications && Array.isArray(response.notifications)) {
+          return response.notifications.map((notification: any) => ({
+            id: notification.id || Math.random(),
+            date: new Date(notification.sentAt),
+            sender_name: notification.senderName,
+            content: notification.message,
+          }));
+        }
+
+        return [];
+      })
+    );
   }
 
   getGraphics(): Graphic[] {
